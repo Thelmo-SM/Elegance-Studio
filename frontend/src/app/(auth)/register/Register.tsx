@@ -1,9 +1,7 @@
 import RegisterClient from "@/features/auth/components/RegisterClient";
 
-export function Register () {
+export default function Register () {
     return (
         <RegisterClient />
     );
 };
-
-export default Register;

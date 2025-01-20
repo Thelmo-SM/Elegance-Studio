@@ -16,7 +16,8 @@ export default {
         'main': '#9b9b9b',
         'caja': '#6a6a6a',
         'caja2': '#717273',
-        'error': '#ff3131'
+        'error': '#ff3131',
+        'caja3': '#545454'
       },
       boxShadow: {
         'left-right': '-10px 0px .3rem rgba(0, 0, 0, 0.5), 10px 0px .5rem rgba(0, 0, 0, 0.5)',
