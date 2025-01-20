@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import '../styles/reset.css';
 import "./globals.css";
 import Header from "@/components/Functional/Header/Header";
 import Footer from "@/components/Functional/Footer/Footer";

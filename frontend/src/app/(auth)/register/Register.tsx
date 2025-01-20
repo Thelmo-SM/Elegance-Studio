@@ -1,8 +1,8 @@
-
+import RegisterClient from "@/features/auth/components/RegisterClient";
 
 export function Register () {
     return (
-        <h1>Registrate</h1>
+        <RegisterClient />
     );
 };
 
