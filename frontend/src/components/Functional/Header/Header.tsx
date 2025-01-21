@@ -18,7 +18,7 @@ export const Header = () => {
                 {/*<Link href='/' className="text-p-basico mx-6 my-auto hover:text-btR">Tienda</Link>*/}
                 <Link href='/' className="text-p-basico mx-6 my-auto hover:text-btR">Nosotros</Link>
                 <Link href='/' className="text-p-basico mx-6 my-auto hover:text-btR">Citas</Link>
-                <Link href='/' 
+                <Link href='/login' 
                 className="text-p-basico mx-6 my-auto bg-btR p-1 px-4 rounded-[0.25rem] hover:bg-ct transition duration-[200ms]">Acceso</Link>
             </nav>
         </header>

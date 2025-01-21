@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import googleLogo from '../../../../public/Icons/google-logo-9834.png';
+import { InputForm, LabelForm, ButtonForm } from "../ui";
 
 export const LoginClient = () => {
     return (
@@ -19,27 +20,27 @@ export const LoginClient = () => {
 
                 {/*Email*/}
                 <div className="my-2 flex flex-col">
-                    <label htmlFor="" className="text-p-basico text-[2rem] mt-[2.4rem]">Correo electrónico</label>
-                    <input type="text" name="" id="" className="bg-p-basico w-full mt-[0.5rem] h-[2rem] pl-8 rounded-[.2rem]"/>
+                    <LabelForm>Correo electrónico</LabelForm>
+                    <InputForm />
                 </div>
-                <button className="bg-caja2 text-p-basico py-[.8rem] w-full mt-[1rem] rounded-[.2rem]">
+                <ButtonForm className="bg-caja2 text-p-basico py-[.8rem] w-full mt-[1rem] rounded-[.2rem]">
                     <Image 
                     src={googleLogo} 
-                    width={120} 
+                    width={100} 
                     height={20} 
                     alt="Google"
                     className="mx-auto"
                     />
-                </button>
+                </ButtonForm>
             </div>
 
             <div className="w-full mr-4">
                  {/*Password*/}
                  <div className="my-2 flex flex-col">
-                    <label htmlFor="" className="text-p-basico text-[2rem] mt-[2.4rem]">Contraseña</label>
-                    <input type="text" name="" id="" className="bg-p-basico w-full mt-[0.5rem] h-[2rem] pl-8 rounded-[.2rem]"/>
+                    <LabelForm>Contraseña</LabelForm>
+                    <InputForm />
                 </div>
-                <button className="bg-caja2 text-p-basico text-[2.2rem] py-[1rem] w-full mt-[1rem] rounded-[.2rem]">Registrarse</button>
+                <ButtonForm className="bg-caja2 text-p-basico text-[2.2rem] py-[1rem] w-full mt-[1rem] rounded-[.2rem]">Registrarse</ButtonForm>
             </div>
             </form>
             <p className="text-caja3 text-center text-[1.8rem] mt-[2.4rem]">
