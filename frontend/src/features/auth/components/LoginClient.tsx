@@ -23,21 +23,23 @@ export const LoginClient = () => {
         handleBlur
     } = useLogin(initialForm, validateLogin);
     return (
-        <article >
+        <article className="mx-auto">
         <div className="bg-black h-[16rem] relative">
-            <h1 className="text-[3rem] font-bold text-white absolute bottom-[2rem] left-[7rem]">¡Inicia Sesión!</h1>
+            <h1 className="text-[3rem] font-bold text-p-basico absolute bottom-[2rem] left-[7rem]">¡Inicia Sesión!</h1>
         </div>
 
-        <div className="w-[45rem] mx-auto mt-[44px]"> 
-            <p className="bg-caja2 p-[1rem] text-p-basico leading-6 text-[1.2rem] rounded-[.2rem]">
+        <div className="md:w-[50%]  mx-auto mt-[1rem]"> 
+            <p className="bg-caja2 p-[1rem] text-p-basico md:leading-6 leading-10 md:text-[1.2rem] text-[2rem] text-center md:text-left trounded-[.2rem] m-auto  w-[100%]">
                 Accede a tu cuenta para gestionar tus citas, revisar tus pedidos y descubrir nuestras últimas ofertas
             </p>
 
-            <form action="" className="flex p-2 w-[100%] mx-auto">
+            <form action="" className="flex p-2 w-[90%] md:w-[100%] mx-auto flex-col">
             <div className="w-full mr-4">
+                <div className="flex flex-col md:flex-row">
+
 
                 {/*Email*/}
-                <div className="my-2 flex flex-col">
+                <div className="my-2 flex flex-col w-full md:mr-[1rem]">
                     <LabelForm>Correo electrónico</LabelForm>
                     <InputForm 
                     name="email"
@@ -46,21 +48,11 @@ export const LoginClient = () => {
                     onBlur={handleBlur}
                     />
                     {errors.email && <p className="text-error">{errors.email}</p> }
+                    
                 </div>
-                <button className="bg-caja2 text-[2.2rem] py-[1rem] w-full rounded-[.2rem] mt-auto">
-                    <Image 
-                    src={googleLogo} 
-                    width={100} 
-                    height={20} 
-                    alt="Google"
-                    className="mx-auto"
-                    />
-                </button>
-            </div>
 
-            <div className="w-full mr-4">
-                 {/*Password*/}
-                 <div className="my-2 flex flex-col">
+                    {/*Password*/}
+                    <div className="my-2 flex flex-col w-full md:ml-[1rem]">
                     <LabelForm>Contraseña</LabelForm>
                     <InputForm 
                     name="password"
@@ -70,7 +62,23 @@ export const LoginClient = () => {
                     />
                     {errors.password && <p className="text-error">{errors.password}</p> }
                 </div>
-                <ButtonForm className="bg-caja2 text-p-basico text-[2.2rem] py-[1rem] w-full mt-[1rem] rounded-[.2rem]"
+            </div>
+            </div>
+
+
+            <div className="w-full mr-4">
+            <div className="flex flex-col md:flex-row">
+
+                <button className="bg-caja2 text-[2.2rem] py-[2rem] md:py-[1rem] w-full rounded-[.2rem] mt-auto md:mr-[1rem]">
+                    <Image 
+                    src={googleLogo} 
+                    width={100} 
+                    height={20} 
+                    alt="Google"
+                    className="mx-auto"
+                    />
+                </button>
+                <ButtonForm
                 type="submit"
                 disabled={
                     !form.email.trim() ||
@@ -85,8 +93,12 @@ export const LoginClient = () => {
                     Iniciar Seción
                 </ButtonForm>
             </div>
+            </div>
+
+
+
             </form>
-            <p className="text-caja3 text-center text-[1.8rem] mt-[2.4rem]">
+            <p className="text-caja3 text-center text-[2rem] md:text-[1.8rem] mt-[2.4rem] w-[80%] mx-auto md:w-full">
         ¿Aún no tienes cuenta? <Link href='/register' className="text-p-basico font-bold">Regístrate aquí </Link> 
         y comienza tu experiencia en Elegance Studio
         </p>
