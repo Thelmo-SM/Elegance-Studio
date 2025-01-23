@@ -33,9 +33,9 @@ export const HomeComponent = () => {
     }, [moveCarousel]);  // 'moveCarousel' está en las dependencias
 
     return (
-        <div className={`w-[90%] mx-auto ${Style.sombras} z-10 px-[5rem]`}>
+        <div className={`lg:w-[90%] mx-auto ${Style.sombras} z-10 lg:px-[5rem] px-[0.3rem]`}>
         <article className="py-10">
-            <h2 className="text-[1.8rem] font-bold">Servicios</h2>
+            <h2 className="text-[1.8rem] font-bold text-center lg:text-left">Servicios</h2>
 
             <div className="relative">
                 <div className="overflow-hidden rounded-lg">

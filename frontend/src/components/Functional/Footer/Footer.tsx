@@ -17,7 +17,7 @@ export const Footer = () => {
                 <h3 className='text-p-basico mx-2 text-3xl font-bold'>Instagram</h3>
                 <h3 className='text-p-basico mx-2 text-3xl font-bold'>GitHub</h3>
             </div>
-            <p className='text-p-basico my-8 text-2xl'>Elegance Studio | Todos los derechos reservados © 2025</p>
+            <p className='text-p-basico my-8 text-2xl text-center'>Elegance Studio | Todos los derechos reservados © 2025</p>
         </footer>
     )
 }

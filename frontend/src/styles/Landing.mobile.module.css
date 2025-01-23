@@ -1,0 +1,42 @@
+.backgroundMobileContainer {
+    position: relative;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    animation: changeBackground 20s infinite;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .bgScroll {
+    background-color: rgba(0, 0, 0, 0.438);
+    backdrop-filter: blur(.9rem);
+  }
+  .sombras {
+    box-shadow: -.1rem 0 1.6rem rgba(0, 0, 0, 0.027), .1rem 0 1.6rem rgba(0, 0, 0, 0.103);
+  }
+  @keyframes changeBackground {
+    0% {
+      background-image: url('../../public/Landing/mobile/img-mobile-1.png');
+    }
+    20% {
+      background-image: url('../../public/Landing/mobile/img-mobile-2.png');
+    }
+    40% {
+      background-image: url('../../public/Landing/mobile/img-mobile-3.png');
+    }
+    60% {
+      background-image: url('../../public/Landing/mobile/img-mobile-4.png');
+    }
+    80% {
+      background-image: url('../../public/Landing/mobile/img-mobile-5.png');
+    }
+    100% {
+      background-image: url('../../public/Landing/mobile/img-mobile-1.png');
+    }
+  }

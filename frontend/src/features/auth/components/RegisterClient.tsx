@@ -30,13 +30,13 @@ export const RegisterClient = () => {
                 <h1 className="text-[3rem] font-bold text-white absolute bottom-[2rem] left-[7rem] sm:bg-red-300 md:bg-black">¡Registrate!</h1>
             </div>
 
-            <div className="sm:w-[45rem] mx-auto mt-[1rem]"> 
-                <p className="bg-caja2 p-[1rem] text-p-basico leading-6 text-[1.2rem] rounded-[.2rem]">Regístrate y accede a una experiencia personalizada:
+            <div className="md:w-[50%] mx-auto mt-[1rem]"> 
+                <p className="bg-caja2 p-[1rem] text-p-basico md:leading-6 leading-10 md:text-[1.2rem] text-[2rem] text-center md:text-left rounded-[.2rem]">Regístrate y accede a una experiencia personalizada:
                      reserva tus citas con facilidad, compra productos exclusivos
                       para el cuidado de tu estilo y recibe ofertas únicas diseñadas
                        especialmente para ti</p>
 
-                <form action="" className="flex flex-col sm:flex-row p-2 w-full mx-auto mt-4">
+                <form action="" className="flex flex-col md:flex-row p-2 md:w-full md:w-full w-[89%] mx-auto mt-4">
                     <div className="w-full mr-4 ">
 
 
@@ -91,7 +91,7 @@ export const RegisterClient = () => {
 
 
 
-                    <div className="flex flex-col w-full ml-4">
+                    <div className="flex flex-col w-full md:ml-4">
                     {/*last name*/}
                     <div className="my-2 flex flex-col">
                         <LabelForm>Apellido</LabelForm>

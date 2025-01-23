@@ -9,13 +9,13 @@ export const ServiceComponent = () => {
 
     return (
         <article className=" mx-auto py-10">
-        <h2 className="text-[1.8rem] font-bold">Nuestro Compromiso</h2>
-        <p className="text-[1.1rem] my-[1.8rem] leading-10">En <span className="font-bold">Elegance Studio</span>, nos dedicamos a ofrecer una experiencia única
+        <h2 className="text-[1.8rem] font-bold text-center lg:text-left">Nuestro Compromiso</h2>
+        <p className="text-[1.1rem] my-[1.8rem] leading-10 text-center lg:text-left">En <span className="font-bold">Elegance Studio</span>, nos dedicamos a ofrecer una experiencia única
              y personalizada. Cuidamos tu imagen con profesionalismo, adaptándonos
               a tu estilo con dos opciones perfectas para ti.</p>
-              <div className="flex">
-                <Image src={img1} width={400} height={400} alt="Nuestro Compromiso" loading="lazy"/>
-                <div className="ml-[7rem]">
+              <div className="flex flex-col items-center lg:flex-row">
+                <Image src={img1} width={400} height={400} alt="Nuestro Compromiso" loading="lazy" className="h-[20%]"/>
+                <div className="lg:ml-[7rem] w-[90%] lg:w-[100%] text-center lg:text-left pt-[4rem] lg:pt-0">
                     <h3 className="text-[1.5rem] font-bold">Cortes Predefinidos</h3>
 
                     <p className="text-[1.1rem] mt-[1.1rem] mb-[3rem] leading-6">Para aquellos que prefieren opciones modernas y elegantes sin complicaciones
@@ -37,12 +37,12 @@ export const ServiceComponent = () => {
                 backgroundImage: "url('/Landing/nuestroCompromiso-img-5.jpg')",
             }}>
                 <h3 className="text-p-basico my-[1.8rem] text-[1.8rem] font-bold">Responsabilidad y Confianza</h3>
-               <p className="text-p-basico my-[1.8rem] text-[1.25rem] w-[50rem] text-center">Nos comprometemos a ser transparentes, cumplir con tus 
+               <p className="text-p-basico my-[1.8rem] text-[1.25rem] lg:w-[50rem] text-center leading-10">Nos comprometemos a ser transparentes, cumplir con tus 
                 expectativas y garantizar que cada experiencia sea memorable y sin preocupaciones.</p>
               </div>
 
-              <div className="flex mt-[5rem]">
-                <div className="mr-[5rem]">
+              <div className="flex mt-[5rem] flex-col items-center lg:flex-row">
+                <div className="lg:mr-[5rem] text-center lg:text-left mb-[5rem] lg:mb-0">
                     <h3 className="text-[1.5rem] font-bold">Calidad Inigualable</h3>
 
                     <p className="text-[1.1rem] mt-[1.1rem] mb-[3rem] leading-6">Nos esforzamos por ofrecer servicios d
@@ -63,10 +63,10 @@ export const ServiceComponent = () => {
               </div>
              
               <div className="flex mt-[5rem]">
-                <div className="mr-[5rem]">
+                <div className="lg:mr-[5rem] text-center lg:text-left">
                     <h3 className="text-[1.5rem] font-bold"> Ambiente Cálido y Sofisticado</h3>
 
-                    <p className="text-[1.1rem] mt-[1.1rem] mb-[3rem] leading-6 w-[50rem]">Creamos un espacio donde puedes relajarte y disfrutar mientras 
+                    <p className="text-[1.1rem] mt-[1.1rem] mb-[3rem] leading-6 lg:w-[50rem]">Creamos un espacio donde puedes relajarte y disfrutar mientras 
                         te cuidamos. Elegance Studio es más que una barbería, es tu lugar para desconectar y renovar tu imagen.</p>
 
                         <h3 className="text-[1.5rem] font-bold">Atmósfera Acogedora</h3>

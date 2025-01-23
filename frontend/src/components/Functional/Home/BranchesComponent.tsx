@@ -53,7 +53,7 @@ export const BranchesComponent = () => {
     return (
 <article className="relative w-full py-10 my-1  p-4 shadow-sombra">
     <h2 className="text-[1.8rem] font-bold mb-[2rem]">Sucursales</h2>
-    <p className="bg-ct text-p-basico p-[1.8rem] text-[1.1rem] m-0">
+    <p className="bg-ct text-p-basico p-[1.8rem] text-[1.1rem] m-0 leading-6">
         Visita cualquiera de nuestras sucursales y vive la experiencia Elegance Studio: estilo, 
         cuidado y excelencia en cada detalle. Encuentra tu sucursal más cercana y reserva tu cita hoy mismo.
     </p>
@@ -61,17 +61,17 @@ export const BranchesComponent = () => {
     <div id="map" className="w-full h-[40vh] my-[0.8rem] relative"></div>
 
     {/* Tarjetas de sucursales */}
-    <div className="absolute bottom-[-4rem] left-1/2 transform -translate-x-1/2 z-20 w-[90%]">
-        <div className="flex flex-wrap justify-center py-4 px-6 space-x-4">
+    <div className="lg:absolute lg:bottom-[-4rem] lg:left-1/2 lg:transform lg:-translate-x-1/2 z-20 lg:w-[90%] w-[100%]">
+        <div className="lg:flex flex-wrap justify-center lg:py-4 lg:px-6 lg:space-x-4">
             {branchesData.map((branch) => (
                 <div
                     key={branch.id}
                     onClick={() => handleBranchClick(branch.coordinates as [number, number])}
-                    className="p-4 bg-ct cursor-pointer hover:bg-main transition rounded-lg shadow-sombra"
+                    className="lg:p-4 p-1 bg-ct cursor-pointer hover:bg-main transition lg:rounded-lg shadow-sombra"
                 >
-                    <h3 className="my-2 text-lg font-bold text-p-basico">{branch.name}</h3>
-                    <p className="my-2 text-sm text-p-basico">{branch.description}</p>
-                    <p className="my-2 text-sm text-p-basico">Teléfono: {branch.phone}</p>
+                    <h3 className="lg:my-2 text-lg font-bold text-p-basico text-center lg:text-left">{branch.name}</h3>
+                    <p className="lg:my-2 text-sm text-p-basico text-center lg:text-left">{branch.description}</p>
+                    <p className="lg:my-2 text-sm text-p-basico text-center lg:text-left">Teléfono: {branch.phone}</p>
                 </div>
             ))}
         </div>
