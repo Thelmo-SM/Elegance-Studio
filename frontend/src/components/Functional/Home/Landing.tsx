@@ -15,16 +15,11 @@ const Landing = () => {
     const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
-    // Establece el ancho de la ventana en el estado solo cuando el componente se haya montado en el cliente
     setWindowWidth(window.innerWidth);
-
-    // Agrega un event listener para actualizar el ancho de la ventana cuando cambie
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
-
-    // Limpia el event listener cuando el componente se desmonte
     return () => window.removeEventListener("resize", handleResize);
-  }, []); // Se ejecuta solo una vez al montar el componente
+  }, []);
 
   return (
     <section className="relative">

@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="w-full">
+      <body className="w-full bg-black">
         <ModalProvider>
         <Header />
         <main className="min-h-screen bg-main">
