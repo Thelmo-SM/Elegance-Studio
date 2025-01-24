@@ -25,7 +25,7 @@ export const Header = () => {
             <button className="lg:hidden text-p-basico font-bold absolute right-0 p-[2rem]"
             onClick={toggleMenu}
             >
-                {menuOpen ? <h5 className="text-[2rem]">x</h5> : <Image src={menuImg} width={35} height={20} alt="Menú"/>}
+                {menuOpen ? <h5 className="text-[2rem]">x</h5> : <Image src={menuImg} width={25} height={20} alt="Menú"/>}
             </button>
 
             <nav
@@ -33,12 +33,12 @@ export const Header = () => {
                     menuOpen ? "block" : "hidden"
                 } lg:flex flex flex-col lg:flex-row items-center justify-center w-full lg:w-auto py-4 lg:py-0 lg:mr-10 transition-all duration-300`}
             >
-                <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[2rem] lg:text-[1rem] hover:text-btR">Home</Link>
+                <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Home</Link>
                 {/*<Link href='/' className="text-p-basico mx-6 my-auto hover:text-btR">Tienda</Link>*/}
-                <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[2rem] lg:text-[1rem] hover:text-btR">Nosotros</Link>
-                <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[2rem] lg:text-[1rem] hover:text-btR">Citas</Link>
+                <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Nosotros</Link>
+                <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Citas</Link>
                 <Link href='/login' 
-                className="text-[2rem] lg:text-[1rem] text-p-basico mx-6 my-auto bg-btR p-1 px-4 rounded-[0.25rem] hover:bg-ct transition duration-[200ms]">Acceso</Link>
+                className="text-[1.3rem] lg:text-[1rem] text-p-basico mx-6 my-auto bg-btR p-1 px-4 rounded-[0.25rem] hover:bg-ct transition duration-[200ms]">Acceso</Link>
             </nav>
         </header>
     )

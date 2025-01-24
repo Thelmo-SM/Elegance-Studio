@@ -27,16 +27,18 @@ export const RegisterClient = () => {
     return (
         <article>
             <div className="bg-black h-[16rem] relative">
-                <h1 className="text-[3rem] font-bold text-white absolute bottom-[2rem] left-[7rem] sm:bg-red-300 md:bg-black">¡Registrate!</h1>
+                <h1 className="text-[2.25rem] lg:text-[3rem] font-bold text-white absolute bottom-[2rem] lg:left-[7rem] left-[1rem]">
+                    ¡Registrate!
+                </h1>
             </div>
 
             <div className="md:w-[50%] mx-auto mt-[1rem]"> 
-                <p className="bg-caja2 p-[1rem] text-p-basico md:leading-6 leading-10 md:text-[1.2rem] text-[2rem] text-center md:text-left rounded-[.2rem]">Regístrate y accede a una experiencia personalizada:
+                <p className="bg-caja2 p-[1rem] text-p-basico md:leading-6 leading-10 md:text-[1.2rem] text-[1.2rem] text-center md:text-left rounded-[.2rem]">Regístrate y accede a una experiencia personalizada:
                      reserva tus citas con facilidad, compra productos exclusivos
                       para el cuidado de tu estilo y recibe ofertas únicas diseñadas
                        especialmente para ti</p>
 
-                <form action="" className="flex flex-col md:flex-row p-2 md:w-full md:w-full w-[89%] mx-auto mt-4">
+                <form action="" className="flex flex-col md:flex-row p-2 md:w-full w-[89%] mx-auto mt-4">
                     <div className="w-full mr-4 ">
 
 
@@ -134,8 +136,8 @@ export const RegisterClient = () => {
                     </ButtonForm>
                     </div>
                 </form>
-                <p className="text-caja3 text-center text-[1.8rem] pb-[4.4rem] pt-4">
-                ¿ya tienes cuenta? <Link href='/login' className="text-p-basico font-bold">Inicia sesión</Link>
+                <p className="text-caja3 text-center text-[1.2rem] lg:text-[2rem] pb-[4.4rem] pt-4">
+                ¿ya tienes cuenta? <Link href='/login' className="text-p-basico font-bold border-b-2">Inicia sesión</Link>
                 </p>
             </div>
         </article>
