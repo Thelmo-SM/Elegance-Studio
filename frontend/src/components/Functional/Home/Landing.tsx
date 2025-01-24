@@ -15,20 +15,15 @@ const Landing = () => {
     const [windowWidth, setWindowWidth] = useState(0);
 
   useEffect(() => {
-    // Establece el ancho de la ventana en el estado solo cuando el componente se haya montado en el cliente
     setWindowWidth(window.innerWidth);
-
-    // Agrega un event listener para actualizar el ancho de la ventana cuando cambie
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
-
-    // Limpia el event listener cuando el componente se desmonte
     return () => window.removeEventListener("resize", handleResize);
-  }, []); // Se ejecuta solo una vez al montar el componente
+  }, []);
 
   return (
-    <section className="relative">
-      <article className={`bg-black p-6 min-h-[95vh] w-full flex flex-col justify-center relative background-container 
+    <section className="relative w-full">
+      <article className={`bg-black p-6 min-h-[95vh] flex flex-col justify-center relative background-container 
       ${
         windowWidth >= 1024 ? Style.backgroundContainer : StyleMobile.backgroundMobileContainer
       }

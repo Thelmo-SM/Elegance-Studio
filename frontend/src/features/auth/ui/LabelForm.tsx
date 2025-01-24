@@ -9,7 +9,7 @@ export const LabelForm = ({children, ...props}: Props) => {
         <label 
         htmlFor="" 
         {...props}
-        className="text-p-basico text-[2.5rem] md:text-[2rem] mt-[1.4rem] sm:text-left text-center">
+        className="text-p-basico text-[1.5rem] lg:text-[2rem] mt-[1.4rem] sm:text-left text-center">
             {children}
         </label>
     );

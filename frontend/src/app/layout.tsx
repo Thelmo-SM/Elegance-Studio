@@ -17,10 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className="w-full">
+      <body className="">
         <ModalProvider>
         <Header />
-        <main className="min-h-screen bg-main">
+        <main className="min-h-screen bg-main w-full">
         {children}
         </main>
         <Footer />

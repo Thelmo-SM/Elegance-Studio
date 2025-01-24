@@ -29,7 +29,7 @@ export const LoginClient = () => {
         </div>
 
         <div className="md:w-[50%]  mx-auto mt-[1rem]"> 
-            <p className="bg-caja2 p-[1rem] text-p-basico md:leading-6 leading-10 md:text-[1.2rem] text-[2rem] text-center md:text-left trounded-[.2rem] m-auto  w-[100%]">
+            <p className="bg-caja2 p-[1rem] text-p-basico md:leading-6 leading-10 md:text-[1.2rem] text-[1.2rem] text-center md:text-left trounded-[.2rem] m-auto  w-[100%]">
                 Accede a tu cuenta para gestionar tus citas, revisar tus pedidos y descubrir nuestras últimas ofertas
             </p>
 
@@ -69,7 +69,7 @@ export const LoginClient = () => {
             <div className="w-full mr-4">
             <div className="flex flex-col md:flex-row">
 
-                <button className="bg-caja2 text-[2.2rem] py-[2rem] md:py-[1rem] w-full rounded-[.2rem] mt-auto md:mr-[1rem]">
+                <button className="mb-[1rem] lg:mb-0 bg-caja2 text-[2.2rem] py-[2rem] md:py-[1rem] w-full rounded-[.2rem] mt-auto md:mr-[1rem]">
                     <Image 
                     src={googleLogo} 
                     width={100} 
@@ -98,8 +98,8 @@ export const LoginClient = () => {
 
 
             </form>
-            <p className="text-caja3 text-center text-[2rem] md:text-[1.8rem] mt-[2.4rem] w-[80%] mx-auto md:w-full">
-        ¿Aún no tienes cuenta? <Link href='/register' className="text-p-basico font-bold">Regístrate aquí </Link> 
+            <p className="text-caja3 text-center text-[1.2rem] pb-[3rem] lg:text-[2rem] md:text-[1.8rem] mt-[2.4rem] w-[80%] mx-auto md:w-full leading-10">
+        ¿Aún no tienes cuenta? <Link href='/register' className="text-p-basico font-bold border-b-2">Regístrate aquí </Link> 
         y comienza tu experiencia en Elegance Studio
         </p>
         </div>
