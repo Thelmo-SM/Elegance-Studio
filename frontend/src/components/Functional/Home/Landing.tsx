@@ -22,8 +22,8 @@ const Landing = () => {
   }, []);
 
   return (
-    <section className="relative">
-      <article className={`bg-black p-6 min-h-[95vh] w-full flex flex-col justify-center relative background-container 
+    <section className="relative w-full">
+      <article className={`bg-black p-6 min-h-[95vh] flex flex-col justify-center relative background-container 
       ${
         windowWidth >= 1024 ? Style.backgroundContainer : StyleMobile.backgroundMobileContainer
       }
