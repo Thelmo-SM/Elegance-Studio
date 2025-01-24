@@ -28,12 +28,12 @@ const Landing = () => {
         windowWidth >= 1024 ? Style.backgroundContainer : StyleMobile.backgroundMobileContainer
       }
         `}>
-        <div className={`lg:w-[52%] absolute lg:top-1/1 lg:left-1/3 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/5 overlay`}>
-            <h1 className="text-p-basico text-[3.25rem] font-bold mb-10 lg:text-left text-center">Elegance Studio</h1>
+        <div className={`lg:w-[52%] absolute lg:top-1/1 lg:left-1/3 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/5 overlay mt-[15rem] lg:mt-0`}>
+            <h1 className="text-p-basico text-[2.25rem] md:text-[3.25rem] font-bold mb-10 lg:text-left text-center">Elegance Studio</h1>
             <p className="text-p-basico text-[1.3rem] lg:w-[80%] lg:text-left text-center w-[95%] m-auto lg:m-0">Nos esforzamos por crear un ambiente cómodo y acogedor, donde puedas
               relajarte y disfrutar de un servicio de calidad superior</p>
               <button
-               className=" text-p-basico bg-btR py-3 px-8 rounded-[0.25rem] mt-[10rem] hover:bg-ct transition duration-[200ms] flex items-center justify-center mx-auto lg:mx-0"
+               className=" text-p-basico bg-btR py-3 px-8 rounded-[0.25rem] mt-[5rem] md:mt-[10rem] hover:bg-ct transition duration-[200ms] flex items-center justify-center mx-auto lg:mx-0"
                onClick={openModal}
                >Agenda tu cita</button>
          </div>
