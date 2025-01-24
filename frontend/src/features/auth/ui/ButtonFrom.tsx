@@ -8,7 +8,7 @@ export const ButtonForm = ({ children, customClass, ...props }: Props) => {
         <button 
         {...props}
         {...props}
-        className={`py-[2rem] text-p-basico text-[2.2rem] md:py-[1rem] w-full rounded-[.2rem] mt-auto ${customClass}`}
+        className={`lg:py-[2rem] py-[1rem] text-p-basico text-[2.2rem] md:py-[1rem] w-full rounded-[.2rem] mt-auto ${customClass}`}
         >
             {children}
         </button>

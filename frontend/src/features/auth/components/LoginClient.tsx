@@ -25,7 +25,7 @@ export const LoginClient = () => {
     return (
         <article className="mx-auto">
         <div className="bg-black h-[16rem] relative">
-            <h1 className="text-[3rem] font-bold text-p-basico absolute bottom-[2rem] left-[7rem]">¡Inicia Sesión!</h1>
+            <h1 className="text-[2.25rem] lg:text-[3rem] font-bold text-p-basico absolute bottom-[2rem] lg:left-[7rem] left-[1rem]">¡Inicia Sesión!</h1>
         </div>
 
         <div className="md:w-[50%]  mx-auto mt-[1rem]"> 
@@ -69,7 +69,7 @@ export const LoginClient = () => {
             <div className="w-full mr-4">
             <div className="flex flex-col md:flex-row">
 
-                <button className="mb-[1rem] lg:mb-0 bg-caja2 text-[2.2rem] py-[2rem] md:py-[1rem] w-full rounded-[.2rem] mt-auto md:mr-[1rem]">
+                <button className="mb-[1rem] lg:mb-0 bg-caja2 text-[2.2rem] lg:py-[2rem] py-[1rem] w-full rounded-[.2rem] mt-auto md:mr-[1rem]">
                     <Image 
                     src={googleLogo} 
                     width={100} 
@@ -99,7 +99,7 @@ export const LoginClient = () => {
 
             </form>
             <p className="text-caja3 text-center text-[1.2rem] pb-[3rem] lg:text-[2rem] md:text-[1.8rem] mt-[2.4rem] w-[80%] mx-auto md:w-full leading-10">
-        ¿Aún no tienes cuenta? <Link href='/register' className="text-p-basico font-bold border-b-2">Regístrate aquí </Link> 
+        ¿Aún no tienes cuenta? <Link href='/register' className="text-p-basico font-bold border-b-2 ">Regístrate aquí </Link> 
         y comienza tu experiencia en Elegance Studio
         </p>
         </div>
