@@ -61,17 +61,17 @@ export const BranchesComponent = () => {
     <div id="map" className="w-full h-[40vh] my-[0.8rem] relative"></div>
 
     {/* Tarjetas de sucursales */}
-    <div className="lg:absolute lg:bottom-[-4rem] lg:left-1/2 lg:transform lg:-translate-x-1/2 z-20 lg:w-[90%] w-[100%]">
-        <div className="lg:flex flex-wrap justify-center lg:py-4 lg:px-6 lg:space-x-4">
+    <div className="lg:absolute lg:bottom-[-8rem] 2xl:bottom-[-7rem] lg:left-1/2 lg:transform lg:-translate-x-1/2 z-20 w-[100%]">
+        <div className="lg:flex flex-wrap justify-center xl:py-4 xl:px-6 xl:space-x-4">
             {branchesData.map((branch) => (
                 <div
                     key={branch.id}
                     onClick={() => handleBranchClick(branch.coordinates as [number, number])}
-                    className="lg:p-4 p-1 bg-ct cursor-pointer hover:bg-main transition lg:rounded-lg shadow-sombra"
+                    className="lg:w-[40%] xl:w-[21%] lg:m-[.5rem] 2xl:p-4  lg:p-[.2rem] p-1 bg-ct cursor-pointer hover:bg-main transition lg:rounded-lg shadow-sombra"
                 >
-                    <h3 className="lg:my-2 text-lg font-bold text-p-basico text-center lg:text-left">{branch.name}</h3>
-                    <p className="lg:my-2 text-sm text-p-basico text-center lg:text-left">{branch.description}</p>
-                    <p className="lg:my-2 text-sm text-p-basico text-center lg:text-left">Teléfono: {branch.phone}</p>
+                    <h3 className="xl:my-2 lg:p-[.2rem]  text-lg font-bold text-p-basico text-center lg:text-left">{branch.name}</h3>
+                    <p className="xl:my-2 lg:p-[.2rem]  text-sm text-p-basico text-center lg:text-left">{branch.description}</p>
+                    <p className="xl:my-2 lg:p-[.2rem]  text-sm text-p-basico text-center lg:text-left">Teléfono: {branch.phone}</p>
                 </div>
             ))}
         </div>

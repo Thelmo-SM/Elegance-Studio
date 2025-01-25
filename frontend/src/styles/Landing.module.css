@@ -22,21 +22,21 @@
   }
   @keyframes changeBackground {
     0% {
-      background-image: url('../../public/Landing/img-1.png');
+      background-image: url('../../public/Landing/img-1.webp');
     }
     20% {
-      background-image: url('../../public/Landing/img-2.png');
+      background-image: url('../../public/Landing/img-2.webp');
     }
     40% {
-      background-image: url('../../public/Landing/img-3.png');
+      background-image: url('../../public/Landing/img-3.webp');
     }
     60% {
-      background-image: url('../../public/Landing/img-4.png');
+      background-image: url('../../public/Landing/img-4.webp');
     }
     80% {
-      background-image: url('../../public/Landing/img-5.png');
+      background-image: url('../../public/Landing/img-5.webp');
     }
     100% {
-      background-image: url('../../public/Landing/img-1.png');
+      background-image: url('../../public/Landing/img-1.webp');
     }
   }

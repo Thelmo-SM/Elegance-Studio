@@ -1,6 +1,6 @@
 import Image from "next/image";
-import img1 from '../../../../public/Landing/nuestroCompromiso-img-1.jpg';
-import img2 from '../../../../public/Landing/nuestroCompromiso-img-2.png';
+import img1 from '../../../../public/Landing/nuestroCompromiso-img-1.webp';
+import img2 from '../../../../public/Landing/nuestroCompromiso-img-2.webp';
 //import img3 from '../../../public/Landing/nuestroCompromiso-img-3.jpg';
 //import img4 from '../../../public/Landing/nuestroCompromiso-img-4.jpg';
 
@@ -34,10 +34,10 @@ export const ServiceComponent = () => {
               </div>
               <div className="flex flex-col items-center justify-center mt-[5rem] w-full h-[20rem]"
               style={{
-                backgroundImage: "url('/Landing/nuestroCompromiso-img-5.jpg')",
+                backgroundImage: "url('/Landing/nuestroCompromiso-img-5.webp')",
             }}>
                 <h3 className="text-p-basico my-[1.8rem] text-[1.8rem] font-bold">Responsabilidad y Confianza</h3>
-               <p className="text-p-basico my-[1.8rem] text-[1.25rem] lg:w-[50rem] text-center leading-10">Nos comprometemos a ser transparentes, cumplir con tus 
+               <p className="text-p-basico my-[1.8rem] text-[1.25rem] lg:w-[60%] text-center leading-10">Nos comprometemos a ser transparentes, cumplir con tus 
                 expectativas y garantizar que cada experiencia sea memorable y sin preocupaciones.</p>
               </div>
 
