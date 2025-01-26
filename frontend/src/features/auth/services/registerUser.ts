@@ -1,24 +1,13 @@
-import { db, auth } from "@/utils/firebase";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import {setDoc, doc, serverTimestamp} from 'firebase/firestore';
-import { userTypes } from "@/types/userTypes";
+import { auth } from "@/utils/firebase";
+import { createUserWithEmailAndPassword, updateProfile} from 'firebase/auth';
 
 
-export const registerUser = async ({name, lastName, email, password, phone}: userTypes) => {
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
 
-        await setDoc(doc(db, 'users', user.uid), {
-            name,
-            lastName,
-            phone,
-            createdAt: serverTimestamp(),
-        });
-        return {success: true, user };
+export const registerUser = async (user: {email: string, password: string}) => {
+    return await createUserWithEmailAndPassword(auth, user.email, user.password);
+  };
 
-    } catch (error) {
-        console.error('Error al registrar el usuario:', error);
-        return { success: false, error };
-    }
-};
+  export const updateUser = (user: {displayName?: string | null | undefined; photoURL?: string | null | undefined;}) => {
+    if(auth.currentUser) return updateProfile(auth.currentUser, user);
+  }
+  

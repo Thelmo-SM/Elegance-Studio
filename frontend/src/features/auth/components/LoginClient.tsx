@@ -20,7 +20,8 @@ export const LoginClient = () => {
         form,
         errors,
         handleChange,
-        handleBlur
+        handleBlur,
+        handleSubmit
     } = useLogin(initialForm, validateLogin);
     return (
         <article className="mx-auto">
@@ -28,12 +29,12 @@ export const LoginClient = () => {
             <h1 className="text-[2.25rem] lg:text-[3rem] font-bold text-p-basico absolute bottom-[2rem] lg:left-[7rem] left-[1rem]">¡Inicia Sesión!</h1>
         </div>
 
-        <div className="xl:w-[50%]  mx-auto mt-[1rem] border-4 lg:w-[70%]"> 
+        <div className="xl:w-[50%]  mx-auto mt-[1rem] lg:w-[70%]"> 
             <p className="bg-caja2 p-[1rem] text-p-basico md:leading-6 leading-10 md:text-[1.2rem] text-[1.2rem] text-center md:text-left trounded-[.2rem] m-auto  w-[100%]">
                 Accede a tu cuenta para gestionar tus citas, revisar tus pedidos y descubrir nuestras últimas ofertas
             </p>
 
-            <form action="" className="flex p-2 w-[90%] md:w-[100%] mx-auto flex-col">
+            <form action="" className="flex p-2 w-[90%] md:w-[100%] mx-auto flex-col" onSubmit={handleSubmit}>
             <div className="w-full mr-4">
                 <div className="flex flex-col md:flex-row">
 

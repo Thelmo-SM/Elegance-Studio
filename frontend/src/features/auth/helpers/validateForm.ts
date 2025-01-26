@@ -1,6 +1,8 @@
 import { userTypes, loginTypes } from "@/types/userTypes";
 
-export const velidateCreateUser = (form: userTypes) => {
+
+
+export const velidateCreateUser = (form: userTypes):Partial<userTypes> => {
 
   const regexName = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
   const regexLastName = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
@@ -58,8 +60,8 @@ export const velidateCreateUser = (form: userTypes) => {
   return errors;
 };
 
-export const validateLogin = (form: loginTypes) => {
-  const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+export const validateLogin = (form: loginTypes): Partial<loginTypes> => {
+const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const regexPassword = /^(?=.*[A-Z]).{8,}$/;
 
   const errors: Partial<loginTypes> = {};

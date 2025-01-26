@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { loginTypes, loginErrors } from "@/types/userTypes";
+import { loginUser } from "../services/loginUser";
 
 export const useLogin = (initialForm: loginTypes, validateForm:(values:loginTypes) => loginErrors) => {
 const [form, setForm] = useState(initialForm);
@@ -27,11 +28,23 @@ const [errors, setErrors] = useState<loginErrors>({});
         })
     )
     }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const response = await loginUser(form);
+
+        console.log('Enviando datos...');
+        console.log(response)
+
+        return response;
+    }
     
     return {
         form,
         errors,
         handleChange,
-        handleBlur
+        handleBlur,
+        handleSubmit
     }
 };

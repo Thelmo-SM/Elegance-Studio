@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from 'firebase/auth';
-import {getFirestore} from 'firebase/firestore';
+import {getFirestore, setDoc, doc} from 'firebase/firestore';
+import { userData } from "@/types/userTypes";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -23,3 +24,8 @@ export default app;
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+//Data Base Function
+export const setDocument = (path: string, data: userData) => {
+  return setDoc(doc(db, path), data);
+}
