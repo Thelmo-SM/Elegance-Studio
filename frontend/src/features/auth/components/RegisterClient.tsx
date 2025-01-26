@@ -8,6 +8,7 @@ import { velidateCreateUser } from "../helpers/validateForm";
 
 
 const initialValue: userTypes = {
+    uid: '',
     name: '',
     lastName: '',
     email: '',
@@ -21,7 +22,8 @@ export const RegisterClient = () => {
         form,
         errors,
         handleChange,
-        handleBlur
+        handleBlur,
+        handleSubmit
     } = useCreateUser(initialValue, velidateCreateUser);
 
     return (
@@ -38,7 +40,7 @@ export const RegisterClient = () => {
                       para el cuidado de tu estilo y recibe ofertas únicas diseñadas
                        especialmente para ti</p>
 
-                <form action="" className="flex flex-col md:flex-row p-2 md:w-full w-[89%] mx-auto mt-4">
+                <form action="" className="flex flex-col md:flex-row p-2 md:w-full w-[89%] mx-auto mt-4" onSubmit={handleSubmit}>
                     <div className="w-full mr-4 ">
 
 
@@ -117,23 +119,27 @@ export const RegisterClient = () => {
                         {errors.phone && <p className="text-error">{errors.phone}</p> }
                     </div>
                     <ButtonForm
-                        type="submit"
-                        disabled={
-                            !form.name.trim() ||
-                            !form.lastName.trim() ||
-                            !form.email.trim() ||
-                            !form.password.trim() ||
-                            !form.confirmPassword.trim() ||
-                            !form.phone.trim()
-                        }
-                        customClass={
-                            Object.values(form).every((value) => value.trim() !== "") && Object.keys(errors).length > 0
-                            ? 'bg-caja2'
-                            : 'cursor-not-allowed bg-desabilited'
-                        }
-                    >
-                        Registrarse
-                    </ButtonForm>
+                            type="submit"
+                            disabled={
+        // Deshabilitar si algún campo está vacío o si hay errores
+                             !form.name.trim() ||
+                             !form.lastName.trim() ||
+                             !form.email.trim() ||
+                             !form.password.trim() ||
+                             !form.confirmPassword?.trim() ||
+                             !form.phone.trim() ||
+                             Object.values(errors).some((error) => error) // Deshabilitar si hay errores
+                            }
+                            customClass={
+        // Activar si todos los campos están completos y no hay errores
+                             Object.values(form).every((value) => value.trim() !== "") &&
+                             Object.values(errors).every((error) => !error)
+                             ? 'cursor-not-allowed bg-desabilited' // Deshabilitado si algún campo está vacío o hay errores
+                             : 'bg-caja2' // Activo si todos los campos están completos y no hay errores
+                            }
+                        >
+                         Registrarse
+                        </ButtonForm>
                     </div>
                 </form>
                 <p className="text-caja3 text-center text-[1.2rem] lg:text-[2rem] pb-[4.4rem] pt-4">
