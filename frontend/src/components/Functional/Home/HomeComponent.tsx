@@ -6,9 +6,11 @@ import PorqueNosotrosComponent from "./PorqueNosotrosComponent";
 import BranchesComponent from "./BranchesComponent";
 import ProductsComponent from "./ProductInfoComponent";
 import Style from '../../../styles/Landing.module.css'
+import { useAuth } from "@/store/User.context";
 
 export const HomeComponent = () => {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const auth = useAuth();
 
     const totalSlides = serviceCarrusel.length;
 
@@ -34,6 +36,7 @@ export const HomeComponent = () => {
 
     return (
         <div className={`lg:w-[90%] mx-auto ${Style.sombras} z-10 lg:px-[5rem] px-[0.3rem]`}>
+            { auth.user ? <h3 className="text-[1.6rem]">¡HOLA {auth.user.displayName}</h3> : ''}
         <article className="py-10">
             <h2 className="text-[1.8rem] font-bold text-center lg:text-left">Servicios</h2>
 

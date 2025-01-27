@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Functional/Header/Header";
 import Footer from "@/components/Functional/Footer/Footer";
 import { ModalProvider } from "@/store/Modal.context";
+import { AuthProvider } from "@/store/User.context";
 
 export const metadata: Metadata = {
   title: "Elegance Studio",
@@ -19,11 +20,13 @@ export default function RootLayout({
     <html lang="es">
       <body className="">
         <ModalProvider>
+        <AuthProvider>
         <Header />
         <main className="min-h-screen bg-main w-full">
         {children}
         </main>
         <Footer />
+        </AuthProvider>
         </ModalProvider>
       </body>
     </html>

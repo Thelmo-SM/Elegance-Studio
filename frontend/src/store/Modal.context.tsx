@@ -6,16 +6,15 @@ import { useModal } from "@/hooks/global.modal";
 type ModalContextProps = {
   isOpen: boolean;
   openModal: () => void;
-  closeModal: () => void;
 };
 
 const ModalContext = createContext<ModalContextProps | undefined>(undefined);
 
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
-  const [isOpen, openModal, closeModal] = useModal();
+  const [isOpen, openModal] = useModal();
 
   return (
-    <ModalContext.Provider value={{ isOpen, openModal, closeModal }}>
+    <ModalContext.Provider value={{ isOpen, openModal}}>
       {children}
     </ModalContext.Provider>
   );
