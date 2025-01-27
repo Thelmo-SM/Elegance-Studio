@@ -5,10 +5,12 @@ import Image from "next/image";
 import menuImg from '../../../../public/Icons/lista.svg'
 import Style from '../../../styles/Landing.module.css';
 import { useState } from "react";
+import { useAuth } from "@/store/User.context";
 
 export const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const logoSrc = '/Logo.png';
+    const auth = useAuth();
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -37,8 +39,17 @@ export const Header = () => {
                 {/*<Link href='/' className="text-p-basico mx-6 my-auto hover:text-btR">Tienda</Link>*/}
                 <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Nosotros</Link>
                 <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Citas</Link>
+               {
+                auth.user === null ?
                 <Link href='/login' 
                 className="text-[1.3rem] lg:text-[1rem] text-p-basico mx-6 my-auto bg-btR p-1 px-4 rounded-[0.25rem] hover:bg-ct transition duration-[200ms]">Acceso</Link>
+                : <button
+                className="text-[1.3rem] lg:text-[1rem] text-p-basico mx-6 my-auto bg-btR p-1 px-4 rounded-[0.25rem] hover:bg-ct transition duration-[200ms]"
+                onClick={auth.logout}
+                >
+                    Cerrar
+                </button>
+            }
             </nav>
         </header>
     )

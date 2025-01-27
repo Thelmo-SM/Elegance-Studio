@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { loginTypes, loginErrors } from "@/types/userTypes";
 import { loginUser } from "../services/loginUser";
+import { useRouter } from "next/navigation";
 
 export const useLogin = (initialForm: loginTypes, validateForm:(values:loginTypes) => loginErrors) => {
 const [form, setForm] = useState(initialForm);
 const [errors, setErrors] = useState<loginErrors>({});  
+const router = useRouter();
 
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -35,9 +37,9 @@ const [errors, setErrors] = useState<loginErrors>({});
         const response = await loginUser(form);
 
         console.log('Enviando datos...');
-        console.log(response)
-
-        return response;
+        console.log(response);
+        
+        router.push('/');
     }
     
     return {
