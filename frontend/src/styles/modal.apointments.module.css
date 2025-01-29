@@ -18,10 +18,10 @@
     background-color: #a0a0a0;
     min-width: 70%;
     max-width: 70%;
-    height: 45rem;
-    height: 45rem;
+    height: 90%;
+/*    height: 45rem;*/
     padding: 2rem;
-    margin: 11em 0;
+    margin: 5em 0;
     border-radius: .25rem;
 }
 

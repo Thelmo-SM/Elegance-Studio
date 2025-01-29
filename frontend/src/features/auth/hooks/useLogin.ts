@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation";
 
 export const useLogin = (initialForm: loginTypes, validateForm:(values:loginTypes) => loginErrors) => {
 const [form, setForm] = useState(initialForm);
-const [errors, setErrors] = useState<loginErrors>({});  
+const [errors, setErrors] = useState<loginErrors>({});
+const [loading, setLoading] = useState(false);
+
 const router = useRouter();
 
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +37,7 @@ const router = useRouter();
         e.preventDefault();
 
         const response = await loginUser(form);
-
+        setLoading(true)
         console.log('Enviando datos...');
         console.log(response);
         
@@ -45,6 +47,7 @@ const router = useRouter();
     return {
         form,
         errors,
+        loading,
         handleChange,
         handleBlur,
         handleSubmit

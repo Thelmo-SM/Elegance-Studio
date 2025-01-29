@@ -7,6 +7,7 @@ import { InputForm, LabelForm, ButtonForm } from "../ui";
 import { useLogin } from "../hooks/useLogin";
 import { loginTypes } from "@/types/userTypes";
 import { validateLogin } from "../helpers/validateForm";
+import Loading from "@/components/Ui/Loading/loading";
 
 
 
@@ -19,6 +20,7 @@ export const LoginClient = () => {
     const {
         form,
         errors,
+        loading,
         handleChange,
         handleBlur,
         handleSubmit
@@ -43,12 +45,13 @@ export const LoginClient = () => {
                 <div className="my-2 flex flex-col w-full md:mr-[1rem]">
                     <LabelForm>Correo electrónico</LabelForm>
                     <InputForm 
+                    type="email"
                     name="email"
                     value={form.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     />
-                    {errors.email && <p className="text-error">{errors.email}</p> }
+                    {errors.email && <p className='bg-red-600 text-p-basico w-[100%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.email}</p> }
                     
                 </div>
 
@@ -56,12 +59,13 @@ export const LoginClient = () => {
                     <div className="my-2 flex flex-col w-full md:ml-[1rem]">
                     <LabelForm>Contraseña</LabelForm>
                     <InputForm 
+                    type="password"
                     name="password"
                     value={form.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     />
-                    {errors.password && <p className="text-error">{errors.password}</p> }
+                    {errors.password && <p className='bg-red-600 text-p-basico w-[100%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.password}</p> }
                 </div>
             </div>
             </div>
@@ -91,7 +95,7 @@ export const LoginClient = () => {
                     : 'cursor-not-allowed bg-desabilited'
                 }
                 >
-                    Iniciar Seción
+                {loading ? <Loading /> : 'Iniciar Seción'}
                 </ButtonForm>
             </div>
             </div>
