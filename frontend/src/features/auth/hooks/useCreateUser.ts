@@ -7,6 +7,7 @@ import { registerUser, updateUser } from "../services/registerUser";
 export const useCreateUser = (initialForm: userTypes, validateForm:(values:userTypes) => FormErrors) => {
 const [form, setForm] = useState(initialForm);;
 const [errors, setErrors] = useState<FormErrors>({});
+const [loading, setLoading] = useState(false) 
 //console.log('capturas de datos: ', form);
 console.log('errores: ', errors)
 if(!errors) {
@@ -61,10 +62,12 @@ if(!errors) {
           await createUserInDB(newUser as userData)
 
           console.log("Usuario creado exitosamente: ", form);
+          setLoading(true);
           return response;
         } catch (error) {
           console.error("Error al crear el usuario: ", error);
         } finally {
+          setLoading(false);
         }
       };
 
@@ -85,6 +88,7 @@ const createUserInDB = async (user: userData) => {
     return {
         form,
         errors,
+        loading,
         handleChange,
         handleBlur,
         handleSubmit

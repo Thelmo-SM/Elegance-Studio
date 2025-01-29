@@ -5,6 +5,7 @@ import Link from "next/link";
 import { InputForm, LabelForm, ButtonForm } from "../ui";
 import { userTypes } from "@/types/userTypes";
 import { velidateCreateUser } from "../helpers/validateForm";
+import Loading from "@/components/Ui/Loading/loading";
 
 
 const initialValue: userTypes = {
@@ -21,6 +22,7 @@ export const RegisterClient = () => {
     const {
         form,
         errors,
+        loading,
         handleChange,
         handleBlur,
         handleSubmit
@@ -53,43 +55,46 @@ export const RegisterClient = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         />
-                        {errors.name && <p className="text-error">{errors.name}</p> }
+                        {errors.name && <p className='bg-red-600 text-p-basico w-[100%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.name}</p> }
                     </div>
 
                     {/*Email*/}
                     <div className="md:my-2 flex flex-col">
                         <LabelForm>Correo electrónico</LabelForm>
                         <InputForm
+                        type="email"
                         name = 'email'
                         value={form.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
                          />
-                         {errors.email && <p className="text-error">{errors.email}</p> }
+                         {errors.email && <p className='bg-red-600 text-p-basico w-[100%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.email}</p> }
                     </div>
 
                     {/*Password*/}
                     <div className="my-2 flex flex-col">
                         <LabelForm>Contraseña</LabelForm>
                         <InputForm 
+                        type="password"
                         name = 'password'
                         value={form.password}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         />
-                        {errors.password && <p className="text-error">{errors.password}</p> }
+                        {errors.password && <p className='bg-red-600 text-p-basico w-[100%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.password}</p> }
                     </div>
 
                     {/*Confirm Password*/}
                     <div className="my-2 flex flex-col">
                         <LabelForm>Confirmar contraseña</LabelForm>
                         <InputForm 
+                        type="password"
                         name = 'confirmPassword'
                         value={form.confirmPassword}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         />
-                        {errors.confirmPassword && <p className="text-error">{errors.confirmPassword}</p> }
+                        {errors.confirmPassword && <p className='bg-red-600 text-p-basico w-[100%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.confirmPassword}</p> }
                     </div>
                     </div>
 
@@ -103,8 +108,9 @@ export const RegisterClient = () => {
                         name = 'lastName'
                         value={form.lastName}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                         />
-                        {errors.lastName && <p className="text-error">{errors.lastName}</p> }
+                        {errors.lastName && <p className='bg-red-600 text-p-basico w-[100%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.lastName}</p> }
                     </div>
 
                     {/*Phone*/}
@@ -116,7 +122,7 @@ export const RegisterClient = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         />
-                        {errors.phone && <p className="text-error">{errors.phone}</p> }
+                        {errors.phone && <p className='bg-red-600 text-p-basico w-[100%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.phone}</p> }
                     </div>
                     <ButtonForm
                             type="submit"
@@ -138,7 +144,7 @@ export const RegisterClient = () => {
                              : 'bg-caja2' // Activo si todos los campos están completos y no hay errores
                             }
                         >
-                         Registrarse
+                        {loading ? <Loading /> : 'Registrarse'}
                         </ButtonForm>
                     </div>
                 </form>

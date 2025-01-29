@@ -2,11 +2,12 @@
 
 import Style from '@/styles/modal.apointments.module.css'
 import { SelectApointmets, OptionlApointmets,LabelApointmets, InputApointmets, ButtonSubmit } from './ui';
-import { barbers } from './helpers/barbers';
+import { barbers, beardStyles, haircutStyles, dyeHair } from './helpers/barbers';
 import { branchesData } from '@/services/branchesData';
 import { useFormAppointments } from './hooks/useForm.appointments';
 import { initialValue } from './helpers/initialValues';
 import { validateFormAppointments } from './helpers/validateForm.appointments';
+import Landing from '@/components/Functional/Home/Landing';
 
 interface ModalApointmentsProps {
     isOpens: boolean;
@@ -17,12 +18,15 @@ interface ModalApointmentsProps {
     const {
         form,
         errors,
+        loading,
         handleChange,
-        handleBlur
+        handleBlur,
+        handleSubmit
     } = useFormAppointments(initialValue, validateFormAppointments);
 
     return (
       <article className={`${Style.modal} ${isOpens && Style.isOpen}`}>
+        
         <div className={`${Style.modalContainer}`}>
         <button 
         onClick={closeModal}
@@ -30,15 +34,17 @@ interface ModalApointmentsProps {
         >
         Cancelar
         </button>
-            <div className='flex'>
-        <div className='w-[95%]'>
+{/*       <div className=''>
+        <div className=''>*/}
         <h3 className="text-[2.5rem] font-bold  my-[2rem]">Agenda tu cita</h3>
+        <form action="" onSubmit={handleSubmit} className='w-[100%] mx-auto  flex justify-between'>
+        <div className='w-full'>
         <div className='flex flex-col'>
         <LabelApointmets htmlFor="sucursal">Seleccione una Sucursal:</LabelApointmets>
             <SelectApointmets
             id="sucursal"
             name="branch"
-            onChange={(e) => handleChange(e)}
+            onChange={handleChange}
             value={form.branch}
             onBlur={handleBlur}
             >
@@ -53,51 +59,63 @@ interface ModalApointmentsProps {
         </div>
 
         <div className='flex flex-col'>
-            <LabelApointmets>Corte de cabello</LabelApointmets>
-            <SelectApointmets>
-                <OptionlApointmets>
-                    Seleccionar
+            <LabelApointmets htmlFor='corteCabello'>Corte de cabello</LabelApointmets>
+            <SelectApointmets
+            id='corteCabello'
+            name='haircut'
+            onChange={handleChange}
+            value={form.haircut}
+            onBlur={handleBlur}
+            >
+                <OptionlApointmets value=''>Seleccionar</OptionlApointmets>
+                {haircutStyles.map((cut) => (
+                <OptionlApointmets key={cut.id}>
+                    {cut.name} - {cut.price}
                 </OptionlApointmets>
-                <OptionlApointmets>
-                    Corte 1
-                </OptionlApointmets>
-                <OptionlApointmets>
-                    Corte 2
-                </OptionlApointmets>
-                <OptionlApointmets>
-                    Corte 3
-                </OptionlApointmets>
+                ))}
             </SelectApointmets>
         </div>
 
         <div className='flex flex-col'>
-            <LabelApointmets>Corte de barba</LabelApointmets>
-            <SelectApointmets>
-                <OptionlApointmets>
-                    Seleccionar
+            <LabelApointmets htmlFor='corteBarba'>Corte de barba</LabelApointmets>
+            <SelectApointmets
+            id='corteBarba'
+            name='BeardTrimming'
+            onChange={handleChange}
+            value={form.BeardTrimming}
+            onBlur={handleBlur}
+            >
+                <OptionlApointmets value=''>Seleccionar</OptionlApointmets>
+                {beardStyles.map((beard) => (
+                <OptionlApointmets key={beard.id}>
+                    {beard.name} - {beard.price}
                 </OptionlApointmets>
-            <OptionlApointmets>
-                    Barba 1
-                </OptionlApointmets>
-                <OptionlApointmets>
-                    Barba 2
-                </OptionlApointmets>
-                <OptionlApointmets>
-                    Barba 3
-                </OptionlApointmets>
+                ))}
             </SelectApointmets>
         </div>
 
         <div className='flex flex-col'>
-            <LabelApointmets>Seleccione la fecha a la que asistirá :</LabelApointmets>
+            <LabelApointmets htmlFor='fecha'>Seleccione la fecha a la que asistirá :</LabelApointmets>
             <InputApointmets
-                type='date' />
+            id='fecha'
+            name='date'
+            onChange={handleChange}
+            value={form.date}
+            onBlur={handleBlur}
+            type='date' 
+            />
         </div>
 
         <div className='flex flex-col'>
-            <LabelApointmets>Seleccione la hora a la que asistirá :</LabelApointmets>
+            <LabelApointmets htmlFor='hour'>Seleccione la hora a la que asistirá :</LabelApointmets>
             <InputApointmets
-                type='time' />
+            type='time'
+            id='hour'
+            name='hour'
+            onChange={(e) => handleChange(e)}
+            value={form.hour}
+            onBlur={handleBlur} 
+            />
         </div>
         </div>
 
@@ -109,7 +127,7 @@ interface ModalApointmentsProps {
             <SelectApointmets
                 id="barbers"
                 name="barber"
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 value={form.barber}
                 onBlur={handleBlur}
             >
@@ -126,14 +144,20 @@ interface ModalApointmentsProps {
         </div>
 
         <div className='flex flex-col mx-auto'>
-            <LabelApointmets>¿Desea pintarse el cabello?</LabelApointmets>
-            <SelectApointmets>
-                <OptionlApointmets>
-                    NO
+            <LabelApointmets htmlFor='dyeHair'>¿Desea pintarse el cabello?</LabelApointmets>
+            <SelectApointmets
+            id="dyeHair"
+            name="dyeHair"
+            onChange={handleChange}
+            value={form.dyeHair}
+            onBlur={handleBlur}
+            >
+                <OptionlApointmets>Seleccionar</OptionlApointmets>
+                {dyeHair.map((hair) => (
+                <OptionlApointmets key={hair.id}>
+                    {hair.name}
                 </OptionlApointmets>
-                <OptionlApointmets>
-                    SI
-                </OptionlApointmets>
+                ))}
             </SelectApointmets>
         </div>
 
@@ -154,13 +178,15 @@ interface ModalApointmentsProps {
             </p>
 
             <ButtonSubmit>
-            Agendar Cita
+            {loading ? <Landing /> : 'Agendar Cita'}
             </ButtonSubmit>
         </div>
+ </div>
+ </form>
         </div>
-        </div>
+{ /*       </div>
 
-        </div>
+        </div>*/}
       </article>
     );
   };
