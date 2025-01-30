@@ -1,6 +1,6 @@
 'use client';
 
-import Style from '@/styles/modal.apointments.module.css'
+import Style from '@/styles/modal.apointments.module.css';
 import { SelectApointmets, OptionlApointmets,LabelApointmets, InputApointmets, ButtonSubmit } from './ui';
 import { barbers, beardStyles, haircutStyles, dyeHair } from './helpers/barbers';
 import { branchesData } from '@/services/branchesData';
