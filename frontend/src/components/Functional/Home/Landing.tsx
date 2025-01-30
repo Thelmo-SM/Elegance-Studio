@@ -4,7 +4,7 @@ import HomeComponent from "@/components/Functional/Home/HomeComponent";
 import Style from '../../../styles/Landing.module.css'
 import StyleMobile from '../../../styles/Landing.mobile.module.css';
 import GlobalModal from "@/components/Ui/Modals/Global.modal";
-import { useModalApointments } from "@/features/apointments/hooks/Modal.apointments";
+//import { useModalApointments } from "@/features/apointments/hooks/Modal.apointments";
 import { useModalContext } from "@/store/Modal.context";
 import ErrorIcon from '../../../../public/Icons/messageLogo/errorIcon.svg';
 import Image from "next/image";
@@ -12,11 +12,11 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/store/User.context";
 import { useRouter } from "next/navigation";
 import { ButtonApointments } from "@/features/apointments/ui/Buttoms.apointments";
-import CreateApointments from "@/features/apointments/Create.apointments";
+//import CreateApointments from "@/features/apointments/Create.apointments";
 
 const Landing = () => {
     const { isOpen, openModal } = useModalContext();
-    const [isApointments, openForm, closeForm] = useModalApointments();
+    //const [isApointments, openForm, closeForm] = useModalApointments();
     const [windowWidth, setWindowWidth] = useState(0);
     const auth = useAuth();
     const router = useRouter();
@@ -51,11 +51,11 @@ const Landing = () => {
                             Agenda tu cita
                         </button>
                     ) : (
-                        <ButtonApointments onClick={openForm}>Agenda tu cita</ButtonApointments>
+                        <ButtonApointments> {/*onClick={openForm}*/}Agenda tu cita</ButtonApointments>
                     )}
                 </div>
             </article>
-            <HomeComponent />
+           <HomeComponent />
             {auth.user === null && isOpen && (
                 <GlobalModal isOpens={isOpen}>
                     <div className="flex flex-col justify-center items-center h-[100%]">
@@ -67,7 +67,7 @@ const Landing = () => {
                     </div>
                 </GlobalModal>
             )}
-            <CreateApointments isOpens={isApointments} closeModal={closeForm}/>
+            {/*<CreateApointments isOpens={isApointments} closeModal={closeForm}/>*/}
         </section>
     );
 };

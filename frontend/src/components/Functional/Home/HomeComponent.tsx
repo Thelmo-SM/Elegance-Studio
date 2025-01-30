@@ -14,15 +14,15 @@ export const HomeComponent = () => {
 
     const totalSlides = serviceCarrusel.length;
 
-    // Función para mover el carrusel con useCallback para evitar redefinirla en cada render
+
     const moveCarousel = useCallback((direction: number) => {
         let newIndex = currentIndex + direction;
 
-        // Ajustar el índice para que se quede dentro del rango de 0 a totalSlides - 1
-        if (newIndex < 0) newIndex = totalSlides - 1;  // Cuando se va al inicio
-        if (newIndex >= totalSlides) newIndex = 0;  // Cuando se va al final
 
-        setCurrentIndex(newIndex);  // Actualizar el índice
+        if (newIndex < 0) newIndex = totalSlides - 1; 
+        if (newIndex >= totalSlides) newIndex = 0;  
+
+        setCurrentIndex(newIndex);  
     }, [currentIndex, totalSlides]);  // Dependencias para que se recalculen correctamente
 
     useEffect(() => {
