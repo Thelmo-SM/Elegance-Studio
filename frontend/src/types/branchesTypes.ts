@@ -1,8 +1,9 @@
 
-export type brachesTypes = {
-    id: number;
+export interface brachesTypes {
+    id: string;
     name: string;
-    coordinates: number[];
+    coordinates: [number, number];
     description: string;
     phone: string;
-};
+  }
+  

@@ -6,7 +6,7 @@ export const barbers = [
   {id: 4, name: 'Thelmo Antonio Silverio Muñoz'}
 ];
 
-export const haircutStyles = [
+/*export const haircutStyles = [
   { id: 1, name: "Cabello largo y rizado", price: 14.99 },
   { id: 2, name: "Corte buzz", price: 12.99 },
   { id: 3, name: "Corte con flequillo para hombre", price: 15.49 },
@@ -47,4 +47,4 @@ export const beardStyles = [
 export const dyeHair = [
   {id: 1, name: 'NO'},
   {id: 2, name: 'SI'}
-];
+];*/

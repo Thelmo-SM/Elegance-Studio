@@ -3,11 +3,12 @@
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useEffect, useRef } from 'react';
-import { branchesData } from '@/services/branchesData';
+import { BranchesData } from '@/services/BranchesData';
 
 export const BranchesComponent = () => {
     const mapRef = useRef<maplibregl.Map | null>(null);
-
+    const { branch } = BranchesData();
+    
     useEffect(() => {
         // Inicializar el mapa
         const map = new maplibregl.Map({
@@ -21,7 +22,7 @@ export const BranchesComponent = () => {
         mapRef.current = map;
 
         // Agregar marcadores para cada sucursal
-        branchesData.forEach((branch) => {
+        branch.forEach((branch) => {
             new maplibregl.Marker()
                 .setLngLat(branch.coordinates as [number, number])
                 .setPopup(
@@ -37,7 +38,7 @@ export const BranchesComponent = () => {
             map.remove();
             mapRef.current = null;
         };
-    }, []);
+    }, [branch]);
 
     // Manejar clic en las tarjetas
     const handleBranchClick = (coordinates: [number, number]) => {
@@ -63,7 +64,7 @@ export const BranchesComponent = () => {
     {/* Tarjetas de sucursales */}
     <div className="lg:absolute lg:bottom-[-8rem] 2xl:bottom-[-7rem] lg:left-1/2 lg:transform lg:-translate-x-1/2 z-20 w-[100%]">
         <div className="lg:flex flex-wrap justify-center xl:py-4 xl:px-6 xl:space-x-4">
-            {branchesData.map((branch) => (
+            {branch.map((branch) => (
                 <div
                     key={branch.id}
                     onClick={() => handleBranchClick(branch.coordinates as [number, number])}

@@ -18,7 +18,7 @@ const router = useRouter();
             [name]: value
         })
 
-        console.log('valores del login: ', value);
+        //console.log('valores del login: ', value);
     };
 
     const handleBlur = (e:React.ChangeEvent<HTMLInputElement>) => {
