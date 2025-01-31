@@ -14,7 +14,7 @@ interface ModalApointmentsProps {
     isOpens: boolean;
     closeModal: () => void;
   }
-  
+  //
   export const CreateApointments: React.FC<ModalApointmentsProps> = ({ isOpens, closeModal}) => {
     const {
         form,
