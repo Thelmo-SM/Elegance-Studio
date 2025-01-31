@@ -2,8 +2,9 @@
 
 import Style from '@/styles/modal.apointments.module.css';
 import { SelectApointmets, OptionlApointmets,LabelApointmets, InputApointmets, ButtonSubmit } from './ui';
-import { barbers, beardStyles, haircutStyles, dyeHair } from './helpers/barbers';
-import { branchesData } from '@/services/branchesData';
+import { barbers } from './helpers/barbers';
+import useGetServices from './services/get.services';
+import { BranchesData } from '../../services/BranchesData';
 import { useFormAppointments } from './hooks/useForm.appointments';
 import { initialValue } from './helpers/initialValues';
 import { validateFormAppointments } from './helpers/validateForm.appointments';
@@ -23,6 +24,13 @@ interface ModalApointmentsProps {
         handleBlur,
         handleSubmit
     } = useFormAppointments(initialValue, validateFormAppointments);
+    const {    
+        haircut,
+        beard,
+        dye,
+    } = useGetServices()
+
+    const { branch } = BranchesData();
 
     return (
       <article className={`${Style.modal} ${isOpens && Style.isOpen}`}>
@@ -49,9 +57,9 @@ interface ModalApointmentsProps {
             onBlur={handleBlur}
             >
             <OptionlApointmets value="">Seleccionar</OptionlApointmets>
-            {branchesData.map((branch) => (
-                <OptionlApointmets key={branch.id} value={branch.id}>
-                {branch.name}
+            {branch.map((b) => (
+                <OptionlApointmets key={b.id}>
+                    {b.name}
                 </OptionlApointmets>
             ))}
             </SelectApointmets>
@@ -68,7 +76,7 @@ interface ModalApointmentsProps {
             onBlur={handleBlur}
             >
                 <OptionlApointmets value=''>Seleccionar</OptionlApointmets>
-                {haircutStyles.map((cut) => (
+                {haircut.map((cut) => (
                 <OptionlApointmets key={cut.id}>
                     {cut.name} - {cut.price}
                 </OptionlApointmets>
@@ -86,7 +94,7 @@ interface ModalApointmentsProps {
             onBlur={handleBlur}
             >
                 <OptionlApointmets value=''>Seleccionar</OptionlApointmets>
-                {beardStyles.map((beard) => (
+                {beard.map((beard) => (
                 <OptionlApointmets key={beard.id}>
                     {beard.name} - {beard.price}
                 </OptionlApointmets>
@@ -153,7 +161,7 @@ interface ModalApointmentsProps {
             onBlur={handleBlur}
             >
                 <OptionlApointmets>Seleccionar</OptionlApointmets>
-                {dyeHair.map((hair) => (
+                {dye.map((hair) => (
                 <OptionlApointmets key={hair.id}>
                     {hair.name}
                 </OptionlApointmets>

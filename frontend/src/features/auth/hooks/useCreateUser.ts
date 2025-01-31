@@ -9,9 +9,9 @@ const [form, setForm] = useState(initialForm);;
 const [errors, setErrors] = useState<FormErrors>({});
 const [loading, setLoading] = useState(false) 
 //console.log('capturas de datos: ', form);
-console.log('errores: ', errors)
+//console.log('errores: ', errors)
 if(!errors) {
-    console.log('no hay errores: ', errors)
+    ///console.log('no hay errores: ', errors)
 }
 
 
@@ -22,7 +22,7 @@ if(!errors) {
             ...form,
             [name]: value
         })
-        console.log('Valores capturados: ', form);
+        //console.log('Valores capturados: ', form);
     }
 
     const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +61,7 @@ if(!errors) {
 
           await createUserInDB(newUser as userData)
 
-          console.log("Usuario creado exitosamente: ", form);
+          //console.log("Usuario creado exitosamente: ", form);
           setLoading(true);
           return response;
         } catch (error) {
@@ -79,7 +79,7 @@ const createUserInDB = async (user: userData) => {
 
     await setDocument(path, user);
 
-    console.log("Usuario guardado correctamente sin contraseña.");
+    //console.log("Usuario guardado correctamente sin contraseña.");
   } catch (error) {
     console.error("Error al guardar usuario: ", error);
   }
