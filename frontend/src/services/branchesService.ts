@@ -1,13 +1,10 @@
-
-
 import { brachesTypes } from "@/types/branchesTypes";
 import { useState, useEffect } from "react";
 import {collection, getDocs} from 'firebase/firestore'
 import { db } from "@/utils/firebase";
 
 
-
-export const BranchesData = () => {
+export const BranchesService = () => {
     const [branch, setBrach] = useState<brachesTypes[]>([]);
 
 
