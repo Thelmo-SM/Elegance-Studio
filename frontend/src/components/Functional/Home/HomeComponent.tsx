@@ -66,7 +66,7 @@ export const HomeComponent = () => {
                 <button onClick={() => moveCarousel(-1)} className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full">❯</button>
             </div>
         </article>
-        <ServiceComponent />
+      <ServiceComponent />
         <ProductsComponent />
         <BranchesComponent />
         <PorqueNosotrosComponent />

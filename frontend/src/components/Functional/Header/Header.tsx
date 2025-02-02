@@ -38,7 +38,10 @@ export const Header = () => {
                 <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Home</Link>
                 {/*<Link href='/' className="text-p-basico mx-6 my-auto hover:text-btR">Tienda</Link>*/}
                 <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Nosotros</Link>
-                <Link href='/' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Citas</Link>
+                { auth.user ?
+                    <Link href='/appointments' className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Citas</Link>
+                    : ''
+                }
                {
                 auth.user === null ?
                 <Link href='/login' 

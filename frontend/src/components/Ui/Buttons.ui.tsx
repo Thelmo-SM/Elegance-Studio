@@ -4,7 +4,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     customClass?: string;
 };
 
-export const ButtonApointments = ({ children, customClass, ...props }: Props) => {
+/*export const ButtonApointments = ({ children, customClass, ...props }: Props) => {
     return (
         <button 
         {...props}
@@ -14,14 +14,26 @@ export const ButtonApointments = ({ children, customClass, ...props }: Props) =>
             {children}
         </button>
     );
-};
+};*/
 
-export const ButtonSubmit = ({ children, customClass, ...props }: Props) => {
+export const ButtonSubmitUi = ({ children, customClass, ...props }: Props) => {
     return (
         <button 
         {...props}
         className={`text-p-basico text-[2rem] bg-caja py-[1rem] px-8  mt-[1rem] w-[80%]
              ${customClass}`}
+        >
+            {children}
+        </button>
+    );
+};
+
+export const ButtonForm = ({ children, customClass, ...props }: Props) => {
+    return (
+        <button 
+        {...props}
+        {...props}
+        className={`lg:py-[1.5rem] py-[1rem] text-p-basico text-[2.2rem] md:py-[1rem] w-full h-[5rem] rounded-[.2rem] mt-auto ${customClass}`}
         >
             {children}
         </button>
