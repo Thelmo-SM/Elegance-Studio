@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import googleLogo from '../../../../public/Icons/google-logo-9834.png';
-import { InputForm, LabelForm, ButtonForm } from "../ui";
+import { LabelUi, InputUi, ButtonForm } from "@/components/Ui";
 import { useLogin } from "../hooks/useLogin";
 import { loginTypes } from "@/types/userTypes";
 import { validateLogin } from "../helpers/validateForm";
@@ -43,8 +43,8 @@ export const LoginClient = () => {
 
                 {/*Email*/}
                 <div className="my-2 flex flex-col w-full md:mr-[1rem]">
-                    <LabelForm>Correo electrónico</LabelForm>
-                    <InputForm 
+                    <LabelUi>Correo electrónico</LabelUi>
+                    <InputUi 
                     type="email"
                     name="email"
                     value={form.email}
@@ -57,8 +57,8 @@ export const LoginClient = () => {
 
                     {/*Password*/}
                     <div className="my-2 flex flex-col w-full md:ml-[1rem]">
-                    <LabelForm>Contraseña</LabelForm>
-                    <InputForm 
+                    <LabelUi>Contraseña</LabelUi>
+                    <InputUi 
                     type="password"
                     name="password"
                     value={form.password}

@@ -36,7 +36,7 @@ export const ServiceComponent = () => {
               style={{
                 backgroundImage: "url('/Landing/nuestroCompromiso-img-5.webp')",
             }}>
-                <h3 className="text-p-basico my-[1.8rem] text-[1.8rem] font-bold">Responsabilidad y Confianza</h3>
+                <h3 className="text-p-basico my-[1.8rem] text-[1.8rem] font-bold text-center">Responsabilidad y Confianza</h3>
                <p className="text-p-basico my-[1.8rem] text-[1.25rem] lg:w-[60%] text-center leading-10">Nos comprometemos a ser transparentes, cumplir con tus 
                 expectativas y garantizar que cada experiencia sea memorable y sin preocupaciones.</p>
               </div>
@@ -52,11 +52,6 @@ export const ServiceComponent = () => {
 
                     <p className="text-[1.1rem] mt-[1.1rem] mb-[3rem] leading-6">En Elegance Studio, estamos siempre actualizados con las últimas tendencias y técnicas para 
                         asegurarnos de que luzcas tu mejor versión.</p>
-
-                         <h3 className="text-[1.5rem] font-bold">Responsabilidad y Confianza</h3>
-
-                    <p className="text-[1.1rem] mt-[1.1rem] leading-6">Nos comprometemos a ser transparentes, cumplir con tus expectativas y garantizar que cada experiencia 
-                        sea memorable y sin preocupaciones</p>
                 </div>
                <Image src={img2} width={400} height={400} alt="Calidad Inigualable" loading="lazy"/>
                 {/*<Image src={img3} width={400} height={400} alt="Responsabilidad y Confianza" loading="lazy" />*/}

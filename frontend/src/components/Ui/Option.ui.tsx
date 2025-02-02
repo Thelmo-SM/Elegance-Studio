@@ -4,7 +4,7 @@ interface Props extends React.OptionHTMLAttributes<HTMLOptionElement> {
     customClass?: string;
 };
 
-export const OptionlApointmets = ({children, ...props}: Props) => {
+export const OptionlUi = ({children, ...props}: Props) => {
     return (
         <option 
         {...props}

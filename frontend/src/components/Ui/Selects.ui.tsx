@@ -4,7 +4,7 @@ interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
     customClass?: string;
 };
 
-export const SelectApointmets = ({children, ...props}: Props) => {
+export const SelectUi = ({children, ...props}: Props) => {
     return (
         <select 
         {...props}

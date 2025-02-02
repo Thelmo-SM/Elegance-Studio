@@ -3,7 +3,6 @@
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useEffect, useRef } from 'react';
-//import { BranchesData } from '@/services/BranchesData';
 import { BranchesService } from '@/services/branchesService';
 
 export const BranchesComponent = () => {

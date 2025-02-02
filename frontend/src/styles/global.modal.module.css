@@ -8,21 +8,46 @@
     background-color: #3b3b3b91;
     display: none;
     justify-content: center;
-    align-items: start;
+    align-items: center; /* Centra mejor el modal */
+    padding: 1rem;
 }
+
 .modal.isOpen {
     display: flex;
 }
+
 .modalContainer {
     position: relative;
     background-color: #a0a0a0;
-    min-width: 60%;
+    width: 90%;
     max-width: 60%;
-    height: 40rem;
-    height: 40rem;
-    padding: 2rem;
-    margin: 11em 0;
-    border-radius: .25rem;
+    height: auto; /* Ajusta la altura automáticamente */
+    max-height: 90vh; /* Evita que se salga en pantallas pequeñas */
+    padding: 4rem;
+    border-radius: 0.25rem;
+    overflow-y: auto; /* Permite desplazamiento si el contenido es muy largo */
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .modalContainer {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .modalContainer {
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .modalContainer {
+        width: 95%;
+        max-width: none;
+        padding: 1rem;
+    }
 }
 
 .modalClose {
@@ -30,8 +55,8 @@
     z-index: 10;
     top: 1rem;
     right: 1rem;
-    padding: 0 1rem;
-    border-radius: .2rem;
-    margin:  0 0 3rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
     background-color: #d9af71;
+    cursor: pointer;
 }

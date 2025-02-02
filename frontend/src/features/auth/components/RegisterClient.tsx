@@ -2,7 +2,7 @@
 
 import { useCreateUser } from "../hooks/useCreateUser";
 import Link from "next/link";
-import { InputForm, LabelForm, ButtonForm } from "../ui";
+import { ButtonForm, InputUi, LabelUi } from "@/components/Ui";
 import { userTypes } from "@/types/userTypes";
 import { velidateCreateUser } from "../helpers/validateForm";
 import Loading from "@/components/Ui/Loading/loading";
@@ -48,8 +48,8 @@ export const RegisterClient = () => {
 
                     {/*Name*/}
                     <div className=" my-2 flex flex-col">
-                        <LabelForm>Nombre</LabelForm>
-                        <InputForm
+                        <LabelUi>Nombre</LabelUi>
+                        <InputUi
                         name = 'name'
                         value={form.name}
                         onChange={handleChange}
@@ -60,8 +60,8 @@ export const RegisterClient = () => {
 
                     {/*Email*/}
                     <div className="md:my-2 flex flex-col">
-                        <LabelForm>Correo electrónico</LabelForm>
-                        <InputForm
+                        <LabelUi>Correo electrónico</LabelUi>
+                        <InputUi
                         type="email"
                         name = 'email'
                         value={form.email}
@@ -73,8 +73,8 @@ export const RegisterClient = () => {
 
                     {/*Password*/}
                     <div className="my-2 flex flex-col">
-                        <LabelForm>Contraseña</LabelForm>
-                        <InputForm 
+                        <LabelUi>Contraseña</LabelUi>
+                        <InputUi 
                         type="password"
                         name = 'password'
                         value={form.password}
@@ -86,8 +86,8 @@ export const RegisterClient = () => {
 
                     {/*Confirm Password*/}
                     <div className="my-2 flex flex-col">
-                        <LabelForm>Confirmar contraseña</LabelForm>
-                        <InputForm 
+                        <LabelUi>Confirmar contraseña</LabelUi>
+                        <InputUi 
                         type="password"
                         name = 'confirmPassword'
                         value={form.confirmPassword}
@@ -103,8 +103,8 @@ export const RegisterClient = () => {
                     <div className="flex flex-col w-full md:ml-4">
                     {/*last name*/}
                     <div className="my-2 flex flex-col">
-                        <LabelForm>Apellido</LabelForm>
-                        <InputForm 
+                        <LabelUi>Apellido</LabelUi>
+                        <InputUi 
                         name = 'lastName'
                         value={form.lastName}
                         onChange={handleChange}
@@ -115,8 +115,8 @@ export const RegisterClient = () => {
 
                     {/*Phone*/}
                     <div className="my-2 flex flex-col">
-                        <LabelForm>Teléfono</LabelForm>
-                        <InputForm 
+                        <LabelUi>Teléfono</LabelUi>
+                        <InputUi
                         name = 'phone'
                         value={form.phone}
                         onChange={handleChange}
