@@ -4,7 +4,7 @@ import Style from '@/styles/modal.apointments.module.css';
 import { SelectApointmets, OptionlApointmets,LabelApointmets, InputApointmets, ButtonSubmit } from './ui';
 import { barbers } from './helpers/barbers';
 import useGetServices from './services/get.services';
-import { BranchesData } from '@/services/BranchesData';
+import { BranchesService } from '@/services/branchesService';
 import { useFormAppointments } from './hooks/useForm.appointments';
 import { initialValue } from './helpers/initialValues';
 import { validateFormAppointments } from './helpers/validateForm.appointments';
@@ -30,7 +30,7 @@ interface ModalApointmentsProps {
         dye,
     } = useGetServices()
 
-    const { branch } = BranchesData();
+    const { branch } = BranchesService();
 
     return (
       <article className={`${Style.modal} ${isOpens && Style.isOpen}`}>
