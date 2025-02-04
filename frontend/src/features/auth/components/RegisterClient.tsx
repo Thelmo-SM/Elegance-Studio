@@ -4,7 +4,7 @@ import { useCreateUser } from "../hooks/useCreateUser";
 import Link from "next/link";
 import { ButtonForm, InputUi, LabelUi } from "@/components/Ui";
 import { userTypes } from "@/types/userTypes";
-import { velidateCreateUser } from "../helpers/validateForm";
+import { validateCreateUser } from "../helpers/validateForm";
 import Loading from "@/components/Ui/Loading/loading";
 
 
@@ -26,8 +26,7 @@ export const RegisterClient = () => {
         handleChange,
         handleBlur,
         handleSubmit
-    } = useCreateUser(initialValue, velidateCreateUser);
-
+    } = useCreateUser(initialValue, validateCreateUser);
     return (
         <article>
             <div className="bg-black h-[16rem] relative">

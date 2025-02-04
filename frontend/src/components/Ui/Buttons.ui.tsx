@@ -20,7 +20,7 @@ export const ButtonSubmitUi = ({ children, customClass, ...props }: Props) => {
     return (
         <button 
         {...props}
-        className={`text-p-basico text-[2rem] bg-caja py-[1rem] px-8  mt-[1rem] w-[80%]
+        className={`lg:py-[1.5rem] py-[1rem] text-p-basico text-[2.2rem] md:py-[1rem] w-[30%] h-[5rem] rounded-[.2rem] mt-auto bg-caja  mx-auto my-auto
              ${customClass}`}
         >
             {children}
