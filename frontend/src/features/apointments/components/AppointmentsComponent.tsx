@@ -1,7 +1,12 @@
+'use client';
 
+
+import AppointmentsForm from "./Appointments.form";
+import { useModalApointments } from "../hooks/Modal.apointments";
 
 
 export const AppointmentsComponent = () => {
+    const [isOpen, openModal, closeModal] = useModalApointments();
 
     return (
         <section>
@@ -13,6 +18,7 @@ export const AppointmentsComponent = () => {
                     nuestros servicios exclusivos. ¡Te esperamos!
                 </p>
                 <button
+                onClick={openModal}
                         className="shadow-sombra text-p-basico bg-btR py-3 px-8 rounded-[0.25rem] mt-[1rem] md:mt-[5rem] hover:bg-ct transition duration-[200ms] flex items-center justify-center mx-auto lg:mx-0"
                         >
                         Agenda tu cita
@@ -21,6 +27,7 @@ export const AppointmentsComponent = () => {
             </article>
             <article>
                 <p className="text-center pt-10">No tienes citas pendientes</p>
+                <AppointmentsForm isOpens={isOpen} closeModal={closeModal}/>
             </article>
         </section>
     )

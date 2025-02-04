@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, limit } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 
 // Definir la interfaz para un servicio
@@ -9,51 +9,68 @@ interface Service {
   price: number;
 }
 
-interface dyeType {
-    id: string;
-    name:string
+interface DyeType {
+  id: string;
+  name: string;
 }
 
 const useGetServices = () => {
   const [haircut, setHaircut] = useState<Service[]>([]);
   const [beard, setBeard] = useState<Service[]>([]);
-  const [dye, setDye] = useState<dyeType[]>([]);
+  const [dye, setDye] = useState<DyeType[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const getServices = async () => {
       try {
-        const haircutRef = collection(db, "haircut_styles");
-        const beardRef = collection(db, "beard_styles");
-        const dyeRef = collection(db, "dye_hair");
+        // Revisar si ya hay datos almacenados en localStorage
+        const cachedHaircut = localStorage.getItem("haircutStyles");
+        const cachedBeard = localStorage.getItem("beardStyles");
+        const cachedDye = localStorage.getItem("dyeHairStyles");
 
-        const [haircutShap, beardShap, dyeShap] = await Promise.all([
-          getDocs(haircutRef),
-          getDocs(beardRef),
-          getDocs(dyeRef),
-        ]);
+        if (cachedHaircut && cachedBeard && cachedDye) {
+          setHaircut(JSON.parse(cachedHaircut));
+          setBeard(JSON.parse(cachedBeard));
+          setDye(JSON.parse(cachedDye));
+        } else {
+          // Si no hay datos en caché, hacer la consulta a Firestore
+          const haircutRef = collection(db, "haircut_styles");
+          const beardRef = collection(db, "beard_styles");
+          const dyeRef = collection(db, "dye_hair");
 
-        setHaircut(
-          haircutShap.docs.map((doc) => ({
-            id: doc.id,
-            name: doc.data().name,
-            price: doc.data().price,
-          }))
-        );
+          const [haircutShap, beardShap, dyeShap] = await Promise.all([
+            getDocs(query(haircutRef, limit(10))), // Limitar resultados a 10
+            getDocs(query(beardRef, limit(10))),
+            getDocs(query(dyeRef, limit(10))),
+          ]);
 
-        setBeard(beardShap.docs.map((doc) => ({
-            id: doc.id,
-            name: doc.data().name,
-            price: doc.data().price
-        })));
+          // Mapear los resultados y establecer en el estado
+          const haircutData = haircutShap.docs.map((doc) => {
+            const { name, price } = doc.data();
+            return { id: doc.id, name, price };
+          });
+          const beardData = beardShap.docs.map((doc) => {
+            const { name, price } = doc.data();
+            return { id: doc.id, name, price };
+          });
+          const dyeData = dyeShap.docs.map((doc) => {
+            const { name } = doc.data();
+            return { id: doc.id, name };
+          });
 
-        setDye(dyeShap.docs.map((doc) => ({
-            id: doc.id,
-            name: doc.data().name
-        })));
+          // Establecer datos en el estado
+          setHaircut(haircutData);
+          setBeard(beardData);
+          setDye(dyeData);
 
-
+          // Guardar datos en localStorage para evitar nuevas consultas
+          localStorage.setItem("haircutStyles", JSON.stringify(haircutData));
+          localStorage.setItem("beardStyles", JSON.stringify(beardData));
+          localStorage.setItem("dyeHairStyles", JSON.stringify(dyeData));
+        }
       } catch (error) {
         console.error("Error fetching services:", error);
+        setError("Error fetching services.");
       }
     };
 
@@ -64,8 +81,8 @@ const useGetServices = () => {
     haircut,
     beard,
     dye,
+    error,
   };
 };
 
 export default useGetServices;
-

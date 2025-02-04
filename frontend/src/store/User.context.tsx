@@ -1,31 +1,47 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, User, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '@/utils/firebase'
 
+type MinimalUser = {
+  uid: string;
+  displayName?: string | null;
+  email?: string | null;
+  photoURL?: string | null;
+};
+
 type AuthContextType = {
-  user: User | null;
+  user: MinimalUser | null;
   loading: boolean;
   logout: () => Promise<void>
 };
 
+
 const AuthContext = createContext<AuthContextType>({ user: null, loading: true, logout: async() => {} });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<MinimalUser | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-
     // Escucha los cambios en el estado de autenticación
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        if (currentUser) {
+          setUser({
+            uid: currentUser.uid,
+            displayName: currentUser.displayName,
+            email: currentUser.email,
+            photoURL: currentUser.photoURL,
+          });
+        } else {
+          setUser(null);
+        }
+        setLoading(false);
+      });
+  
+      return () => unsubscribe();
+    }, []);
 
   const logout = async () => {
     try {

@@ -7,9 +7,9 @@ export const validateFormAppointments = (form:appointmentsTypes)=> {
         errors.branch = 'Este campo es obligatorio';
     }
 
-    if(!form.BeardTrimming.trim()) {
-        errors.BeardTrimming = 'Este campo es obligatorio';
-    }
+   // if(!form.BeardTrimming.trim()) {
+   //     errors.BeardTrimming = 'Este campo es obligatorio';
+   // }
 
     if(!form.barber.trim()) {
         errors.barber = 'Este campo es obligatorio';
@@ -19,9 +19,9 @@ export const validateFormAppointments = (form:appointmentsTypes)=> {
         errors.date = 'Este campo es obligatorio';
     }
 
-    if(!form.dyeHair.trim()) {
-        errors.dyeHair = 'Este campo es obligatorio';
-    }
+   // if(!form.dyeHair.trim()) {
+   //     errors.dyeHair = 'Este campo es obligatorio';
+   // }
 
     if(!form.haircut.trim()) {
         errors.haircut = 'Este campo es obligatorio';

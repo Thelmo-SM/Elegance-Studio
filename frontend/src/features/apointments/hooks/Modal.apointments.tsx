@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from "react";
 
 export const useModalApointments = (initialValue: boolean = false): [boolean, () => void, () => void] => {
