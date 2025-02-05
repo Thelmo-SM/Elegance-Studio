@@ -19,10 +19,9 @@ export default function AppointmentsForm({ isOpens, closeModal}: ModalApointment
     const {
         errors,
         form,
-        //handleBlur,
-        //handleChange,
         handleSubmit,
         loading,
+        resSuccess,
         register
     } = useFormAppointments(initialValue, validateFormAppointments);
     const { branch } = BranchesService()
@@ -31,11 +30,17 @@ export default function AppointmentsForm({ isOpens, closeModal}: ModalApointment
     // Definición de onSubmit si es necesario:
     const onSubmit = async (formData: typeof form) => {
         console.log("Formulario enviado:", formData);
+        setTimeout(() => closeModal(), 3000);
     };
 
     return (
         <article className={`${Style.modal} ${isOpens && Style.isOpen}`}>
         <div className={`${Style.modalContainer} flex flex-col items-center p-8`}>
+        { resSuccess && 
+        <h3 className="bg-green-600 text-p-basico w-[50%] rounded text-[1.8rem] text-center p-[2rem]">
+            ¡Cita agendada exitosamente!
+        </h3>
+    }
         <button 
         onClick={closeModal}
         className='bg-caja py-[.3rem] px-[1rem] text-[1.5rem] text-p-basico rounded-[.2rem] self-end'

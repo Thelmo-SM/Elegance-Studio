@@ -12,7 +12,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyCRWcMnQtv5urp7riwbsXY0JrzHM3HFluI",
   authDomain: "elegace-studio.firebaseapp.com",
   projectId: "elegace-studio",
-  storageBucket: "elegace-studio.firebasestorage.app",
+  storageBucket: "elegace-studio.appspot.com",
   messagingSenderId: "687197865464",
   appId: "1:687197865464:web:931057f325f46a4264820d"
 };
