@@ -10,6 +10,7 @@ export const useLogin = (
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState<loginErrors>({});
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); 
 
   const router = useRouter();
 
@@ -34,14 +35,19 @@ export const useLogin = (
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-
       setLoading(true);
       try {
         const response = await loginUser(form);
-        console.log("Enviando datos...", response);
-        router.push("/");
+        if (!response.success) {
+          //alert(response.message);
+          setErrorMessage(response.message ?? null);
+          setTimeout(() => setErrorMessage(null), 2500);
+        }  else {
+          router.push('/');
+        }
       } catch (error) {
-        console.error("Error en el login:", error);
+        // Verificar si el error es un FirebaseError
+      console.log(error)
       } finally {
         setLoading(false);
       }
@@ -53,6 +59,7 @@ export const useLogin = (
     form,
     errors,
     loading,
+    errorMessage,
     handleChange,
     handleBlur,
     handleSubmit,

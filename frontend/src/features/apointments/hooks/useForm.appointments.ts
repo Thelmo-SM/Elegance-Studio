@@ -11,6 +11,7 @@ export const useFormAppointments = (
   const [form, setForm] = useState(initialValue);
   const [errors, setErrors] = useState<Partial<appointmentsTypes>>({});
   const [loading, setLoading] = useState(false);
+  const [resSuccess, setResSuccess] = useState(false);
   const { user } = useAuth();
 
   const handleChange = (
@@ -43,9 +44,14 @@ export const useFormAppointments = (
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
+    const error = validateValue(form);
+    setErrors(error);
     e.preventDefault();
-    if(!form) {
-      alert('Los campos deben de estar llenos antes de enviar')
+
+    if (Object.keys(error).length > 0) {
+      console.log("Errores en el formulario:", error);
+      alert('Hay errores')
+      return;
     }
 
     const appointmentData = {
@@ -58,24 +64,37 @@ export const useFormAppointments = (
      // dyeHair: form.dyeHair,
       userId: user?.uid,
     };
-
     try {
+
       setLoading(true);
       const response = await createAppointment(appointmentData);
-      alert('Reserva exitosa');
+      //setTimeout(() => {
+        setResSuccess(true);
+      //}, 5000)
       console.log(response);
-      // Aquí podrías reiniciar el formulario o notificar al usuario
+      //setForm(initialValue);
+      //closeModal();
     } catch (error) {
+      if (error === 'auth/invalid-credential') {
+        alert('Las credenciales proporcionadas no son válidas. Verifica tus datos e inténtalo de nuevo.');
+      } else {
+        alert('Ocurrió un error inesperado, por favor inténtalo más tarde.');
+      }
       console.log("Error al enviar los datos:", error);
     } finally {
       setLoading(false);
+            setTimeout(() => {
+              setResSuccess(false);
+              }, 2000)
     }
+
   };
 
   return {
     form,
     errors,
     loading,
+    resSuccess,
     handleChange,
     handleBlur,
     handleSubmit,
