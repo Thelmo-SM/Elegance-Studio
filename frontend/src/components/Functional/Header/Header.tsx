@@ -16,7 +16,6 @@ export const Header = () => {
     const auth = useAuth();
     const menuRef = useRef<HTMLDivElement | null>(null);
 
-    // Función para alternar el estado del menú
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
