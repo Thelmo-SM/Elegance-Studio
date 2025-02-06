@@ -9,12 +9,12 @@ import { userData } from "@/types/userTypes";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCRWcMnQtv5urp7riwbsXY0JrzHM3HFluI",
-  authDomain: "elegace-studio.firebaseapp.com",
-  projectId: "elegace-studio",
-  storageBucket: "elegace-studio.appspot.com",
-  messagingSenderId: "687197865464",
-  appId: "1:687197865464:web:931057f325f46a4264820d"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
@@ -29,3 +29,33 @@ export const db = getFirestore(app);
 export const setDocument = (path: string, data: userData) => {
   return setDoc(doc(db, path), data);
 }
+
+/*
+email
+"sdf@gm.vom"
+(cadena)
+
+
+lastName
+"tuh"
+(cadena)
+
+
+name
+"ret"
+(cadena)
+
+
+phone
+"53456346346"
+(cadena)
+
+
+role
+"client"
+(cadena)
+
+
+uid
+"uoizFIPVaZbYPuyevRDKDviuMri1"
+*/

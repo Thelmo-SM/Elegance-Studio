@@ -18,6 +18,7 @@ export type userData = {
   email: string;
   phone: string;
   createdAt: Timestamp
+  role: string
 }
 export type ServiceFormFunction = (email: string, password: string, formData: userData) => Promise<{ success: boolean; user: userData; error?: unknown }>;
 

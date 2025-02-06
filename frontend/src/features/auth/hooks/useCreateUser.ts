@@ -36,7 +36,10 @@ export const useCreateUser = (
     const path = `users/${user.uid}`;
 
     try {
-      await setDocument(path, user);
+      await setDocument(path, { 
+        ...user, 
+        role: "client"
+    });
     } catch (error) {
       console.error("Error al guardar usuario: ", error);
     }
@@ -65,7 +68,7 @@ export const useCreateUser = (
         const { password, confirmPassword, ...newUser } = form;
         console.log(password, confirmPassword)
 
-        await createUserInDB(newUser as userData);
+        await createUserInDB({...newUser, role: 'client'} as userData);
 
         return response;
       } catch (error) {
