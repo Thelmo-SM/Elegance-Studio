@@ -28,4 +28,4 @@ export const db = getFirestore(app);
 //Data Base Function
 export const setDocument = (path: string, data: userData) => {
   return setDoc(doc(db, path), data);
-}
+};
