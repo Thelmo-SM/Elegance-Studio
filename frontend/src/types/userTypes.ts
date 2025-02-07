@@ -10,6 +10,16 @@ export type userTypes = {
     phone: string;
 };
 
+export type users = {
+  name: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phone: string;
+  role: string
+};
+
 //usuario DB
 export type userData = {
   uid: string
