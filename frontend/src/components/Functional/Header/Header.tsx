@@ -89,38 +89,38 @@ export const Header = () => {
                 )}
 
                 {isMenuNavOpen && (
-                    <div ref={menuRef} className="absolute right-0 bottom-[-3.5rem] mt-2 w-48 bg-btR text-gray-800 shadow-lg">
-                        <ul>
-                            <li>
-                                <button
+                    <div ref={menuRef} className=" absolute right-0 bottom-[-7.5rem] mt-2 w-48 bg-btR text-gray-800 shadow-lg">
+                        <ul className="">
+                            <li className="my-[1.3rem]">
+                                <Link href=''
                                     onClick={() => {
-                                        setIsMenuNavOpen(false); // Cierra el menú al hacer clic en "Perfil"
+                                       // Cierra el menú al hacer clic en "Perfil" w-full text-left p-2 hover:bg-caja hover:text-p-basico
                                     }}
-                                    className="w-full text-left p-2 hover:bg-caja hover:text-p-basico"
+                                    className=" w-full text-left p-2 hover:bg-caja hover:text-p-basico"
                                 >
                                     Perfil
-                                </button>
+                                </Link>
                             </li>
-                            <li>
-                            <button
+                            <li className="my-[1.3rem]">
+                            <Link href='dashboard'
                                     onClick={() => {
                                         setIsMenuNavOpen(false); // Cierra el menú al hacer clic en "Perfil"
                                     }}
-                                    className="w-full text-left p-2 hover:bg-caja hover:text-p-basico"
+                                    className=" w-full text-left p-2 hover:bg-caja hover:text-p-basico"
                                 >
                                     Dashboard
-                                </button>
+                                </Link>
                             </li>
-                            <li>
-                                <button
+                            <li className="my-[1.3rem]">
+                                <Link href='/login'
                                     onClick={() => {
                                         auth.logout();
                                         setIsMenuNavOpen(false); // Cierra el menú al hacer logout
                                     }}
-                                    className="w-full text-left p-2 hover:bg-caja hover:text-p-basico"
+                                    className=" w-full text-left p-2 hover:bg-caja hover:text-p-basico"
                                 >
                                     Cerrar sesión
-                                </button>
+                                </Link>
                             </li>
                         </ul>
                     </div>
