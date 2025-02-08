@@ -18,7 +18,8 @@ export default {
         'caja2': '#717273',
         'error': '#ff3131',
         'caja3': '#545454',
-        'desabilited': '#8d8c8c'
+        'desabilited': '#8d8c8c',
+        'buscador': '#222222'
       },
       boxShadow: {
         'left-right': '-10px 0px .3rem rgba(0, 0, 0, 0.5), 10px 0px .5rem rgba(0, 0, 0, 0.5)',
