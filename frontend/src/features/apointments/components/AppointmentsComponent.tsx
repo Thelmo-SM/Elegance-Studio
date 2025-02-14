@@ -8,6 +8,7 @@ import { useModalApointments } from "../hooks/Modal.apointments";
 export const AppointmentsComponent = () => {
     const [isOpen, openModal, closeModal] = useModalApointments();
 
+
     return (
         <section>
             <article className="h-[30rem] relative w-full bg-[url('/portada-citas.webp')] bg-cover bg-center">

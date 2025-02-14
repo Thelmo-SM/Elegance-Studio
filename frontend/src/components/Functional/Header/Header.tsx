@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import menuImg from '../../../../public/Icons/lista.svg'
+import menuImg from '../../../../public/Icons/lista.svg';
 import Style from '../../../styles/Landing.module.css';
 import { useState, useEffect, useRef } from "react";
 import { useAuth } from "@/store/User.context";
@@ -23,19 +23,16 @@ export const Header = () => {
     // Cerrar el menú cuando se hace clic fuera de él
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            // Cerrar el menú solo si el menú está abierto y se hace clic fuera de él
             if (menuOpen && menuRef.current && !menuRef.current.contains(event.target as Node)) {
-                setMenuOpen(false); // Cerrar el menú móvil
-                setIsMenuNavOpen(false); // Cerrar el menú de navegación
+                setMenuOpen(false);
+                setIsMenuNavOpen(false);
             }
         };
 
-        // Solo añadir el evento si el menú está abierto
         if (menuOpen) {
             document.addEventListener("mousedown", handleClickOutside);
         }
 
-        // Limpiar el evento al desmontar
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
@@ -43,8 +40,14 @@ export const Header = () => {
 
     // Función para cerrar el menú al hacer clic en un enlace
     const handleLinkClick = () => {
-        setMenuOpen(false); // Cerrar el menú en dispositivos móviles
-        setIsMenuNavOpen(false); // Cerrar el menú desplegable
+        setMenuOpen(false);
+        setIsMenuNavOpen(false);
+    };
+
+    // Función para manejar el logout en el menú
+    const handleLogout = async () => {
+        await auth.logout();
+        setIsMenuNavOpen(false);
     };
 
     return (
@@ -61,9 +64,7 @@ export const Header = () => {
             </button>
 
             <nav
-                className={`${
-                    menuOpen ? "block" : "hidden"
-                } lg:flex flex flex-col lg:flex-row items-center justify-center w-full lg:w-auto py-4 lg:py-0 lg:mr-10 transition-all duration-300`}
+                className={`${menuOpen ? "block" : "hidden"} lg:flex flex flex-col lg:flex-row items-center justify-center w-full lg:w-auto py-4 lg:py-0 lg:mr-10 transition-all duration-300`}
             >
                 <Link href='/' onClick={handleLinkClick} className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Home</Link>
                 <Link href='/' onClick={handleLinkClick} className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Nosotros</Link>
@@ -82,9 +83,9 @@ export const Header = () => {
                     <button
                         className="text-[1.3rem] lg:text-[1rem] text-p-basico mx-6 my-auto bg-btR p-1 px-4 rounded-[0.25rem] hover:bg-ct transition duration-[200ms]"
                         onClick={() => setIsMenuNavOpen(!isMenuNavOpen)} // Alterna el menú de navegación
-                        >
+                    >
                         {auth.user?.role === 'admin' && <Image src={AdminIcon} width={40} height={40} alt="Administrador" className="bg-btR rounded-[10%]" />}
-                        {auth.user.role === 'client' && <Image src={UserIcon} width={40} height={40} alt="Administrador" className="bg-btR rounded-[10%]" />}
+                        {auth.user.role !== 'admin' && <Image src={UserIcon} width={40} height={40} alt="Administrador" className="bg-btR rounded-[10%]" />}
                     </button>
                 )}
 
@@ -92,9 +93,9 @@ export const Header = () => {
                     <div ref={menuRef} className=" absolute right-0 bottom-[-7.5rem] mt-2 w-48 bg-btR text-gray-800 shadow-lg">
                         <ul className="">
                             <li className="my-[1.3rem]">
-                                <Link href=''
+                                <Link href='/profile'
                                     onClick={() => {
-                                       // Cierra el menú al hacer clic en "Perfil" w-full text-left p-2 hover:bg-caja hover:text-p-basico
+                                        setIsMenuNavOpen(false)
                                     }}
                                     className=" w-full text-left p-2 hover:bg-caja hover:text-p-basico"
                                 >
@@ -102,9 +103,9 @@ export const Header = () => {
                                 </Link>
                             </li>
                             <li className="my-[1.3rem]">
-                            <Link href='dashboard'
+                                <Link href='/dashboard'
                                     onClick={() => {
-                                        setIsMenuNavOpen(false); // Cierra el menú al hacer clic en "Perfil"
+                                        setIsMenuNavOpen(false)
                                     }}
                                     className=" w-full text-left p-2 hover:bg-caja hover:text-p-basico"
                                 >
@@ -112,15 +113,12 @@ export const Header = () => {
                                 </Link>
                             </li>
                             <li className="my-[1.3rem]">
-                                <Link href='/login'
-                                    onClick={() => {
-                                        auth.logout();
-                                        setIsMenuNavOpen(false); // Cierra el menú al hacer logout
-                                    }}
+                                <button
+                                    onClick={handleLogout}
                                     className=" w-full text-left p-2 hover:bg-caja hover:text-p-basico"
                                 >
                                     Cerrar sesión
-                                </Link>
+                                </button>
                             </li>
                         </ul>
                     </div>

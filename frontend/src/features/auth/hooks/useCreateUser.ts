@@ -38,7 +38,9 @@ export const useCreateUser = (
     try {
       await setDocument(path, { 
         ...user, 
-        role: "client"
+        role: "client",
+        location: "",
+        dni: ""
     });
     } catch (error) {
       console.error("Error al guardar usuario: ", error);

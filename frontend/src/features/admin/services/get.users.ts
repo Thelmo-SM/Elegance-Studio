@@ -8,16 +8,18 @@ export const getUsers = async (): Promise<userData[]> => {
         const snapshot = await getDocs(usersCollection);
 
         const users: userData[] = snapshot.docs.map(doc => {
-            const data = doc.data(); // 👀 Aquí `data` es `any`
+            const data = doc.data();
             
             return {
-                uid: doc.id, // 🔹 Cambia `id` por `uid` para coincidir con `userData`
+                uid: doc.id,
                 name: data.name || "", 
                 lastName: data.lastName || "", 
                 email: data.email || "",
                 phone: data.phone || "",
-                createdAt: data.createdAt, // Si `createdAt` es un `Timestamp`, deberíamos manejarlo
-                role: data.role || "client", // Valor por defecto en caso de que no esté en la BD
+                createdAt: data.createdAt,
+                role: data.role || "client",
+                dni: data.dni || "",
+                location: data.location || ''
             };
         });
 
