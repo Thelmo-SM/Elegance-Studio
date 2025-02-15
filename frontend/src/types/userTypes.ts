@@ -29,10 +29,18 @@ export type userData = {
   phone: string;
   createdAt: Timestamp
   role: string
+  location: string
+  dni: string
 }
 export type ServiceFormFunction = (email: string, password: string, formData: userData) => Promise<{ success: boolean; user: userData; error?: unknown }>;
 
-
+export type barberTypes = {
+  location: string
+  dni: string
+}
+export type ServiceBarberFunction = {
+  [key in keyof barberTypes]?: string
+}
 //validate users from
 export type FormErrors = {
     [key in keyof userTypes]?: string;

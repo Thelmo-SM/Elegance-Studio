@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { loginTypes, loginErrors } from "@/types/userTypes";
 import { loginUser } from "../services/loginUser";
 import { useRouter } from "next/navigation";
+import { FirebaseError } from "firebase/app"; // Asegúrate de importar esto
 
 export const useLogin = (
   initialForm: loginTypes,
@@ -10,7 +11,7 @@ export const useLogin = (
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState<loginErrors>({});
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -38,16 +39,25 @@ export const useLogin = (
       setLoading(true);
       try {
         const response = await loginUser(form);
+
         if (!response.success) {
-          //alert(response.message);
+          // Mostrar mensaje de error si la respuesta es negativa
           setErrorMessage(response.message ?? null);
           setTimeout(() => setErrorMessage(null), 2500);
-        }  else {
-          router.push('/');
+        } else {
+          // Limpiar errores si el login es exitoso
+          setErrors({});
+          router.push("/dashboard");
         }
       } catch (error) {
-        // Verificar si el error es un FirebaseError
-      console.log(error)
+        // Manejo de errores Firebase
+        if (error instanceof FirebaseError) {
+          console.error("Error de Firebase:", error.message);
+          setErrorMessage("Hubo un error al iniciar sesión. Intenta de nuevo.");
+        } else {
+          console.error("Error desconocido:", error);
+          setErrorMessage("Ocurrió un error inesperado.");
+        }
       } finally {
         setLoading(false);
       }
