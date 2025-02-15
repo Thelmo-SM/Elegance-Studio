@@ -1,8 +1,14 @@
-// hooks/useForm.appointments.ts
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { appointmentsTypes, validateValueType } from "@/types/appointmentsTypes";
 import { createAppointment } from "../services/create.appointments";
+import { getBarbers } from "@/features/barbers/services/get.barbers";
 import { useAuth } from "@/store/User.context";
+
+export type barbersTypes = {
+  id: string;
+  name: string;
+  location: string;
+};
 
 export const useFormAppointments = (
   initialValue: appointmentsTypes,
@@ -12,22 +18,28 @@ export const useFormAppointments = (
   const [errors, setErrors] = useState<Partial<appointmentsTypes>>({});
   const [loading, setLoading] = useState(false);
   const [resSuccess, setResSuccess] = useState(false);
+  const [barbers, setBarbers] = useState<barbersTypes[]>([]);
+  const [filteredBarbers, setFilteredBarbers] = useState<barbersTypes[]>([]);
   const { user } = useAuth();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
-  ) => {
+  useEffect(() => {
+    const fetchBarbers = async () => {
+      const data = await getBarbers();
+      setBarbers(data); // Guarda todos los barberos en el estado
+    };
+
+    fetchBarbers();
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
       [name]: value,
     }));
-    console.log("Valor del campo actualizado:", { [name]: value });
   };
 
-  const handleBlur = (
-    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
-  ) => {
+  const handleBlur = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
     const validationErrors = validateValue({ ...form, [name]: value });
     setErrors((prevErrors) => ({
@@ -44,50 +56,32 @@ export const useFormAppointments = (
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const error = validateValue(form);
     setErrors(error);
-    e.preventDefault();
 
     if (Object.keys(error).length > 0) {
-      console.log("Errores en el formulario:", error);
-      alert('Hay errores')
+      alert("Hay errores en el formulario");
       return;
     }
 
     const appointmentData = {
-      branch: form.branch,
-      haircut: form.haircut,
-      //BeardTrimming: form.BeardTrimming,
-      date: form.date,
-      hour: form.hour,
-      barber: form.barber,
-     // dyeHair: form.dyeHair,
+      ...form,
       userId: user?.uid,
     };
-    try {
 
+    try {
       setLoading(true);
       const response = await createAppointment(appointmentData);
-      //setTimeout(() => {
-        setResSuccess(true);
-      //}, 5000)
+      setResSuccess(true);
       console.log(response);
-      //setForm(initialValue);
-      //closeModal();
     } catch (error) {
-      if (error === 'auth/invalid-credential') {
-        alert('Las credenciales proporcionadas no son válidas. Verifica tus datos e inténtalo de nuevo.');
-      } else {
-        alert('Ocurrió un error inesperado, por favor inténtalo más tarde.');
-      }
+      alert("Ocurrió un error inesperado, por favor inténtalo más tarde.");
       console.log("Error al enviar los datos:", error);
     } finally {
       setLoading(false);
-            setTimeout(() => {
-              setResSuccess(false);
-              }, 2000)
+      setTimeout(() => setResSuccess(false), 2000);
     }
-
   };
 
   return {
@@ -95,9 +89,13 @@ export const useFormAppointments = (
     errors,
     loading,
     resSuccess,
+    barbers,
+    filteredBarbers,
     handleChange,
     handleBlur,
     handleSubmit,
-    register, // Agregamos register para usarlo en el formulario
+    setForm,
+    setFilteredBarbers,
+    register,
   };
 };

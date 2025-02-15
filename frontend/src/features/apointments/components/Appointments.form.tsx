@@ -5,10 +5,11 @@ import { initialValue } from "../helpers/initialValues";
 import { validateFormAppointments } from "../helpers/validateForm.appointments";
 import Style from '@/styles/modal.apointments.module.css';
 import {ButtonSubmitUi, InputUi, LabelUi, OptionlUi, SelectUi} from '@/components/Ui';
-import { barbers } from "../helpers/barbers";
+//import { barbers } from "../helpers/barbers";
 import { BranchesService } from "@/services/branchesService";
 import useGetServices from "../services/get.services";
 import Loading from "@/components/Ui/Loading/loading";
+import { useEffect } from "react";
 
 interface ModalApointmentsProps {
     isOpens: boolean;
@@ -19,13 +20,23 @@ export default function AppointmentsForm({ isOpens, closeModal}: ModalApointment
     const {
         errors,
         form,
-        handleSubmit,
+        barbers,
         loading,
         resSuccess,
-        register
+        filteredBarbers,
+        handleSubmit,
+        register,
+        setFilteredBarbers
     } = useFormAppointments(initialValue, validateFormAppointments);
     const { branch } = BranchesService()
-    const {haircut} = useGetServices();
+    const { haircut } = useGetServices();
+
+    useEffect(() => {
+        if (form.branch) {
+            const filtered = barbers.filter((barber) => barber.location === form.branch);
+            setFilteredBarbers(filtered);
+        }
+    }, [form.branch, barbers]);
 
     // Definición de onSubmit si es necesario:
     const onSubmit = async (formData: typeof form) => {
@@ -56,7 +67,7 @@ export default function AppointmentsForm({ isOpens, closeModal}: ModalApointment
     <SelectUi {...register('branch')} className="p-2 border rounded-md">
                             <OptionlUi value="">Selecciona una sucursal</OptionlUi>
                             {branch.map((branch) => (
-                                <OptionlUi key={branch.id} value={branch.id}>
+                                <OptionlUi key={branch.id} value={branch.name}>
                                     {branch.name}
                                 </OptionlUi>
                             ))}
@@ -92,13 +103,17 @@ export default function AppointmentsForm({ isOpens, closeModal}: ModalApointment
     <div className="flex flex-col">
                         <LabelUi>Barbero</LabelUi>
                         <SelectUi {...register('barber')} className="p-2 border rounded-md">
-                            <OptionlUi value="">Selecciona un barbero</OptionlUi>
-                            {barbers.map((barber) => (
-                                <OptionlUi key={barber.id} value={barber.id}>
-                                    {barber.name}
-                                </OptionlUi>
-                            ))}
-                        </SelectUi>
+  <OptionlUi value="">Selecciona un barbero</OptionlUi>
+  {filteredBarbers.length > 0 ? (
+    filteredBarbers.map((barber) => (
+      <OptionlUi key={barber.id} value={barber.id}>
+        {barber.name}
+      </OptionlUi>
+    ))
+  ) : (
+    <OptionlUi disabled>No hay barberos disponibles</OptionlUi>
+  )}
+</SelectUi>
                         {errors.barber && <p className='bg-red-600 text-p-basico w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.barber}</p>}
                     </div>
 
