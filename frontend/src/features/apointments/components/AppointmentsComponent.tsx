@@ -8,18 +8,30 @@ import { appointmentsTypes } from "@/types/appointmentsTypes";
 import DetailsAppointmets from "./Details.appointments";
 import { getAppointmentsForUser } from "../services/get.appointments";
 import { useAuth } from "@/store/User.context";
+import { getBarbers } from "@/features/barbers/services/get.barbers";
+import { barbersTypes } from "../hooks/useForm.appointments";
 
 export const AppointmentsComponent = () => {
   const [isOpen, openModal, closeModal] = useModalApointments();
   const [appointments, setAppointments] = useState<appointmentsTypes[]>([]);
+  const [barber, setBarber] = useState<barbersTypes[]>([]);
   const {user} = useAuth();
 
 
   const handleCreateAppointment = (newAppointment: appointmentsTypes) => {
+    // Validar que no haya campos vacíos
+    if (!newAppointment.branch || !newAppointment.date || !newAppointment.haircut || !newAppointment.hour || !newAppointment.barber) {
+      return; // No actualiza el estado si faltan datos
+    }
+    const appointmentWithStatusAndDate = {
+      ...newAppointment,
+      status: 'Pendiente',  // O el estado que desees asignar
+      createdAt: new Date().toLocaleDateString() // Fecha de creación
+    };
+  
     setAppointments((prevAppointments) => {
-      const updatedAppointments = [...prevAppointments, newAppointment];
+      const updatedAppointments = [...prevAppointments, appointmentWithStatusAndDate];
       localStorage.setItem("appointments", JSON.stringify(updatedAppointments));
-
       return updatedAppointments;
     });
   };
@@ -36,8 +48,33 @@ export const AppointmentsComponent = () => {
   
     getAppointmets();
   }, [user]);
+
+  useEffect(() => {
+    const fetchBarbers = async () => {
+      const data = await getBarbers();
+      setBarber(data);
+    };
+
+    fetchBarbers();
+  }, []);
+
+  //Fecha de realización
+  const formatDate = (isoDate: string | undefined) => {
+    const date = isoDate ? new Date(isoDate) : null;
   
-  console.log('Contenido de la citas', appointments)
+    if (!date || isNaN(date.getTime())) {
+      return 'Fecha no disponible';
+    }
+  
+    return date.toLocaleDateString('es-DO', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+  };
 
   return (
     <section>
@@ -58,21 +95,39 @@ export const AppointmentsComponent = () => {
           </button>
         </div>
       </article>
-      <article>
-        {/* El formulario de citas recibe el handleCreateAppointment */}
-        {appointments.map((appointme) => (
-          <div key={`${appointme.id} || ${appointme.branch}`}>
+      <article className="w-[90%] flex flex-col items-center mx-auto pb-20">
+        <h2 className="mt-5 self-start text-[2rem] font-bold">Mis citas</h2>
+
+      
+      <div className="flex flex-wrap justify-between gap-6 mx-auto">
+      {/* El formulario de citas recibe el handleCreateAppointment */}
+      {appointments.length === 0 ? (
+      <p className="text-[1.8rem]">No tienes citas pendientes</p>
+      ) : (
+      appointments.map((appointment, index) => {
+      // Buscar el barbero correspondiente
+      const barberData = barber.find(b => b.id === appointment.barber);
+
+      return (
+      <div key={`${appointment.id} || ${index}`} 
+      className="p-2 
+                  sm:w-full md:w-[48%] lg:w-[30%] mt-[1rem] bg-buscador rounded-sm shadow-sombra"
+      >
+        <p className="text-p-basico font-bold text-[1.2rem] pb-[1rem]">¡Cita agendada!</p>
         <DetailsAppointmets 
-        barber={appointme.barber}
-        branch={appointme.branch}
-        date={appointme.date}
-        haircut={appointme.haircut}
-        hour={appointme.hour}
-        status={appointme.status}
-        createdAt={appointme.createdAt}
+          barber={barberData ? barberData.name : "Barbero no encontrado"}
+          branch={appointment.branch}
+          date={appointment.date}
+          haircut={appointment.haircut}
+          hour={appointment.hour}
+          status={appointment.status}
+          createdAt={appointment.createdAt ? formatDate(appointment.createdAt): 'Fecha no disponible'}
         />
-        </div>
-        ))}
+      </div>
+          );
+        })
+      )}
+      </div>
         <AppointmentsForm isOpens={isOpen} closeModal={closeModal} onCreate={handleCreateAppointment} />
       </article>
     </section>

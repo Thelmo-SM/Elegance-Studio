@@ -24,6 +24,7 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
         barbers,
         loading,
         resSuccess,
+        resError,
         filteredBarbers,
         handleSubmit,
         register,
@@ -50,6 +51,11 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
         { resSuccess && 
         <h3 className="bg-green-600 text-p-basico w-[50%] rounded text-[1.8rem] text-center p-[2rem]">
             ¡Cita agendada exitosamente!
+        </h3>
+    }
+    { resError && 
+        <h3 className="bg-red-600 text-p-basico w-[50%] rounded text-[1.8rem] text-center p-[2rem]">
+            Error al registrar cita
         </h3>
     }
         <button 
