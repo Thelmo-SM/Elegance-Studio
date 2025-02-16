@@ -5,24 +5,26 @@ import { initialValue } from "../helpers/initialValues";
 import { validateFormAppointments } from "../helpers/validateForm.appointments";
 import Style from '@/styles/modal.apointments.module.css';
 import {ButtonSubmitUi, InputUi, LabelUi, OptionlUi, SelectUi} from '@/components/Ui';
-//import { barbers } from "../helpers/barbers";
 import { BranchesService } from "@/services/branchesService";
 import useGetServices from "../services/get.services";
 import Loading from "@/components/Ui/Loading/loading";
 import { useEffect } from "react";
+import { appointmentsTypes } from "@/types/appointmentsTypes";
 
 interface ModalApointmentsProps {
     isOpens: boolean;
     closeModal: () => void;
+    onCreate: (newAppointment: appointmentsTypes) => void;
   }
 
-export default function AppointmentsForm({ isOpens, closeModal}: ModalApointmentsProps) {
+export default function AppointmentsForm({ isOpens, closeModal, onCreate}: ModalApointmentsProps) {
     const {
         errors,
         form,
         barbers,
         loading,
         resSuccess,
+        resError,
         filteredBarbers,
         handleSubmit,
         register,
@@ -38,11 +40,10 @@ export default function AppointmentsForm({ isOpens, closeModal}: ModalApointment
         }
     }, [form.branch, barbers]);
 
-    // Definición de onSubmit si es necesario:
     const onSubmit = async (formData: typeof form) => {
-        console.log("Formulario enviado:", formData);
+        onCreate(formData);
         setTimeout(() => closeModal(), 3000);
-    };
+      };
 
     return (
         <article className={`${Style.modal} ${isOpens && Style.isOpen}`}>
@@ -50,6 +51,11 @@ export default function AppointmentsForm({ isOpens, closeModal}: ModalApointment
         { resSuccess && 
         <h3 className="bg-green-600 text-p-basico w-[50%] rounded text-[1.8rem] text-center p-[2rem]">
             ¡Cita agendada exitosamente!
+        </h3>
+    }
+    { resError && 
+        <h3 className="bg-red-600 text-p-basico w-[50%] rounded text-[1.8rem] text-center p-[2rem]">
+            Error al registrar cita
         </h3>
     }
         <button 
@@ -80,7 +86,7 @@ export default function AppointmentsForm({ isOpens, closeModal}: ModalApointment
         <SelectUi {...register('haircut')} className="p-2 border rounded-md">
                             <OptionlUi value="">Selecciona una sucursal</OptionlUi>
                             {haircut.map((haircut) => (
-                                <OptionlUi key={haircut.id} value={haircut.id}>
+                                <OptionlUi key={haircut.id} value={haircut.name}>
                                     {haircut.name}
                                 </OptionlUi>
                             ))}
@@ -103,17 +109,17 @@ export default function AppointmentsForm({ isOpens, closeModal}: ModalApointment
     <div className="flex flex-col">
                         <LabelUi>Barbero</LabelUi>
                         <SelectUi {...register('barber')} className="p-2 border rounded-md">
-  <OptionlUi value="">Selecciona un barbero</OptionlUi>
-  {filteredBarbers.length > 0 ? (
-    filteredBarbers.map((barber) => (
-      <OptionlUi key={barber.id} value={barber.id}>
-        {barber.name}
-      </OptionlUi>
-    ))
-  ) : (
-    <OptionlUi disabled>No hay barberos disponibles</OptionlUi>
-  )}
-</SelectUi>
+                            <OptionlUi value="">Selecciona un barbero</OptionlUi>
+                            {filteredBarbers.length > 0 ? (
+                              filteredBarbers.map((barber) => (
+                                <OptionlUi key={barber.id} value={barber.id}>
+                                  {barber.name}
+                                </OptionlUi>
+                              ))
+                             ) : (
+                               <OptionlUi disabled>No hay barberos disponibles</OptionlUi>
+                             )}
+                            </SelectUi>
                         {errors.barber && <p className='bg-red-600 text-p-basico w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.barber}</p>}
                     </div>
 

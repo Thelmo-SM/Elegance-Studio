@@ -4,6 +4,7 @@ import { createAppointment } from "../services/create.appointments";
 import { getBarbers } from "@/features/barbers/services/get.barbers";
 import { useAuth } from "@/store/User.context";
 
+
 export type barbersTypes = {
   id: string;
   name: string;
@@ -18,6 +19,7 @@ export const useFormAppointments = (
   const [errors, setErrors] = useState<Partial<appointmentsTypes>>({});
   const [loading, setLoading] = useState(false);
   const [resSuccess, setResSuccess] = useState(false);
+  const [resError, setResError] = useState(false);
   const [barbers, setBarbers] = useState<barbersTypes[]>([]);
   const [filteredBarbers, setFilteredBarbers] = useState<barbersTypes[]>([]);
   const { user } = useAuth();
@@ -25,12 +27,12 @@ export const useFormAppointments = (
   useEffect(() => {
     const fetchBarbers = async () => {
       const data = await getBarbers();
-      setBarbers(data); // Guarda todos los barberos en el estado
+      setBarbers(data);
     };
 
     fetchBarbers();
   }, []);
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({
@@ -61,7 +63,9 @@ export const useFormAppointments = (
     setErrors(error);
 
     if (Object.keys(error).length > 0) {
-      alert("Hay errores en el formulario");
+      setResError(true);
+      setTimeout(() => setResError(false), 2000);
+      setTimeout(() => setErrors({}), 2000);
       return;
     }
 
@@ -73,14 +77,20 @@ export const useFormAppointments = (
     try {
       setLoading(true);
       const response = await createAppointment(appointmentData);
-      setResSuccess(true);
-      console.log(response);
+      if(response) {
+        setResSuccess(true);
+        setResError(false);
+        setForm(initialValue);
+      } else {
+        setForm(initialValue);
+      }
     } catch (error) {
-      alert("Ocurrió un error inesperado, por favor inténtalo más tarde.");
+      setResError(true);
       console.log("Error al enviar los datos:", error);
     } finally {
       setLoading(false);
       setTimeout(() => setResSuccess(false), 2000);
+      setTimeout(() => setResError(false), 2000);
     }
   };
 
@@ -89,6 +99,7 @@ export const useFormAppointments = (
     errors,
     loading,
     resSuccess,
+    resError,
     barbers,
     filteredBarbers,
     handleChange,

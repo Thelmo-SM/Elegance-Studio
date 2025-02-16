@@ -23,7 +23,6 @@ const useGetServices = () => {
   useEffect(() => {
     const getServices = async () => {
       try {
-        // Revisar si ya hay datos almacenados en localStorage
         const cachedHaircut = localStorage.getItem("haircutStyles");
         const cachedBeard = localStorage.getItem("beardStyles");
         const cachedDye = localStorage.getItem("dyeHairStyles");
@@ -33,18 +32,16 @@ const useGetServices = () => {
           setBeard(JSON.parse(cachedBeard));
           setDye(JSON.parse(cachedDye));
         } else {
-          // Si no hay datos en caché, hacer la consulta a Firestore
           const haircutRef = collection(db, "haircut_styles");
           const beardRef = collection(db, "beard_styles");
           const dyeRef = collection(db, "dye_hair");
 
           const [haircutShap, beardShap, dyeShap] = await Promise.all([
-            getDocs(query(haircutRef, limit(10))), // Limitar resultados a 10
+            getDocs(query(haircutRef, limit(10))), 
             getDocs(query(beardRef, limit(10))),
             getDocs(query(dyeRef, limit(10))),
           ]);
 
-          // Mapear los resultados y establecer en el estado
           const haircutData = haircutShap.docs.map((doc) => {
             const { name, price } = doc.data();
             return { id: doc.id, name, price };
@@ -58,12 +55,10 @@ const useGetServices = () => {
             return { id: doc.id, name };
           });
 
-          // Establecer datos en el estado
           setHaircut(haircutData);
           setBeard(beardData);
           setDye(dyeData);
 
-          // Guardar datos en localStorage para evitar nuevas consultas
           localStorage.setItem("haircutStyles", JSON.stringify(haircutData));
           localStorage.setItem("beardStyles", JSON.stringify(beardData));
           localStorage.setItem("dyeHairStyles", JSON.stringify(dyeData));

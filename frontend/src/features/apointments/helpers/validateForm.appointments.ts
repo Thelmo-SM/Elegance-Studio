@@ -6,7 +6,6 @@ export const validateFormAppointments = (form:appointmentsTypes)=> {
     if(!form.branch.trim()) {
         errors.branch = 'Este campo es obligatorio';
     }
-
    // if(!form.BeardTrimming.trim()) {
    //     errors.BeardTrimming = 'Este campo es obligatorio';
    // }

@@ -19,7 +19,8 @@ export default {
         'error': '#ff3131',
         'caja3': '#545454',
         'desabilited': '#8d8c8c',
-        'buscador': '#222222'
+        'buscador': '#222222',
+        'pendiente': '#cfad8e'
       },
       boxShadow: {
         'left-right': '-10px 0px .3rem rgba(0, 0, 0, 0.5), 10px 0px .5rem rgba(0, 0, 0, 0.5)',
