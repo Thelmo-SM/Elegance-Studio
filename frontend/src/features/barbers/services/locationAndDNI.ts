@@ -1,4 +1,4 @@
-import { db } from "@/utils/firebase"; // Asegúrate de importar la configuración de Firebase
+import { db } from "@/utils/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 
 
@@ -13,11 +13,9 @@ export const updateLocationAndDni = async (
   }
 
   try {
-    // Ruta del documento del usuario
     const path = `users/${uid}`;
     const docRef = doc(db, path);
     
-    // Actualización solo de los campos location y dni
     await updateDoc(docRef, {
       location,
       dni,

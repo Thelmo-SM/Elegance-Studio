@@ -4,6 +4,7 @@ import { createAppointment } from "../services/create.appointments";
 import { getBarbers } from "@/features/barbers/services/get.barbers";
 import { useAuth } from "@/store/User.context";
 
+
 export type barbersTypes = {
   id: string;
   name: string;
@@ -25,7 +26,7 @@ export const useFormAppointments = (
   useEffect(() => {
     const fetchBarbers = async () => {
       const data = await getBarbers();
-      setBarbers(data); // Guarda todos los barberos en el estado
+      setBarbers(data);
     };
 
     fetchBarbers();
