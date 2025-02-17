@@ -18,7 +18,7 @@ export const AppointmentsComponent = () => {
   const [barber, setBarber] = useState<barbersTypes[]>([]);
   const [cancel, setCancel] = useState<{ [key: string]: boolean }>({})
   const {user} = useAuth();
-console.log('ESTADO DE CANCELANDO: ', cancel)
+
 
   const handleCreateAppointment = (newAppointment: appointmentsTypes) => {
     // Validar que no haya campos vacíos
@@ -127,12 +127,9 @@ console.log('ESTADO DE CANCELANDO: ', cancel)
       <p className="text-[1.8rem]">No tienes citas pendientes</p>
       ) : (
       appointments.map((appointment, index) => {
-        if (!appointment.id) {
-          return null;  // Si no tiene id, no se renderiza esta cita
-        }
       // Buscar el barbero correspondiente
       const barberData = barber.find(b => b.id === appointment.barber);
-      //const isCanceling = cancel[appointment.id] || false;
+      
 
       return (
       <div key={`${appointment.id} || ${index}`} 
