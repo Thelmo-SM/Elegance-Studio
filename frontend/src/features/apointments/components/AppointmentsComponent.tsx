@@ -10,13 +10,15 @@ import { getAppointmentsForUser } from "../services/get.appointments";
 import { useAuth } from "@/store/User.context";
 import { getBarbers } from "@/features/barbers/services/get.barbers";
 import { barbersTypes } from "../hooks/useForm.appointments";
+import { cancelAppointment } from "../services/cancel.appointments";
 
 export const AppointmentsComponent = () => {
   const [isOpen, openModal, closeModal] = useModalApointments();
   const [appointments, setAppointments] = useState<appointmentsTypes[]>([]);
   const [barber, setBarber] = useState<barbersTypes[]>([]);
+  const [cancel, setCancel] = useState<{ [key: string]: boolean }>({})
   const {user} = useAuth();
-
+console.log('ESTADO DE CANCELANDO: ', cancel)
 
   const handleCreateAppointment = (newAppointment: appointmentsTypes) => {
     // Validar que no haya campos vacíos
@@ -34,6 +36,26 @@ export const AppointmentsComponent = () => {
       localStorage.setItem("appointments", JSON.stringify(updatedAppointments));
       return updatedAppointments;
     });
+  };
+
+  //Metodo para cancelar citas
+  const handleCancelAppointment = async (appointmentId: string) => {
+    setCancel(prev => ({ ...prev, [appointmentId]: true }));
+    
+    const result = await cancelAppointment(appointmentId);
+    if (result.success) {
+      setAppointments((prevAppointments) =>
+        prevAppointments.map((appointment) =>
+          appointment.id === appointmentId
+            ? { ...appointment, status: "Cancelada" }
+            : appointment
+          )
+        );
+        console.log('CANCELAR: ', result.success);
+      } else {
+      console.error("No se pudo cancelar la cita:", result.error);
+    }
+    setCancel(prev => ({ ...prev, [appointmentId]: false }));
   };
 
   useEffect(() => {
@@ -105,16 +127,20 @@ export const AppointmentsComponent = () => {
       <p className="text-[1.8rem]">No tienes citas pendientes</p>
       ) : (
       appointments.map((appointment, index) => {
+        if (!appointment.id) {
+          return null;  // Si no tiene id, no se renderiza esta cita
+        }
       // Buscar el barbero correspondiente
       const barberData = barber.find(b => b.id === appointment.barber);
+      //const isCanceling = cancel[appointment.id] || false;
 
       return (
       <div key={`${appointment.id} || ${index}`} 
-      className="p-2 
-                  sm:w-full md:w-[48%] lg:w-[30%] mt-[1rem] bg-buscador rounded-sm shadow-sombra"
+      className={`p-2 
+                  sm:w-full md:w-[48%] lg:w-[30%] mt-[1rem] bg-buscador rounded-sm shadow-sombra ${appointment.status === 'Cancelada' && 'bg-red-950'}`}
       >
-        <p className="text-p-basico font-bold text-[1.2rem] pb-[1rem]">¡Cita agendada!</p>
-        <DetailsAppointmets 
+        <DetailsAppointmets
+          id={appointment.id}
           barber={barberData ? barberData.name : "Barbero no encontrado"}
           branch={appointment.branch}
           date={appointment.date}
@@ -122,6 +148,8 @@ export const AppointmentsComponent = () => {
           hour={appointment.hour}
           status={appointment.status}
           createdAt={appointment.createdAt ? formatDate(appointment.createdAt): 'Fecha no disponible'}
+          cancelAppointment={handleCancelAppointment} 
+          cancel={cancel}
         />
       </div>
           );
