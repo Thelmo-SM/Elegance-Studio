@@ -10,39 +10,80 @@ import { getAppointmentsForUser } from "../services/get.appointments";
 import { useAuth } from "@/store/User.context";
 import { getBarbers } from "@/features/barbers/services/get.barbers";
 import { barbersTypes } from "../hooks/useForm.appointments";
+import { cancelAppointment } from "../services/cancel.appointments";
+import { createAppointment } from "../services/create.appointments";
 
 export const AppointmentsComponent = () => {
   const [isOpen, openModal, closeModal] = useModalApointments();
   const [appointments, setAppointments] = useState<appointmentsTypes[]>([]);
   const [barber, setBarber] = useState<barbersTypes[]>([]);
+  const [cancel, setCancel] = useState<{ [key: string]: boolean }>({});
   const {user} = useAuth();
-
-
-  const handleCreateAppointment = (newAppointment: appointmentsTypes) => {
-    // Validar que no haya campos vacíos
-    if (!newAppointment.branch || !newAppointment.date || !newAppointment.haircut || !newAppointment.hour || !newAppointment.barber) {
-      return; // No actualiza el estado si faltan datos
-    }
-    const appointmentWithStatusAndDate = {
-      ...newAppointment,
-      status: 'Pendiente',  // O el estado que desees asignar
-      createdAt: new Date().toLocaleDateString() // Fecha de creación
-    };
   
-    setAppointments((prevAppointments) => {
-      const updatedAppointments = [...prevAppointments, appointmentWithStatusAndDate];
-      localStorage.setItem("appointments", JSON.stringify(updatedAppointments));
-      return updatedAppointments;
-    });
+
+  useEffect(() => {
+    // Cargar las citas al montar el componente
+    const loadAppointments = () => {
+      const cachedAppointments = JSON.parse(localStorage.getItem("appointments") || "[]");
+      setAppointments(cachedAppointments);
+    };
+
+    loadAppointments();
+  }, []);
+
+  const handleCreateAppointment = async (newAppointment:appointmentsTypes) => {
+    if (!newAppointment.branch || !newAppointment.date || !newAppointment.haircut || !newAppointment.hour || !newAppointment.barber) {
+      return; // Validar datos antes de continuar
+    }
+
+    try {
+      // Llamar a la función de creación de cita
+      const createdAppointment = await createAppointment(newAppointment);
+
+      // Actualizar el estado con la nueva cita y guardarla en localStorage
+      setAppointments((prevAppointments) => {
+        const updatedAppointments = [...prevAppointments, createdAppointment];
+        localStorage.setItem("appointments", JSON.stringify(updatedAppointments));
+        return updatedAppointments; // Actualizar el estado con las citas
+      });
+    } catch (error) {
+      console.error("Error al crear la cita:", error);
+    }
   };
+
+
+  //Metodo para cancelar citas
+  const handleCancelAppointment = async (appointmentId: string) => {
+    
+    setCancel(prev => ({ ...prev, [appointmentId]: true }));
+    const result = await cancelAppointment(appointmentId);
+    if (result.success) {
+      setAppointments((prevAppointments) =>
+        prevAppointments.map((appointment) =>
+          appointment.id === appointmentId
+            ? { ...appointment, status: "Cancelada" }
+            : appointment
+          )
+        );
+        console.log('CANCELAR: ', result.success);
+      } else {
+        console.error("No se pudo cancelar la cita:", result.error);
+    }
+    setCancel(prev => ({ ...prev, [appointmentId]: false }));
+  };
+
 
   useEffect(() => {
     const getAppointmets = async () => {
-      if (user?.uid) {
+      try {
+        if (user?.uid) {
         const data = await getAppointmentsForUser(user.uid);
         setAppointments(data);
       } else {
         console.log('El userId no es válido');
+      }
+      } catch (error) {
+        console.log('El userId no es válido', error);
       }
     };
   
@@ -59,22 +100,22 @@ export const AppointmentsComponent = () => {
   }, []);
 
   //Fecha de realización
-  const formatDate = (isoDate: string | undefined) => {
-    const date = isoDate ? new Date(isoDate) : null;
+  // const formatDate = (isoDate: string | undefined) => {
+  //   const date = isoDate ? new Date(isoDate) : null;
   
-    if (!date || isNaN(date.getTime())) {
-      return 'Fecha no disponible';
-    }
+  //   if (!date || isNaN(date.getTime())) {
+  //     return 'Fecha no disponible';
+  //   }
   
-    return date.toLocaleDateString('es-DO', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
-  };
+  //   return date.toLocaleDateString('es-DO', {
+  //     year: 'numeric',
+  //     month: 'long',
+  //     day: 'numeric',
+  //     hour: '2-digit',
+  //     minute: '2-digit',
+  //     second: '2-digit',
+  //   });
+  // };
 
   return (
     <section>
@@ -107,21 +148,24 @@ export const AppointmentsComponent = () => {
       appointments.map((appointment, index) => {
       // Buscar el barbero correspondiente
       const barberData = barber.find(b => b.id === appointment.barber);
+      console.log('APPOINTMENTS', appointment)
 
       return (
       <div key={`${appointment.id} || ${index}`} 
-      className="p-2 
-                  sm:w-full md:w-[48%] lg:w-[30%] mt-[1rem] bg-buscador rounded-sm shadow-sombra"
+      className={`p-2 
+                  sm:w-full md:w-[48%] lg:w-[30%] mt-[1rem] bg-buscador rounded-sm shadow-sombra ${appointment.status === 'Cancelada' && 'bg-red-950'}`}
       >
-        <p className="text-p-basico font-bold text-[1.2rem] pb-[1rem]">¡Cita agendada!</p>
-        <DetailsAppointmets 
+        <DetailsAppointmets
+          id={appointment.id}
           barber={barberData ? barberData.name : "Barbero no encontrado"}
           branch={appointment.branch}
           date={appointment.date}
           haircut={appointment.haircut}
           hour={appointment.hour}
           status={appointment.status}
-          createdAt={appointment.createdAt ? formatDate(appointment.createdAt): 'Fecha no disponible'}
+          createdAt={appointment.createdAt}
+          cancelAppointment={handleCancelAppointment} 
+          cancel={cancel}
         />
       </div>
           );
