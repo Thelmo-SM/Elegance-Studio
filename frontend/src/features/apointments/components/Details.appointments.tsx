@@ -1,4 +1,4 @@
-//'use client';
+'use client';
 import { appointmentsTypes } from '@/types/appointmentsTypes';
 //import { useState } from 'react';
 
@@ -9,7 +9,7 @@ type cancelAppointments = {
 type DetailsAppointmentsProps = appointmentsTypes & cancelAppointments;
 
 const DetailsAppointmets: React.FC<DetailsAppointmentsProps> = ({id, barber, branch,  createdAt, date, haircut, hour, status, cancelAppointment, cancel }: DetailsAppointmentsProps) => {
-  const isCanceling = id && cancel[id] !== undefined ? cancel[id] : false;
+  const isCanceling = id ? cancel[id] : false;
 
   return (
     <div>
@@ -30,7 +30,7 @@ const DetailsAppointmets: React.FC<DetailsAppointmentsProps> = ({id, barber, bra
             if (id) cancelAppointment(id);
           }}
         className='ml-2 rounded-sm bg-error px-5 py-1 text-p-basico font-bold hover:bg-red-400 transition-colors duration-300'>
-          {isCanceling ? 'Cancelando...' : 'Cancelar'}
+          { isCanceling ? 'Cancelando...' : 'Cancelar'}
         </button>
         <p className='text-p-basico bg-btR p-[1rem] mt-3 m-auto'><span className='font-bold'>Nota:</span>  Se dará una tolerancia de 10 minutos. Tras vencer este plazo, su cita será cancelada automáticamente.</p>
         </ul>
