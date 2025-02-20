@@ -20,7 +20,7 @@ export const BranchesService = () => {
             const data = doc.data();
             return {
               id: doc.id,
-              name: data.name || "",
+              name: String(data.name || ""),
               coordinates: data.coordinates || [0, 0],
               description: data.description || "",
               phone: data.phone || "",

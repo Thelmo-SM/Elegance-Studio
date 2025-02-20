@@ -11,19 +11,20 @@ export const getAppointmentsForUser = async (userId: string): Promise<Appointmen
   
     try {
       const appointmentsRef = collection(db, 'appointments');
-      const q = query(appointmentsRef, where('userId', '==', userId));  // Filtrar por userId
+      const q = query(appointmentsRef, where('userId', '==', userId), where('hidden', '==', false));  // Filtrar por userId
       const querySnapshot = await getDocs(q);
   
       const appointments: AppointmentDetails[] = querySnapshot.docs.map(doc => ({
         id: doc.id,
         barber: doc.data().barber,
-        branch: doc.data().branch,
+        branch: doc.data().branch || '',
         createdAt: doc.data().createdAt?.toDate().toISOString() || "",
         date: doc.data().date,
         haircut: doc.data().haircut,
         hour: doc.data().hour,
         userId: doc.data().userId,
         status: doc.data().status,
+        hidden: doc.data().hidden,
       }));
   
       return appointments;

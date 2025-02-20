@@ -24,6 +24,42 @@ export const useFormAppointments = (
   const [filteredBarbers, setFilteredBarbers] = useState<barbersTypes[]>([]);
   const { user } = useAuth();
 
+  //const now = new Date();
+  // const currentDate = now.toISOString().split('T')[0];
+  // const currentTime = now.toISOString().split('T')[1].substring(0, 5);
+  const [fecha, setFecha] = useState('');
+  const [hora, setHora] = useState('');
+
+  const [currentDate, setCurrentDate] = useState(new Date().toISOString().split('T')[0]);
+const [currentTime, setCurrentTime] = useState(new Date().toISOString().split('T')[1].substring(0, 5));
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    const now = new Date();
+    setCurrentDate(now.toISOString().split('T')[0]);
+    setCurrentTime(now.toISOString().split('T')[1].substring(0, 5));
+  }, 6000);
+
+  return () => clearInterval(interval);
+}, []);
+
+  //Fechas
+  const handleFechaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = e.target.value;
+  
+
+    setFecha(selectedDate);
+  
+
+    if (selectedDate === currentDate && hora < currentTime) {
+      setHora("");  // Resetea la hora si la fecha seleccionada es hoy y la hora es anterior
+    }
+  };
+
+  const handleHoraChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHora(e.target.value);
+  };
+
   useEffect(() => {
     const fetchBarbers = async () => {
       const data = await getBarbers();
@@ -52,7 +88,7 @@ export const useFormAppointments = (
 
   const register = (field: keyof appointmentsTypes) => ({
     name: field,
-    value: form[field] || "",
+    value: typeof form[field] === "boolean" ? String(form[field]) : form[field] || "",
     onChange: handleChange,
     onBlur: handleBlur,
   });
@@ -102,11 +138,17 @@ export const useFormAppointments = (
     resError,
     barbers,
     filteredBarbers,
+    fecha,
+    hora,
+    currentDate,
+    currentTime,
     handleChange,
     handleBlur,
     handleSubmit,
     setForm,
     setFilteredBarbers,
     register,
+    handleHoraChange,
+    handleFechaChange
   };
 };
