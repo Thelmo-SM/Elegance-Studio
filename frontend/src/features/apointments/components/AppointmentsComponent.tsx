@@ -12,6 +12,7 @@ import { getBarbers } from "@/features/barbers/services/get.barbers";
 import { barbersTypes } from "../hooks/useForm.appointments";
 import { cancelAppointment } from "../services/cancel.appointments";
 import { createAppointment } from "../services/create.appointments";
+import { hiddenAppointments } from "../services/hidden.appointments";
 
 export const AppointmentsComponent = () => {
   const [isOpen, openModal, closeModal] = useModalApointments();
@@ -20,17 +21,18 @@ export const AppointmentsComponent = () => {
   const [cancel, setCancel] = useState<{ [key: string]: boolean }>({});
   const {user} = useAuth();
   
+/////////////////////////////
 
-  useEffect(() => {
     // Cargar las citas al montar el componente
     const loadAppointments = () => {
       const cachedAppointments = JSON.parse(localStorage.getItem("appointments") || "[]");
       setAppointments(cachedAppointments);
     };
 
-    loadAppointments();
-  }, []);
-
+    useEffect(() => {
+      loadAppointments();
+    }, []);
+    
   const handleCreateAppointment = async (newAppointment:appointmentsTypes) => {
     if (!newAppointment.branch || !newAppointment.date || !newAppointment.haircut || !newAppointment.hour || !newAppointment.barber) {
       return; // Validar datos antes de continuar
@@ -71,7 +73,28 @@ export const AppointmentsComponent = () => {
     }
     setCancel(prev => ({ ...prev, [appointmentId]: false }));
   };
-
+//Ocultar citas
+const handleHiddenAppointments = async (id: string) => {
+  try {
+    const hidden = await hiddenAppointments(id);
+    if (hidden.success) {
+      setAppointments(prevAppointments =>
+        prevAppointments.map(app =>
+          app.id === id ? { ...app, hidden: true } : app
+        )
+      );
+      // Actualiza el almacenamiento local al ocultar la cita
+      const updatedAppointments = appointments.map(app =>
+        app.id === id ? { ...app, hidden: true } : app
+      );
+      localStorage.setItem("appointments", JSON.stringify(updatedAppointments));
+    } else {
+      console.error("No se pudo ocultar la cita:", hidden);
+    }
+  } catch (error) {
+    console.error("Error al ocultar cita:", error);
+  }
+};
 
   useEffect(() => {
     const getAppointmets = async () => {
@@ -145,10 +168,10 @@ export const AppointmentsComponent = () => {
       {appointments.length === 0 ? (
       <p className="text-[1.8rem]">No tienes citas pendientes</p>
       ) : (
-      appointments.map((appointment, index) => {
-      // Buscar el barbero correspondiente
-      const barberData = barber.find(b => b.id === appointment.barber);
-      console.log('APPOINTMENTS', appointment)
+        appointments
+        .filter(appointment => !appointment.hidden) // Filtra las visibles
+        .map((appointment, index) => {
+          const barberData = barber.find(b => b.id === appointment.barber);
 
       return (
       <div key={`${appointment.id} || ${index}`} 
@@ -166,6 +189,7 @@ export const AppointmentsComponent = () => {
           createdAt={appointment.createdAt}
           cancelAppointment={handleCancelAppointment} 
           cancel={cancel}
+          hdden={handleHiddenAppointments}
         />
       </div>
           );

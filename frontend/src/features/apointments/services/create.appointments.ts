@@ -10,6 +10,7 @@ export const createAppointment = async (appointmentData: appointmentsTypes) => {
     const docRef = await addDoc(collection(db, "appointments"), {
       ...appointmentData,
       status: 'pendiente',
+      hidden: false,
       createdAt: Timestamp.now(),
     });
 

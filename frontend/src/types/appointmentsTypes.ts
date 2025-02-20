@@ -8,6 +8,7 @@ export type appointmentsTypes = {
   status?: string;
   createdAt?: string; // Este campo tampoco se envía.
   userId?: string;    // Este campo tampoco se envía.
+  hidden?: boolean;
 };
 
 
@@ -21,6 +22,7 @@ export interface AppointmentDetails {
     hour: string;
     userId: string;
     status: string
+    hidden?: boolean;
   }
   
 

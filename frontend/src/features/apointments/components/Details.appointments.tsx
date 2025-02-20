@@ -5,10 +5,11 @@ import { appointmentsTypes } from '@/types/appointmentsTypes';
 type cancelAppointments = {
   cancelAppointment: (appointmentId: string) => void;
   cancel: { [key: string]: boolean };
+  hdden: (id:string) => void;
 }
 type DetailsAppointmentsProps = appointmentsTypes & cancelAppointments;
 
-const DetailsAppointmets: React.FC<DetailsAppointmentsProps> = ({id, barber, branch,  createdAt, date, haircut, hour, status, cancelAppointment, cancel }: DetailsAppointmentsProps) => {
+const DetailsAppointmets: React.FC<DetailsAppointmentsProps> = ({id, barber, branch,  createdAt, date, haircut, hour, status, cancelAppointment, cancel, hdden }: DetailsAppointmentsProps) => {
   const isCanceling = id ? cancel[id] : false;
 
   return (
@@ -32,6 +33,11 @@ const DetailsAppointmets: React.FC<DetailsAppointmentsProps> = ({id, barber, bra
         className='ml-2 rounded-sm bg-error px-5 py-1 text-p-basico font-bold hover:bg-red-400 transition-colors duration-300'>
           { isCanceling ? 'Cancelando...' : 'Cancelar'}
         </button>
+       { status === 'Cancelada' && <button className='ml-2 rounded-sm bg-btR px-5 py-1 text-p-basico font-bold hover:bg-caja2 transition-colors duration-300'
+        onClick={() => {
+          if(id) hdden(id)
+        }}
+        >Ocultar</button>}
         <p className='text-p-basico bg-btR p-[1rem] mt-3 m-auto'><span className='font-bold'>Nota:</span>  Se dará una tolerancia de 10 minutos. Tras vencer este plazo, su cita será cancelada automáticamente.</p>
         </ul>
     </div>

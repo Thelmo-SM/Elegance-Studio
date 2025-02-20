@@ -52,7 +52,7 @@ export const useFormAppointments = (
 
   const register = (field: keyof appointmentsTypes) => ({
     name: field,
-    value: form[field] || "",
+    value: typeof form[field] === "boolean" ? String(form[field]) : form[field] || "",
     onChange: handleChange,
     onBlur: handleBlur,
   });
