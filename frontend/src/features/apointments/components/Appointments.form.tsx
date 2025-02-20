@@ -33,8 +33,8 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
         handleSubmit,
         register,
         setFilteredBarbers,
-        handleFechaChange,
-        handleHoraChange
+        //handleFechaChange,
+        //handleHoraChange
     } = useFormAppointments(initialValue, validateFormAppointments);
     const { branch } = BranchesService()
     const { haircut } = useGetServices();
@@ -106,8 +106,8 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
         type="date"
         min={currentDate}
         //disabled={false}
-        onChange={handleFechaChange}
-       //{...register('date')} 
+        //onChange={handleFechaChange}
+       {...register('date')} 
         className="p-2 border rounded-md bg-caja w-[70%] text-p-basico ocus:ring-2 focus:ring-blue-500 disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed" 
         />
         {errors.date && <p className='bg-red-600 text-p-basico w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.date}</p>}
@@ -119,8 +119,8 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
         type="time"
         min={currentTime}
         //disabled={false}
-        onChange={handleHoraChange}
-        //{...register('hour')} 
+        //onChange={handleHoraChange}
+        {...register('hour')} 
         className="p-2 border rounded-md bg-caja w-[70%] text-p-basico focus:ring-2 focus:ring-blue-500 disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed" />
         {errors.hour && <p className='bg-red-600 text-p-basico w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.hour}</p>}
     </div>
