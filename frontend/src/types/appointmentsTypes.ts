@@ -9,6 +9,7 @@ export type appointmentsTypes = {
   createdAt?: string; // Este campo tampoco se envía.
   userId?: string;    // Este campo tampoco se envía.
   hidden?: boolean;
+  hiddenBarbers?: boolean;
 };
 
 

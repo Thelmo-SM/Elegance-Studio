@@ -13,11 +13,11 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                     <span className='text-p-basico my-[1.5rem] text-[1.4rem]'>Administrador: {auth.user?.email}</span>
                     <div>
                         <nav className='mt-[1.2rem]'>
-                            <Link href='/dashboard/users' className='text-p-basico mx-[1.5rem]'>
+                           { auth.user?.role === 'admin' && <Link href='/dashboard/users' className='text-p-basico mx-[1.5rem]'>
                             Usuarios
-                            </Link>
+                            </Link>}
                             <Link href='' className='text-p-basico mx-[1.5rem]'>Citas</Link>
-                            <Link href='' className='text-p-basico mx-[1.5rem]'>Barberos</Link>
+                            {auth.user?.role === 'admin' && <Link href='' className='text-p-basico mx-[1.5rem]'>Barberos</Link>}
                         </nav>
                     </div>
                 </header>
@@ -31,3 +31,4 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default AdminLayout;
+
