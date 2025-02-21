@@ -20,3 +20,21 @@ export const cancelAppointment = async (appointmentId: string) => {
     return { success: false, error };
   }
 };
+
+
+//Aprobar cita
+export const approveAppointment = async (appointmentId: string) => {
+  try {
+    if (!appointmentId) throw new Error("ID de cita inválido");
+
+    const appointmentRef = doc(db, "appointments", appointmentId);
+
+    await updateDoc(appointmentRef, { status: "Aprobada" });
+
+    console.log(`Cita ${appointmentId} aprobada correctamente.`);
+    return { success: true };
+  } catch (error) {
+    console.error("Error al cancelar la cita:", error);
+    return { success: false, error };
+  }
+};

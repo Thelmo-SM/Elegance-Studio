@@ -1,7 +1,7 @@
-
+import DashboardBarbers from "@/features/barbers/components/Dashboard";
 
 export default function Dashboard() {
     return(
-        <h1>Admin</h1>
+        <DashboardBarbers />
     );
 };

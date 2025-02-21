@@ -12,3 +12,18 @@ export const hiddenAppointments = async (appointmentId: string) => {
     return { success: false };
   }
 };
+
+//Ocultar para el barbero y el administrador
+
+export const hiddenBarberAppointments = async (appointmentId: string) => {
+  try {
+    const appointmentRef = doc(db, "appointments", appointmentId);
+    await updateDoc(appointmentRef, { hiddenBarbers: true });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Error actualizando la visibilidad de la cita:', error);
+    return { success: false };
+  }
+};
+
