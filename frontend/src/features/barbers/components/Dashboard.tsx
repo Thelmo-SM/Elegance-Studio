@@ -6,11 +6,14 @@ import { useAuth } from "@/store/User.context";
 import { appointmentsTypes } from "@/types/appointmentsTypes";
 import { approveAppointment, cancelAppointment } from "@/features/apointments/services/cancel.appointments";
 import { hiddenBarberAppointments } from "@/features/apointments/services/hidden.appointments";
+//import ApproveAppointment from "./ApproveAppointments";
 
 export const DashboardBarbers = () => {
     const [appointmets, setAppointments] = useState<appointmentsTypes[]>([]);
     const [clientNames, setClientNames] = useState<Record<string, string>>({});
     const [verMas, setVerMas] = useState<Record<string, boolean>>({});
+    const [activeTab, setActiveTab] = useState("pendiente");
+    const [searchTerm, setSearchTerm] = useState("");
     const {user} = useAuth();
 
     const toggleVerMas = (id: string) => {
@@ -46,6 +49,21 @@ export const DashboardBarbers = () => {
     BarberAppointmets();
   }, [user]);
 
+  //Ver citas conrrespondiente al nav
+  const filteredAppointments = appointmets.filter((cita) => {
+    const isMatchingStatus = cita.status === activeTab;
+  
+    // Convierte la fecha de la cita a una cadena
+    const citaFecha = new Date(cita.date).toLocaleDateString();
+  
+    // Verifica si el término de búsqueda está contenido en la fecha de la cita
+    const isMatchingDate = !searchTerm || citaFecha.includes(searchTerm);
+  
+    return (
+      (isMatchingStatus || activeTab === "todos") &&
+      isMatchingDate // Filtra si el término está en la fecha de la cita
+    );
+  });
   //Aprobar cita
   const handleApproveAppointment = async (appointmentId: string) => {
       const result = await approveAppointment(appointmentId);
@@ -102,21 +120,56 @@ export const DashboardBarbers = () => {
         <article className="">
             <nav className=" ">
                 <ul className="flex justify-center bg-buscador p-[0rem]">
-                <li className="bg-btR text-p-basico mx-[5rem] px-[1rem] py-[2rem]">Citas Pendientes</li>
-                <li className="text-p-basico mx-[5rem] px-[1rem] py-[2rem]">Citas Aprobadas</li>
-                <li className="text-p-basico mx-[5rem] px-[1rem] py-[2rem]">Citas Canceladas</li>
-                <li className="text-p-basico mx-[5rem] px-[1rem] py-[2rem]">Citas Realizadas</li>
+                <li
+
+                className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "pendiente" ? "bg-btR" : 'text-p-basico'}`}
+                onClick={() => setActiveTab("pendiente")}
+                >
+                  Citas Pendientes
+
+                </li>
+                <li 
+                className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "Aprobada" ? "bg-btR" : 'text-p-basico'}`}
+                onClick={() => setActiveTab("Aprobada")}
+                >
+                  Citas Aprobadas
+
+                </li>
+                <li 
+                className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "Cancelada" ? "bg-btR" : "text-p-basico"}`}
+                onClick={() => setActiveTab("Cancelada")}
+                >
+                  Citas Canceladas
+
+                </li>
+                <li 
+                className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "Realizada" ? "bg-btR" : "text-p-basico"}`}
+                onClick={() => setActiveTab("Realizada")}
+                >
+                  Citas Realizadas
+
+                </li>
                 </ul>
+                  <h1 className="text-[1.8rem] my-[1.3rem]">Mis Citas</h1>
+
+                <div className="my-4">
+                    <input
+                        type="search"
+                        placeholder="Buscar por fecha (dd/mm/yyyy)..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="bg-buscador w-[50%] p-[.5rem] pl-[4rem] text-p-basico rounded-[.3rem]"
+                    />
+                </div>
             </nav>
 
-      <h1 className="text-[1.8rem] my-[1.3rem]">Mis Citas</h1>
       <div className="">
       <ul className="w-full flex flex-wrap gap-4">
         {
-        appointmets.length === 0 ? (
+        filteredAppointments.length === 0 ? (
           <p className="text-center text-caja3">Aún los clientes no han reservado citas contigo</p>
         ) :
-        appointmets.filter(cita => !cita.hiddenBarbers)
+        filteredAppointments.filter(cita => !cita.hiddenBarbers)
         .map(cita => (
            <li key={cita.id} className="shadow-md hover:shadow-lg transition-all duration-300 bg-buscador flex flex-wrap w-[40%] m-auto p-4 my-10">
             <div className="m-auto">
@@ -170,6 +223,7 @@ export const DashboardBarbers = () => {
                 </div>
               )}
           </li>
+
         ))}
       </ul>
     </div>
