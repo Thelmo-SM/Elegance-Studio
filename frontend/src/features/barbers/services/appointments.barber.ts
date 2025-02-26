@@ -29,6 +29,10 @@ export const getAppointmentsBarbers = async (barberId: string) => {
   
 
   export const obtenerNombreCliente = async (userId: string) => {
+    if (!userId) {
+      console.error("Error: userId es inválido:", userId);
+      return "ID de usuario no válido";
+    }
     try {
       const userDocRef = doc(db, 'users', userId);  // Referencia al documento del usuario
       const userDoc = await getDoc(userDocRef);  // Obtener el documento
