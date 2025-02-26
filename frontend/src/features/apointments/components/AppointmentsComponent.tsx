@@ -43,10 +43,10 @@ export const AppointmentsComponent = () => {
         const createdAppointment = await createAppointment(newAppointment);
     
         // Si ya existe una cita, mostramos el mensaje pero no actualizamos el estado
-        if (createdAppointment.message) {
-          console.log(createdAppointment.message); // Mostrar el mensaje de cita duplicada
-          return; // No actualizamos el estado si ya existe una cita duplicada
-        }
+        // if (createdAppointment.message) {
+        //   console.log(createdAppointment.message); // Mostrar el mensaje de cita duplicada
+        //   return; // No actualizamos el estado si ya existe una cita duplicada
+        // }
     
         // Si la cita fue creada correctamente, actualizamos el estado
         setAppointments((prevAppointments) => {
