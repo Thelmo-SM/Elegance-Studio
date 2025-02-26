@@ -33,25 +33,37 @@ export const AppointmentsComponent = () => {
       loadAppointments();
     }, []);
     
-  const handleCreateAppointment = async (newAppointment:appointmentsTypes) => {
-    if (!newAppointment.branch || !newAppointment.date || !newAppointment.haircut || !newAppointment.hour || !newAppointment.barber) {
-      return; // Validar datos antes de continuar
-    }
-
-    try {
-      // Llamar a la función de creación de cita
-      const createdAppointment = await createAppointment(newAppointment);
-
-      // Actualizar el estado con la nueva cita y guardarla en localStorage
-      setAppointments((prevAppointments) => {
-        const updatedAppointments = [...prevAppointments, createdAppointment];
-        localStorage.setItem("appointments", JSON.stringify(updatedAppointments));
-        return updatedAppointments; // Actualizar el estado con las citas
-      });
-    } catch (error) {
-      console.error("Error al crear la cita:", error);
-    }
-  };
+    const handleCreateAppointment = async (newAppointment: appointmentsTypes) => {
+      if (!newAppointment.branch || !newAppointment.date || !newAppointment.haircut || !newAppointment.hour || !newAppointment.barber) {
+        return; // Validar datos antes de continuar
+      }
+    
+      try {
+        // Llamar a la función de creación de cita
+        const createdAppointment = await createAppointment(newAppointment);
+    
+        // Si ya existe una cita, mostramos el mensaje pero no actualizamos el estado
+        if (createdAppointment.message) {
+          console.log(createdAppointment.message); // Mostrar el mensaje de cita duplicada
+          return; // No actualizamos el estado si ya existe una cita duplicada
+        }
+    
+        // Si la cita fue creada correctamente, actualizamos el estado
+        setAppointments((prevAppointments) => {
+          // Verificar si createdAppointment es un objeto de tipo appointmentsTypes
+          if ("branch" in createdAppointment) {
+            const updatedAppointments = [...prevAppointments, createdAppointment];
+            localStorage.setItem("appointments", JSON.stringify(updatedAppointments));
+            return updatedAppointments; // Solo actualizamos el estado si la cita es válida
+          } else {
+            // Si el objeto no es una cita válida, no actualizamos el estado
+            return prevAppointments;
+          }
+        });
+      } catch (error) {
+        console.error("Error al crear la cita:", error);
+      }
+    };
 
 
   //Metodo para cancelar citas
