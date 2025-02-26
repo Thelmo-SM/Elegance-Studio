@@ -1,20 +1,26 @@
 'use client';
 
-import { getAppointmentsBarbers, obtenerNombreCliente } from "../services/appointments.barber";
+import { obtenerNombreCliente } from "@/features/barbers/services/appointments.barber";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/store/User.context";
 import { appointmentsTypes } from "@/types/appointmentsTypes";
 import { approveAppointment, cancelAppointment } from "@/features/apointments/services/cancel.appointments";
 import { hiddenBarberAppointments } from "@/features/apointments/services/hidden.appointments";
-//import ApproveAppointment from "./ApproveAppointments";
+import { getAppointments } from "../services/get.appointments";
 
-export const DashboardBarbers = () => {
+export const AppointmentsAdmin = () => {
     const [appointmets, setAppointments] = useState<appointmentsTypes[]>([]);
     const [clientNames, setClientNames] = useState<Record<string, string>>({});
     const [verMas, setVerMas] = useState<Record<string, boolean>>({});
     const [activeTab, setActiveTab] = useState("pendiente");
     const [searchTerm, setSearchTerm] = useState("");
     const {user} = useAuth();
+    const [appointmentsCount, setAppointmentsCount] = useState({
+      pendiente: 0,
+      Aprobada: 0,
+      Cancelada: 0,
+      Realizada: 0
+    });
 
     const toggleVerMas = (id: string) => {
       setVerMas(prev => ({
@@ -24,30 +30,39 @@ export const DashboardBarbers = () => {
     };
 
     //Citas de clientes
-  useEffect(() => {
-    const BarberAppointmets = async () => {
-      try {
-        if (user?.uid) {
-        const data = await getAppointmentsBarbers(user.uid);
-        setAppointments(data);
+    useEffect(() => {
+      if (user) {
+        const fetchAppointments = async () => {
+          try {
+            const data = await getAppointments(); // Obtiene todas las citas
+            setAppointments(data);
+      
+            // Obtener nombres de clientes
+            const names: Record<string, string> = {};
+            for (const cita of data) {
+              if (cita.userId) {
+                const nombre = await obtenerNombreCliente(cita.userId); // Ahora estamos seguros de que el userId existe
+                names[cita.userId] = nombre;
+              }
+            }
+            setClientNames(names);
 
-        const names: Record<string, string> = {};
-                    for (const cita of data) {
-                        const nombre = await obtenerNombreCliente(cita.userId || '');
-                        names[cita.userId || ''] = nombre;
-                    }
-                    setClientNames(names); 
-                    console.log("Datos obtenidos del backend:", data);
+            const newAppointmentsCount = {
+              pendiente: data.filter(cita => cita.status === "pendiente").length,
+              Aprobada: data.filter(cita => cita.status === "Aprobada").length,
+              Cancelada: data.filter(cita => cita.status === "Cancelada").length,
+              Realizada: data.filter(cita => cita.status === "Realizada").length,
+            };
+            setAppointmentsCount(newAppointmentsCount);
+          } catch (error) {
+            console.error("Error al obtener citas", error);
+          }
+        };
+        fetchAppointments();
       } else {
-        console.log('El userId no es válido');
+        console.warn("No hay usuario autenticado");
       }
-      } catch (error) {
-        console.log('El userId no es válido', error);
-      }
-    };
-  
-    BarberAppointmets();
-  }, [user]);
+    }, [user]); 
 
   //Ver citas conrrespondiente al nav
   const filteredAppointments = appointmets.filter((cita) => {
@@ -64,6 +79,17 @@ export const DashboardBarbers = () => {
       isMatchingDate // Filtra si el término está en la fecha de la cita
     );
   });
+
+  useEffect(() => {
+    const newAppointmentsCount = {
+      pendiente: appointmets.filter(cita => cita.status === "pendiente").length,
+      Aprobada: appointmets.filter(cita => cita.status === "Aprobada").length,
+      Cancelada: appointmets.filter(cita => cita.status === "Cancelada").length,
+      Realizada: appointmets.filter(cita => cita.status === "Realizada").length,
+    };
+    setAppointmentsCount(newAppointmentsCount);
+  }, [appointmets]);
+
   //Aprobar cita
   const handleApproveAppointment = async (appointmentId: string) => {
       const result = await approveAppointment(appointmentId);
@@ -125,29 +151,28 @@ export const DashboardBarbers = () => {
                 className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "pendiente" ? "bg-btR" : 'text-p-basico'}`}
                 onClick={() => setActiveTab("pendiente")}
                 >
-                  Citas Pendientes
+                  Citas Pendientes ({appointmentsCount.pendiente})
 
                 </li>
                 <li 
                 className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "Aprobada" ? "bg-btR" : 'text-p-basico'}`}
                 onClick={() => setActiveTab("Aprobada")}
                 >
-                  Citas Aprobadas
+                  Citas Aprobadas ({appointmentsCount.Aprobada})
 
                 </li>
                 <li 
                 className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "Cancelada" ? "bg-btR" : "text-p-basico"}`}
                 onClick={() => setActiveTab("Cancelada")}
                 >
-                  Citas Canceladas
+                  Citas Canceladas ({appointmentsCount.Cancelada})
 
                 </li>
                 <li 
                 className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "Realizada" ? "bg-btR" : "text-p-basico"}`}
                 onClick={() => setActiveTab("Realizada")}
                 >
-                  Citas Realizadas
-
+                  Citas Realizadas ({appointmentsCount.Realizada})
                 </li>
                 </ul>
                   <h1 className="text-[1.8rem] my-[1.3rem]">Mis Citas</h1>
@@ -167,7 +192,7 @@ export const DashboardBarbers = () => {
       <ul className="w-full flex flex-wrap gap-4">
         {
         filteredAppointments.length === 0 ? (
-          <p className="text-center text-caja3">Aún los clientes no han reservado citas contigo</p>
+          <p className="text-center text-caja3">No hay citas.</p>
         ) :
         filteredAppointments.filter(cita => !cita.hiddenBarbers)
         .map(cita => (
@@ -231,4 +256,4 @@ export const DashboardBarbers = () => {
     );
 };
 
-export default DashboardBarbers;
+export default AppointmentsAdmin;

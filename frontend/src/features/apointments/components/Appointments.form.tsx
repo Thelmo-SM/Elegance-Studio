@@ -27,8 +27,8 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
         resError,
         filteredBarbers,
        // fecha,
-       // hora,
-        currentTime,
+        hora,
+        //currentTime,
         currentDate,
         handleSubmit,
         register,
@@ -115,13 +115,14 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
 
     <div className="flex flex-col">
         <LabelUi>Hora</LabelUi>
-        <InputUi 
-        type="time"
-        min={currentTime}
-        //disabled={false}
-        //onChange={handleHoraChange}
-        {...register('hour')} 
-        className="p-2 border rounded-md bg-caja w-[70%] text-p-basico focus:ring-2 focus:ring-blue-500 disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed" />
+        <SelectUi {...register('hour')} >
+            <OptionlUi value=''>Selecciona una hora</OptionlUi>
+            {hora.map((hora) => (
+                <OptionlUi key={hora} value={hora}>
+                    {hora}
+                </OptionlUi>
+            ))}
+        </SelectUi>
         {errors.hour && <p className='bg-red-600 text-p-basico w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.hour}</p>}
     </div>
 

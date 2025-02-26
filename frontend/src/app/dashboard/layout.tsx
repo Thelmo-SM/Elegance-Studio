@@ -16,8 +16,8 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                            { auth.user?.role === 'admin' && <Link href='/dashboard/users' className='text-p-basico mx-[1.5rem]'>
                             Usuarios
                             </Link>}
-                            <Link href='' className='text-p-basico mx-[1.5rem]'>Citas</Link>
-                            {auth.user?.role === 'admin' && <Link href='' className='text-p-basico mx-[1.5rem]'>Barberos</Link>}
+                            <Link href='/dashboard' className='text-p-basico mx-[1.5rem]'>Citas</Link>
+                            {auth.user?.role === 'admin' && <Link href='/dashboard/barbers' className='text-p-basico mx-[1.5rem]'>Barberos</Link>}
                         </nav>
                     </div>
                 </header>

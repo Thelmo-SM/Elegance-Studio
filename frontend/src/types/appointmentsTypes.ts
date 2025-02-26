@@ -1,4 +1,5 @@
 export type appointmentsTypes = {
+  //success?: boolean;
   id?: string;      // Este campo no se envía desde el formulario.
   branch: string;
   haircut: string;
@@ -28,3 +29,20 @@ export interface AppointmentDetails {
   
 
 export type validateValueType = (form: appointmentsTypes) => Partial<appointmentsTypes>;
+
+
+
+type CreateAppointmentSuccess = appointmentsTypes & {
+  success: true;  // <- Aquí `true` es un valor literal
+  id: string;
+  status: string;
+  createdAt: string;
+};
+
+type CreateAppointmentError = {
+  success: false; // <- Aquí `false` es un valor literal
+  message: string;
+};
+
+// La respuesta solo puede ser una de las dos opciones
+export type CreateAppointmentResponse = CreateAppointmentSuccess | CreateAppointmentError;
