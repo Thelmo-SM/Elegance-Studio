@@ -1,7 +1,12 @@
 import { userData } from "@/types/userTypes"
 
+type totalAppointments = {
+  totalAppointments: (status: string) => number;
+};
 
-export const BarberCard = (
+type stadisticsBarbers = userData & totalAppointments;
+
+export const BarberCard: React.FC<stadisticsBarbers> = (
     { 
     uid,
     name,
@@ -10,8 +15,9 @@ export const BarberCard = (
     phone,
     role,
     location,
-    dni
-    }: userData
+    dni,
+    totalAppointments
+    }: stadisticsBarbers
 ) => {
 
 
@@ -48,6 +54,11 @@ export const BarberCard = (
           <span className="text-p-basico font-medium">Ocupación</span>
           <span className="text-btR m-[.5rem]">{role}</span>
         </p>
+        <div className="flex justify-between border-b border-caja3">
+        <p className="text-p-basico font-medium">Total aprobadas: {totalAppointments("aprobada")}</p>
+        <p className="text-p-basico font-medium">Total canceladas: {totalAppointments("cancelada")}</p>
+        <p className="text-p-basico font-medium">Total realizadas: {totalAppointments("realizada")}</p>
+        </div>
       </div>
     </article>
     );

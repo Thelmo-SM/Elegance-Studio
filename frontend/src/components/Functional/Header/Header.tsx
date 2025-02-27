@@ -53,14 +53,14 @@ export const Header = () => {
     return (
         <header className={`flex flex-col lg:flex-row lg:justify-between items-center lg:px-14 fixed top-0 left-0 w-full z-[999] ${Style.bgScroll}`}>
             <Link href='/'>
-                <Image src={logoSrc} width={35} height={42} alt="Elegance Studio" className="lg:ml-14 lg:pt-4 py-4" />
+                <Image src={logoSrc} width={35} height={42} alt="Elegance Studio" className="lg:ml-14 lg:pt-4 py-4" loading="lazy" />
             </Link>
 
             <button
                 className="lg:hidden text-p-basico font-bold absolute right-0 p-[2rem]"
                 onClick={toggleMenu}
             >
-                {menuOpen ? <h5 className="text-[2rem]">x</h5> : <Image src={menuImg} width={25} height={20} alt="Menú" />}
+                {menuOpen ? <h5 className="text-[2rem]">x</h5> : <Image src={menuImg} width={25} height={20} alt="Menú" loading="lazy"/>}
             </button>
 
             <nav
@@ -68,7 +68,7 @@ export const Header = () => {
             >
                 <Link href='/' onClick={handleLinkClick} className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Home</Link>
                 <Link href='/' onClick={handleLinkClick} className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Nosotros</Link>
-                {auth.user ? (
+                {auth.user?.role === 'client' || auth.user?.role === 'admin' ? (
                     <Link href='/appointments' onClick={handleLinkClick} className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Citas</Link>
                 ) : ''}
                 {auth.user === null ? (
@@ -84,8 +84,8 @@ export const Header = () => {
                         className="text-[1.3rem] lg:text-[1rem] text-p-basico mx-6 my-auto bg-btR p-1 px-4 rounded-[0.25rem] hover:bg-ct transition duration-[200ms]"
                         onClick={() => setIsMenuNavOpen(!isMenuNavOpen)} // Alterna el menú de navegación
                     >
-                        {auth.user?.role === 'admin' && <Image src={AdminIcon} width={40} height={40} alt="Administrador" className="bg-btR rounded-[10%]" />}
-                        {auth.user.role !== 'admin' && <Image src={UserIcon} width={40} height={40} alt="Administrador" className="bg-btR rounded-[10%]" />}
+                        {auth.user?.role === 'admin' && <Image src={AdminIcon} width={40} height={40} alt="Administrador" className="bg-btR rounded-[10%]" loading="lazy"/>}
+                        {auth.user.role !== 'admin' && <Image src={UserIcon} width={40} height={40} alt="Administrador" className="bg-btR rounded-[10%]" loading="lazy"/>}
                     </button>
                 )}
 

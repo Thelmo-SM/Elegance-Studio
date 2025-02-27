@@ -57,7 +57,7 @@ const Landing = () => {
                         <div className="flex flex-col justify-center items-center">
                             <h2 className="text-p-basico lg:text-[3.25rem] text-[1.5rem] text-center">Debes <span className="text-error font-bold">Iniciar Sesión</span> o <span className="text-error font-bold">Registrarte</span></h2>
                             <p className="lg:text-[1.8rem] w-[90%] text-center mt-[1.5rem]">Para agendar una cita, es necesario que estés registrado o inicies sesión en tu cuenta. Si aún no tienes una cuenta, regístrate en unos simples pasos</p>
-                            <Image src={ErrorIcon} width={150} height={150} alt="" className="mt-[2rem]" />
+                            <Image src={ErrorIcon} width={150} height={150} alt="" className="mt-[2rem]" loading="lazy"/>
                         </div>
                     </div>
                 </GlobalModal>

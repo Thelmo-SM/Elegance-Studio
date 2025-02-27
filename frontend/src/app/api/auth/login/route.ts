@@ -16,9 +16,9 @@ export async function POST(req: Request) {
     console.log('ESTAS SON LAS COOKIES: ', cookieStore);
 
     cookieStore.set("token", token, {
-      httpOnly: true, // Important to make it secure
-      secure: process.env.NODE_ENV === "production", // Ensure cookies are sent only over HTTPS in production
-      sameSite: "strict", // Makes the cookie more secure
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
       path: "/",
     });
 

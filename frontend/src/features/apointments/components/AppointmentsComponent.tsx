@@ -1,6 +1,5 @@
 'use client';
 
-// AppointmentsComponent.tsx
 import { useEffect, useState } from "react";
 import AppointmentsForm from "./Appointments.form";
 import { useModalApointments } from "../hooks/Modal.apointments";
@@ -41,12 +40,6 @@ export const AppointmentsComponent = () => {
       try {
         // Llamar a la función de creación de cita
         const createdAppointment = await createAppointment(newAppointment);
-    
-        // Si ya existe una cita, mostramos el mensaje pero no actualizamos el estado
-        // if (createdAppointment.message) {
-        //   console.log(createdAppointment.message); // Mostrar el mensaje de cita duplicada
-        //   return; // No actualizamos el estado si ya existe una cita duplicada
-        // }
     
         // Si la cita fue creada correctamente, actualizamos el estado
         setAppointments((prevAppointments) => {
@@ -133,24 +126,6 @@ const handleHiddenAppointments = async (id: string) => {
 
     fetchBarbers();
   }, []);
-
-  //Fecha de realización
-  // const formatDate = (isoDate: string | undefined) => {
-  //   const date = isoDate ? new Date(isoDate) : null;
-  
-  //   if (!date || isNaN(date.getTime())) {
-  //     return 'Fecha no disponible';
-  //   }
-  
-  //   return date.toLocaleDateString('es-DO', {
-  //     year: 'numeric',
-  //     month: 'long',
-  //     day: 'numeric',
-  //     hour: '2-digit',
-  //     minute: '2-digit',
-  //     second: '2-digit',
-  //   });
-  // };
 
   return (
     <section>

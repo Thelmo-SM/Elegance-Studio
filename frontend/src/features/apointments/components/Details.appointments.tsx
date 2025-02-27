@@ -1,6 +1,5 @@
 'use client';
 import { appointmentsTypes } from '@/types/appointmentsTypes';
-//import { useState } from 'react';
 
 type cancelAppointments = {
   cancelAppointment: (appointmentId: string) => void;

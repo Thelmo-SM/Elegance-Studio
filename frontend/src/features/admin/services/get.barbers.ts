@@ -1,7 +1,8 @@
 import { collection, getDocs, where, query } from "firebase/firestore";
 import { db } from "@/utils/firebase";
 import { userData } from "@/types/userTypes";
-//import { userData } from "@/types/userTypes";
+import { appointmentsTypes } from "@/types/appointmentsTypes";
+
 
 export const getBarber = async () => {
     try {
@@ -38,3 +39,36 @@ export const getBarber = async () => {
       throw new Error("Error al obtener los usuarios con rol barber");
     }
   };
+
+  export const getAppointmentsForBarber = async (barberId: string): Promise<appointmentsTypes[]> => {
+    try {
+        const appointmentsCollection = collection(db, "appointments");
+        
+        // Filtrar las citas por el barberId
+        const q = query(appointmentsCollection, where("barber", "==", barberId));
+        const snapshot = await getDocs(q);
+
+        const appointments: appointmentsTypes[] = snapshot.docs.map(doc => {
+            const data = doc.data();
+            
+            return {
+                id: doc.id,
+                branch: data.branch || "",
+                haircut: data.haircut || "",
+                date: data.date || "",
+                hour: data.hour || "",
+                barber: data.barber || "",
+                status: data.status || "pendiente", // Valor por defecto
+                createdAt: data.createdAt || "",  // Valor por defecto si no está presente
+                userId: data.userId || "", // Valor por defecto si no está presente
+                hidden: data.hidden || false, // Valor por defecto
+                hiddenBarbers: data.hiddenBarbers || false, // Valor por defecto
+            };
+        });
+
+        return appointments;
+    } catch (error) {
+        console.error("Error obteniendo las citas del barbero:", error);
+        return [];
+    }
+};
