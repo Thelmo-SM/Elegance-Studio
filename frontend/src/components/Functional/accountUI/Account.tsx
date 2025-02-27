@@ -22,6 +22,7 @@ export const Account = () => {
           height={220}
           alt="Foto de perfil"
           className="bg-p-basico"
+          loading="lazy"
         />
         <h3 className="mt-[1rem] text-[2rem] font-bold">
           {user?.name} {user?.lastName}

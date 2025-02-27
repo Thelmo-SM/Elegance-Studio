@@ -126,21 +126,19 @@ export const RegisterClient = () => {
                     <ButtonForm
                             type="submit"
                             disabled={
-        // Deshabilitar si algún campo está vacío o si hay errores
                              !form.name.trim() ||
                              !form.lastName.trim() ||
                              !form.email.trim() ||
                              !form.password.trim() ||
                              !form.confirmPassword?.trim() ||
                              !form.phone.trim() ||
-                             Object.values(errors).some((error) => error) // Deshabilitar si hay errores
+                             Object.values(errors).some((error) => error)
                             }
                             customClass={
-        // Activar si todos los campos están completos y no hay errores
                              Object.values(form).every((value) => value.trim() !== "") &&
                              Object.values(errors).every((error) => !error)
-                             ? 'cursor-not-allowed bg-desabilited' // Deshabilitado si algún campo está vacío o hay errores
-                             : 'bg-caja2' // Activo si todos los campos están completos y no hay errores
+                             ? 'cursor-not-allowed bg-desabilited'
+                             : 'bg-caja2'
                             }
                         >
                         {loading ? <Loading /> : 'Registrarse'}

@@ -6,7 +6,6 @@ import { useAuth } from "@/store/User.context";
 import { appointmentsTypes } from "@/types/appointmentsTypes";
 import { approveAppointment, cancelAppointment } from "@/features/apointments/services/cancel.appointments";
 import { hiddenBarberAppointments } from "@/features/apointments/services/hidden.appointments";
-//import ApproveAppointment from "./ApproveAppointments";
 
 export const DashboardBarbers = () => {
     const [appointmets, setAppointments] = useState<appointmentsTypes[]>([]);
@@ -19,7 +18,7 @@ export const DashboardBarbers = () => {
     const toggleVerMas = (id: string) => {
       setVerMas(prev => ({
         ...prev,
-        [id]: !prev[id], // Cambia el estado solo de la cita específica
+        [id]: !prev[id],
       }));
     };
 
@@ -52,16 +51,12 @@ export const DashboardBarbers = () => {
   //Ver citas conrrespondiente al nav
   const filteredAppointments = appointmets.filter((cita) => {
     const isMatchingStatus = cita.status === activeTab;
-  
-    // Convierte la fecha de la cita a una cadena
     const citaFecha = new Date(cita.date).toLocaleDateString();
-  
-    // Verifica si el término de búsqueda está contenido en la fecha de la cita
     const isMatchingDate = !searchTerm || citaFecha.includes(searchTerm);
   
     return (
       (isMatchingStatus || activeTab === "todos") &&
-      isMatchingDate // Filtra si el término está en la fecha de la cita
+      isMatchingDate
     );
   });
   //Aprobar cita

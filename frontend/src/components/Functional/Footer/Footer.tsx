@@ -4,7 +4,7 @@ export const Footer = () => {
     const logoSrc = '/Logo.png';
     return (
         <footer className='flex flex-col items-center bg-black py-9 w-full'>
-            <Image src={logoSrc} width={50} height={60} alt='Elegance Studio' className='mb-10'/>
+            <Image src={logoSrc} width={50} height={60} alt='Elegance Studio' className='mb-10' loading="lazy"/>
             <p className='text-p-basico text-center w-[85%]'>
                 <span className='font-bold'>Elegance Studio –</span> Donde estilo 
                 y cuidado personal se unen. Nos apasiona brindar una experiencia única a cada 

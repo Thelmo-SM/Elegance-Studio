@@ -5,19 +5,39 @@ import { useAuth } from "@/store/User.context";
 import { useEffect, useState } from "react";
 import { userData } from "@/types/userTypes";
 import BarberCard from "./barberCard";
+import { getAppointmentsForBarber } from "../services/get.barbers";
+import { appointmentsTypes } from "@/types/appointmentsTypes";
 
 export const GetBarbersComponente = () => {
     const [barbers, setBarbers] = useState<userData[]>([]);
     const [filteredBarbers, setFilteredBarbers] = useState<userData[]>([]); // Nuevo estado para los barberos filtrados
+    const [appointments, setAppointments] = useState<{ [key: string]: appointmentsTypes[] }>({});
     const [dni, setDni] = useState('');
     const { user } = useAuth();
 
+    
     const fetchBarbers = async () => {
         if (user) {
             try {
                 const data = await getBarber();
+               // await getAppointmentsForBarber(user?.uid)
                 setBarbers(data); // Guardamos todos los barberos
                 setFilteredBarbers(data); // Establecemos los barberos filtrados inicialmente
+
+                const barberAppointments = await Promise.all(
+                    data.map(async (barber) => {
+                        const appointmentsData = await getAppointmentsForBarber(barber.uid);
+                        return { uid: barber.uid, appointments: appointmentsData };
+                    })
+                );
+    
+                // Convertirlo en un objeto donde las claves sean los `uid` de los barberos
+                const appointmentsMap: { [key: string]: appointmentsTypes[] } = barberAppointments.reduce((acc, barber) => {
+                    acc[barber.uid] = barber.appointments;
+                    return acc;
+                }, {} as { [key: string]: appointmentsTypes[] });
+    
+                setAppointments(appointmentsMap);
             } catch (error) {
                 console.error(error);
             }
@@ -37,6 +57,12 @@ export const GetBarbersComponente = () => {
             barber.dni.toLowerCase().includes(searchQuery)
         );
         setFilteredBarbers(filtered); // Actualizamos los barberos filtrados
+    };
+
+    const countAppointmentsByStatus = (barberUid: string, status: string) => {
+        const filteredAppointments = Object.values(appointments).flat().filter(app => app.userId === barberUid && app.status === status);
+        console.log(`Citas para el barbero ${barberUid} con estado ${status}:`, filteredAppointments);
+        return filteredAppointments.length;
     };
 
     return (
@@ -65,6 +91,7 @@ export const GetBarbersComponente = () => {
                         role={barber.role}
                         uid={barber.uid}
                         createdAt={barber.createdAt}
+                        totalAppointments={() => countAppointmentsByStatus(barber.uid, 'aprobada')} 
                     />
                 ))}
             </div>

@@ -19,7 +19,7 @@ export const CompleteProfile = () => {
 
   return (
     <div className="w-full max-w-lg mx-auto mt-10 p-6 bg-caja3 shadow-sombra rounded">
-      {!success ? <Image src={alert} width={70} height={70} alt="Alerta" className="mx-auto m-4" /> : ''}
+      {!success ? <Image src={alert} width={70} height={70} alt="Alerta" className="mx-auto m-4" loading="lazy"/> : ''}
 
       {!success ? <p className="bg-red-600 p-[1rem] text-p-basico">
         Antes de continuar, debes completar tu perfil. Ahora eres barbero en esta aplicación y, por tanto, tendrás acciones que los clientes no pueden realizar.

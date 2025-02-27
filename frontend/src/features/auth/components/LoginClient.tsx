@@ -83,6 +83,7 @@ export const LoginClient = () => {
                     height={20} 
                     alt="Google"
                     className="mx-auto"
+                    loading="lazy"
                     />
                 </button>
                 <ButtonForm
