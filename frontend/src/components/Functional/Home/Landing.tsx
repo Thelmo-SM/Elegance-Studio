@@ -1,6 +1,6 @@
 'use client';
 
-import HomeComponent from "@/components/Functional/Home/HomeComponent";
+//import HomeComponent from "@/components/Functional/Home/HomeComponent";
 import Style from '../../../styles/Landing.module.css'
 import StyleMobile from '../../../styles/Landing.mobile.module.css';
 import GlobalModal from "@/components/Ui/Modals/Global.modal";
@@ -10,6 +10,16 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/store/User.context";
 import { useRouter } from "next/navigation";
+import dynamic from 'next/dynamic';
+import Loading from '@/components/Ui/Loading/loading';
+
+
+const HomeComponent = dynamic(() => import('@/components/Functional/Home/HomeComponent'), {
+    ssr: false,
+    loading: () => <div className=' flex flex-col justify-center'>
+        <p className='text-center text-[1.5rem] text-p-basico p-5'>Cargando</p> <Loading />
+    </div>
+})
 
 const Landing = () => {
     const { isOpen, openModal } = useModalContext();
@@ -45,7 +55,7 @@ const Landing = () => {
                             className="text-p-basico bg-btR py-3 px-8 rounded-[0.25rem] mt-[5rem] md:mt-[10rem] hover:bg-ct transition duration-[200ms] flex items-center justify-center mx-auto lg:mx-0"
                             onClick={openModal}
                         >
-                            Agenda tu cita
+                            {auth.user?.role === 'barber' ? 'Ver citas' : 'Agenda tu cita'}
                         </button>
 
                 </div>

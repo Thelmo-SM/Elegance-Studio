@@ -22,6 +22,7 @@ export const LoginClient = () => {
         errors,
         loading,
         errorMessage,
+        success,
         handleChange,
         handleBlur,
         handleSubmit
@@ -34,6 +35,9 @@ export const LoginClient = () => {
 
         <div className="xl:w-[50%]  mx-auto mt-[1rem] lg:w-[70%]"> 
             {errorMessage && <h3 className="bg-red-600 text-p-basico p-[2rem] text-center text-[1.5rem] rounded">{errorMessage}</h3>}
+            {success && <div className=' flex flex-col justify-center bg-green-600'>
+                    <p className='text-center text-[1.5rem] text-p-basico p-5'>Inicio de sesión exitoso</p> <Loading />
+                </div>}
             <p className="bg-caja2 p-[1rem] text-p-basico md:leading-6 leading-10 md:text-[1.2rem] text-[1.2rem] text-center md:text-left trounded-[.2rem] m-auto  w-[100%]">
                 Accede a tu cuenta para gestionar tus citas, revisar tus pedidos y descubrir nuestras últimas ofertas
             </p>

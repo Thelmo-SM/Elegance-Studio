@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import AppointmentsForm from "./Appointments.form";
 import { useModalApointments } from "../hooks/Modal.apointments";
-import { appointmentsTypes } from "@/types/appointmentsTypes";
-import DetailsAppointmets from "./Details.appointments";
+import { appointmentsTypes } from "@/types/appointmentsTypes"
 import { getAppointmentsForUser } from "../services/get.appointments";
 import { useAuth } from "@/store/User.context";
 import { getBarbers } from "@/features/barbers/services/get.barbers";
@@ -12,6 +11,17 @@ import { barbersTypes } from "../hooks/useForm.appointments";
 import { cancelAppointment } from "../services/cancel.appointments";
 import { createAppointment } from "../services/create.appointments";
 import { hiddenAppointments } from "../services/hidden.appointments";
+import Loading from '@/components/Ui/Loading/loading';
+import dynamic from "next/dynamic";
+
+
+const DetailsAppointmets = dynamic(() => import('./Details.appointments'), {
+    ssr: false,
+    loading: () => <div className=' flex flex-col justify-center'>
+        <p className='text-center text-[1.5rem] text-p-basico p-5'>Cargando</p> <Loading />
+    </div>
+})
+
 
 export const AppointmentsComponent = () => {
   const [isOpen, openModal, closeModal] = useModalApointments();
@@ -24,8 +34,8 @@ export const AppointmentsComponent = () => {
 
     // Cargar las citas al montar el componente
     const loadAppointments = () => {
-      const cachedAppointments = JSON.parse(localStorage.getItem("appointments") || "[]");
-      setAppointments(cachedAppointments);
+      // const cachedAppointments = JSON.parse(localStorage.getItem("appointments") || "[]");
+      // setAppointments(cachedAppointments);
     };
 
     useEffect(() => {
@@ -101,22 +111,35 @@ const handleHiddenAppointments = async (id: string) => {
   }
 };
 
-  useEffect(() => {
-    const getAppointmets = async () => {
-      try {
-        if (user?.uid) {
+useEffect(() => {
+  const getAppointments = async () => {
+    try {
+      if (user?.uid) {
+        // Obtener citas desde Firebase
         const data = await getAppointmentsForUser(user.uid);
+
+        // Si no hay citas en Firebase, limpiar el localStorage
+        if (data.length === 0) {
+          localStorage.removeItem("appointments");
+        }
+
+        // Actualizar el estado de las citas
         setAppointments(data);
+
+        // Guardar las citas en localStorage solo si existen
+        if (data.length > 0) {
+          localStorage.setItem("appointments", JSON.stringify(data));
+        }
       } else {
         console.log('El userId no es válido');
       }
-      } catch (error) {
-        console.log('El userId no es válido', error);
-      }
-    };
-  
-    getAppointmets();
-  }, [user]);
+    } catch (error) {
+      console.log('El userId no es válido', error);
+    }
+  };
+
+  getAppointments();
+}, [user]);
 
   useEffect(() => {
     const fetchBarbers = async () => {
@@ -153,7 +176,7 @@ const handleHiddenAppointments = async (id: string) => {
       <div className="flex flex-wrap justify-between gap-6 mx-auto">
       {/* El formulario de citas recibe el handleCreateAppointment */}
       {appointments.length === 0 ? (
-      <p className="text-[1.8rem]">No tienes citas pendientes</p>
+      <p className="text-[1.5rem]">No tienes citas pendientes</p>
       ) : (
         appointments
         .filter(appointment => !appointment.hidden) // Filtra las visibles

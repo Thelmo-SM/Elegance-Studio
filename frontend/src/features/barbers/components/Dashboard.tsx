@@ -32,8 +32,8 @@ export const DashboardBarbers = () => {
 
         const names: Record<string, string> = {};
                     for (const cita of data) {
-                        const nombre = await obtenerNombreCliente(cita.userId || '');
-                        names[cita.userId || ''] = nombre;
+                        const nombre = await obtenerNombreCliente(cita.userId || '23');
+                        names[cita.userId || '32'] = nombre;
                     }
                     setClientNames(names); 
                     console.log("Datos obtenidos del backend:", data);
