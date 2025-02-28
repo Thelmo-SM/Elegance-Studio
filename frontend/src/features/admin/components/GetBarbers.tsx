@@ -4,9 +4,17 @@ import { getBarber } from "../services/get.barbers";
 import { useAuth } from "@/store/User.context";
 import { useEffect, useState } from "react";
 import { userData } from "@/types/userTypes";
-import BarberCard from "./barberCard";
 import { getAppointmentsForBarber } from "../services/get.barbers";
 import { appointmentsTypes } from "@/types/appointmentsTypes";
+import dynamic from "next/dynamic";
+import Loading from "@/components/Ui/Loading/loading";
+
+const BarberCard = dynamic(() => import('./barberCard'), {
+    ssr: false,
+    loading: () => <div className=' flex flex-col justify-center'>
+            <p className='text-center text-[1.5rem] text-p-basico p-5'>Cargando</p> <Loading />
+        </div>
+})
 
 export const GetBarbersComponente = () => {
     const [barbers, setBarbers] = useState<userData[]>([]);

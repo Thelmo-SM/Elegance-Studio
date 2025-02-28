@@ -12,6 +12,7 @@ export const useLogin = (
   const [errors, setErrors] = useState<loginErrors>({});
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
 
   const router = useRouter();
 
@@ -44,8 +45,10 @@ export const useLogin = (
           // Mostrar mensaje de error si la respuesta es negativa
           setErrorMessage(response.message ?? null);
           setTimeout(() => setErrorMessage(null), 2500);
+          setSuccess(false)
         } else {
           // Limpiar errores si el login es exitoso
+          setSuccess(true)
           setErrors({});
           router.push("/dashboard");
         }
@@ -60,6 +63,7 @@ export const useLogin = (
         }
       } finally {
         setLoading(false);
+
       }
     },
     [form, router]
@@ -69,6 +73,7 @@ export const useLogin = (
     form,
     errors,
     loading,
+    success,
     errorMessage,
     handleChange,
     handleBlur,

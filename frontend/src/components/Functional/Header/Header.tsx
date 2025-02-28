@@ -102,7 +102,7 @@ export const Header = () => {
                                     Perfil
                                 </Link>
                             </li>
-                            <li className="my-[1.3rem]">
+                           { (auth.user?.role === 'admin' || auth.user?.role === 'barber') && <li className="my-[1.3rem]">
                                 <Link href='/dashboard'
                                     onClick={() => {
                                         setIsMenuNavOpen(false)
@@ -111,7 +111,7 @@ export const Header = () => {
                                 >
                                     Dashboard
                                 </Link>
-                            </li>
+                            </li>}
                             <li className="my-[1.3rem]">
                                 <button
                                     onClick={handleLogout}
