@@ -14,8 +14,8 @@ export const SearchUsers = () => {
   console.log(search);
 
   return (
-    <article className="flex justify-center">
-      <div className="w-[30%] mr-[3rem]">
+    <article className="flex flex-col lg:flex-row justify-center">
+      <div className="lg:w-[30%] lg:mr-[3rem]">
         <p className="bg-caja p-[2rem] mb-4 text-p-basico leading-6 rounded-[.3rem]">
           Aquí podrá usted contratar barberos, para ello, busque el usuario por correo y selecciónelo para cambiarle el Rol
         </p>
@@ -53,28 +53,28 @@ export const SearchUsers = () => {
       </div>
 
       {userDetail && (
-        <div className="flex justify-center p-[2rem] w-[30%] bg-caja2">
-          <div className="mr-[1.5rem]">
-            <p className="text-[1.3rem] mb-[.1rem] font-bold">ID:</p>
-            <span>{userDetail.uid}</span>
+        <div className="flex flex-col md:flex-row  justify-center p-[2rem] lg:w-[30%] bg-caja2">
+          <div className="mr-[1.5rem] text-center p-2 md:text-left md:p-0">
+            <p className="lg:text-[1.3rem] md:ml-2 lg:ml-0 mb-[.1rem] font-bold">ID:</p>
+            <span className="ml-2 lg:ml-0">{userDetail.uid}</span>
 
-            <p className="text-[1.3rem] mt-[1.4rem] mb-[.1rem] font-bold">Nombre:</p>
-            <span>{userDetail.name}</span>
+            <p className="lg:text-[1.3rem] md:ml-2 lg:ml-0 mt-[1.4rem] mb-[.1rem] font-bold">Nombre:</p>
+            <span className="ml-2 lg:ml-0">{userDetail.name}</span>
 
-            <p className="text-[1.3rem] mt-[1.4rem] mb-[.1rem] font-bold">Apellido:</p>
-            <span>{userDetail.lastName}</span>
+            <p className="lg:text-[1.3rem] md:ml-2 lg:ml-0 mt-[1.4rem] mb-[.1rem] font-bold">Apellido:</p>
+            <span className="ml-2 lg:ml-0">{userDetail.lastName}</span>
 
-            <p className="text-[1.3rem] mt-[1.4rem] mb-[.1rem] font-bold">Correo Eletrónico:</p>
-            <span>{userDetail.email}</span>
+            <p className="lg:text-[1.3rem] md:ml-2 lg:ml-0 mt-[1.4rem] mb-[.1rem] font-bold">Correo Eletrónico:</p>
+            <span className="ml-2 lg:ml-0">{userDetail.email}</span>
 
-            <p className="mt-[1.4rem] mb-[.1rem] font-bold">Teléfono:</p>
-            <span>{userDetail.phone}</span>
+            <p className="lg:mt-[1.4rem] m md:ml-2 lg:ml-0b-[.1rem] font-bold">Teléfono:</p>
+            <span className="ml-2 lg:ml-0">{userDetail.phone}</span>
 
-            <p className="text-[1.3rem] mt-[1.4rem] mb-[.1rem] font-bold">Rol:</p>
-            <span className="text-green-500">{userDetail.role}</span>
+            <p className="lg:text-[1.3rem] md:ml-2 lg:ml-0 mt-[1.4rem] mb-[.1rem] font-bold">Rol:</p>
+            <span className="ml-2 lg:ml-0 text-green-500">{userDetail.role}</span>
           </div>
 
-          <div className="flex flex-col p-2 shadow-sombra">
+          <div className="flex flex-col p-2 shadow-sombra mr-2 lg:mr-0">
             <Image
               src={userIcon}
               width={100}
@@ -83,7 +83,7 @@ export const SearchUsers = () => {
               className="m-auto bg-p-basico rounded-[.3rem]"
             />
 
-            <label htmlFor="role" className="text-[1.4rem]">Cambiar Rol</label>
+            <label htmlFor="role" className="text-center md:text-left mt-2 md:mt-0 text-[1.4rem]">Cambiar Rol</label>
             <select
               name="role"
               id="role"

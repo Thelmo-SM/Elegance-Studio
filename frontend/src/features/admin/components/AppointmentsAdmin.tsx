@@ -137,45 +137,44 @@ export const AppointmentsAdmin = () => {
     return (
         <article className="">
             <nav className=" ">
-                <ul className="flex justify-center bg-buscador p-[0rem]">
-                <li
+            <ul className="flex flex-col lg:flex-row lg:justify-center bg-buscador p-0">
+  <li
+    className={`cursor-pointer mx-2 lg:mx-5 px-4 py-5 hover:bg-caja2 transition-colors duration-500 ${activeTab === "pendiente" ? "bg-btR" : "text-p-basico"}`}
+    onClick={() => setActiveTab("pendiente")}
+  >
+    Citas Pendientes ({appointmentsCount.pendiente})
+  </li>
 
-                className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "pendiente" ? "bg-btR" : 'text-p-basico'}`}
-                onClick={() => setActiveTab("pendiente")}
-                >
-                  Citas Pendientes ({appointmentsCount.pendiente})
+  <li
+    className={`cursor-pointer mx-2 lg:mx-5 px-4 py-5 hover:bg-caja2 transition-colors duration-500 ${activeTab === "Aprobada" ? "bg-btR" : "text-p-basico"}`}
+    onClick={() => setActiveTab("Aprobada")}
+  >
+    Citas Aprobadas ({appointmentsCount.Aprobada})
+  </li>
 
-                </li>
-                <li 
-                className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "Aprobada" ? "bg-btR" : 'text-p-basico'}`}
-                onClick={() => setActiveTab("Aprobada")}
-                >
-                  Citas Aprobadas ({appointmentsCount.Aprobada})
+  <li
+    className={`cursor-pointer mx-2 lg:mx-5 px-4 py-5 hover:bg-caja2 transition-colors duration-500 ${activeTab === "Cancelada" ? "bg-btR" : "text-p-basico"}`}
+    onClick={() => setActiveTab("Cancelada")}
+  >
+    Citas Canceladas ({appointmentsCount.Cancelada})
+  </li>
 
-                </li>
-                <li 
-                className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "Cancelada" ? "bg-btR" : "text-p-basico"}`}
-                onClick={() => setActiveTab("Cancelada")}
-                >
-                  Citas Canceladas ({appointmentsCount.Cancelada})
-
-                </li>
-                <li 
-                className={`cursor-pointer mx-[5rem] px-[1rem] py-[2rem] hover:bg-caja2 transition-colors duration-500 ${activeTab === "Realizada" ? "bg-btR" : "text-p-basico"}`}
-                onClick={() => setActiveTab("Realizada")}
-                >
-                  Citas Realizadas ({appointmentsCount.Realizada})
-                </li>
-                </ul>
+  <li
+    className={`cursor-pointer mx-2 lg:mx-5 px-4 py-5 hover:bg-caja2 transition-colors duration-500 ${activeTab === "Realizada" ? "bg-btR" : "text-p-basico"}`}
+    onClick={() => setActiveTab("Realizada")}
+  >
+    Citas Realizadas ({appointmentsCount.Realizada})
+  </li>
+</ul>
                   <h1 className="text-[1.8rem] my-[1.3rem]">Mis Citas</h1>
 
-                <div className="my-4">
+                <div className="md:my-4">
                     <input
                         type="search"
                         placeholder="Buscar por fecha (dd/mm/yyyy)..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="bg-buscador w-[50%] p-[.5rem] pl-[4rem] text-p-basico rounded-[.3rem]"
+                        className="bg-buscador w-full md:w-[50%] p-[.5rem] pl-[4rem] text-p-basico rounded-[.3rem]"
                     />
                 </div>
             </nav>

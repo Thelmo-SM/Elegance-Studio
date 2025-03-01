@@ -56,6 +56,7 @@ export const LoginClient = () => {
                     value={form.email}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    placeholder="Ej. ejemplo@correo.com"
                     />
                     {errors.email && <p className='bg-red-600 text-p-basico w-[100%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.email}</p> }
                     
@@ -70,6 +71,7 @@ export const LoginClient = () => {
                     value={form.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    placeholder="••••••••••••••••"
                     />
                     {errors.password && <p className='bg-red-600 text-p-basico w-[100%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.password}</p> }
                 </div>
