@@ -11,7 +11,6 @@ import { getAppointments } from "../services/get.appointments";
 export const AppointmentsAdmin = () => {
     const [appointmets, setAppointments] = useState<appointmentsTypes[]>([]);
     const [clientNames, setClientNames] = useState<Record<string, string>>({});
-    const [verMas, setVerMas] = useState<Record<string, boolean>>({});
     const [activeTab, setActiveTab] = useState("pendiente");
     const [searchTerm, setSearchTerm] = useState("");
     const {user} = useAuth();
@@ -21,13 +20,6 @@ export const AppointmentsAdmin = () => {
       Cancelada: 0,
       Realizada: 0
     });
-
-    const toggleVerMas = (id: string) => {
-      setVerMas(prev => ({
-        ...prev,
-        [id]: !prev[id], // Cambia el estado solo de la cita específica
-      }));
-    };
 
     //Citas de clientes
     useEffect(() => {
@@ -189,68 +181,62 @@ export const AppointmentsAdmin = () => {
             </nav>
 
       <div className="">
-      <ul className="w-full flex flex-wrap gap-4">
-        {
-        filteredAppointments.length === 0 ? (
-          <p className="text-center text-caja3">No hay citas.</p>
-        ) :
-        filteredAppointments.filter(cita => !cita.hiddenBarbers)
-        .map(cita => (
-           <li key={cita.id} className="shadow-md hover:shadow-lg transition-all duration-300 bg-buscador flex flex-wrap w-[40%] m-auto p-4 my-10">
-            <div className="m-auto">
-            <p className="text-btR font-bold"><span className="text-[1.2rem] my-[.5rem] text-p-basico">{clientNames[cita.userId || '']}</span> ha reservado una cita contigo</p>
-            <p className="text-btR font-bold">para el: {new Date(cita.date).toLocaleDateString()} a las {cita.hour}</p>
-            {cita.status === 'Aprobada'  ? <p className=" my-3 text-green-600">Acceptada</p>
-            :cita.status === 'Cancelada' ? <p className=" my-3 text-pendiente">Cancelada</p> : ''}
-            </div>
+      <ul className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 items-start">
+  {
+    filteredAppointments.length === 0 ? (
+      <p className="text-center text-caja3">No hay citas.</p>
+    ) :
+    filteredAppointments.filter(cita => !cita.hiddenBarbers)
+    .map(cita => (
+       <li key={cita.id} className="shadow-md hover:shadow-lg transition-all duration-300 bg-buscador flex flex-wrap w-full  m-auto p-4 my-10 min-h-[250px]">
+        <div className="">
+          <p className="text-btR font-bold"><span className="text-[1.2rem] my-[.5rem] text-p-basico">{clientNames[cita.userId || '']}</span> ha reservado una cita contigo</p>
+          <p className="text-btR font-bold">para el: {new Date(cita.date).toLocaleDateString()} a las {cita.hour}</p>
+          <p className="text-btR font-bold my-[1rem]">Corte: {cita.haircut}</p>
+          <p className="text-btR font-bold my-[1rem]">Sucursal: {cita.branch}</p>
+          {/* {<p className="text-btR font-bold my-[1rem]">Estado: <span className="text-pendiente">{cita.status}</span></p>} text-green-600*/}
+          {cita.status === 'Aprobada'  ? <p className="text-btR font-bold my-[1rem]">Estado: <span className="text-green-600">{cita.status}</span></p>
+          :cita.status === 'Cancelada' ? <p className="text-btR font-bold my-[1rem]">Estado: <span className="text-error">{cita.status}</span></p> : ''}
+          {cita.status === 'pendiente' && <p className="text-btR font-bold my-[1rem]">Estado: <span className="text-pendiente">{cita.status}</span></p>}
+          
+
+          {(cita.status === 'Aprobada' || cita.status === 'Cancelada') && <button
+          onClick={() => {
+            if(cita.id) handleHiddenAppointments(cita.id);
+          }}
+          className="rounded-sm bg-btR px-5 py-1 text-p-basico font-bold hover:bg-red-400 transition-colors duration-300"
+          >
+            Ocultar
+          </button>}
+        </div>
+            
             {cita.status === 'pendiente' && (
-              <div className="my-auto">
-                 <button 
-                 onClick={() => {
-                  if(cita.id) handleApproveAppointment(cita.id)
-                }}
-                 className="mx-[1rem] my-auto rounded-sm bg-green-600 px-5 py-1 text-p-basico font-bold hover:bg-green-500 transition-colors duration-300"
-                 >
-                  Aceptar
-                 </button>
-                 <button 
-                 onClick={() => {
-                  if(cita.id) handleCancelAppointment(cita.id)
-                 }}
-                 className="ml-2 my-auto rounded-sm bg-error px-5 py-1 text-p-basico font-bold hover:bg-red-400 transition-colors duration-300"
-                 >
-                  Rechazar
+          <div className="my-auto">
+             <button 
+             onClick={() => {
+              if(cita.id) handleApproveAppointment(cita.id)
+            }}
+             className="my-auto rounded-sm bg-green-600 px-5 py-1 text-p-basico font-bold hover:bg-green-500 transition-colors duration-300"
+             >
+              Aceptar
+             </button>
+             <button 
+             onClick={() => {
+              if(cita.id) handleCancelAppointment(cita.id)
+             }}
+             className="ml-2 my-auto rounded-sm bg-error px-5 py-1 text-p-basico font-bold hover:bg-red-400 transition-colors duration-300"
+             >
+              Rechazar
 
-                 </button>
-              </div>
-            )}
-           { !(cita.status == 'Aprobada' || cita.status == 'Cancelada') && <button 
-                className="text-p-basico font-bold ml-[2rem] my-auto border-b"
-                onClick={() => {if(cita.id) toggleVerMas(cita.id)}}
-                >
-                {verMas[cita.id || ""] ? "Ver menos" : "Ver detalles"}
-                </button>}
+             </button>
+          </div>
+        )}
+          
+      </li>
+    ))
+  }
+</ul>
 
-              {(cita.status === 'Aprobada' || cita.status === 'Cancelada') && <button
-              onClick={() => {
-                if(cita.id) handleHiddenAppointments(cita.id);
-              }}
-              className="ml-2 rounded-sm bg-btR px-5 py-1 text-p-basico font-bold hover:bg-red-400 transition-colors duration-300"
-              >
-                Ocultar
-              </button>}
-
-              {verMas[cita.id || ""] && (
-                <div className="m-auto my-[1rem]">
-                  <p className="text-btR font-bold my-[1rem]">Corte: {cita.haircut}</p>
-                  <p className="text-btR font-bold my-[1rem]">Sucursal: {cita.branch}</p>
-                  <p className="text-btR font-bold my-[1rem]">Estado: <span className="text-pendiente">{cita.status}</span></p>
-                </div>
-              )}
-          </li>
-
-        ))}
-      </ul>
     </div>
         </article>
     );

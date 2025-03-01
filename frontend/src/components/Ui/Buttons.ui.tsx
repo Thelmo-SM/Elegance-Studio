@@ -20,7 +20,7 @@ export const ButtonSubmitUi = ({ children, customClass, ...props }: Props) => {
     return (
         <button 
         {...props}
-        className={`lg:py-[1.5rem] py-[1rem] text-p-basico text-[2.2rem] md:py-[1rem] w-[30%] h-[5rem] rounded-[.2rem] mt-auto bg-caja  mx-auto my-auto
+        className={` lg:py-[1.5rem] py-[1rem] text-p-basico text-[2.2rem] md:py-[1rem] w-[30%] h-[5rem] rounded-[.2rem] mt-auto bg-caja  mx-auto my-auto
              ${customClass}`}
         >
             {children}
@@ -33,7 +33,7 @@ export const ButtonForm = ({ children, customClass, ...props }: Props) => {
         <button 
         {...props}
         {...props}
-        className={`lg:py-[1.5rem] py-[1rem] text-p-basico text-[2.2rem] md:py-[1rem] w-full h-[5rem] rounded-[.2rem] mt-auto ${customClass}`}
+        className={` lg:py-[1.5rem] py-[0rem] text-p-basico text-[1.5rem] lg:text-[2.2rem] md:py-[1rem] w-full h-[3rem] md:h-[5rem] mb-[.5rem] md:mb-0 rounded-[.2rem] mt-auto ${customClass}`}
         >
             {children}
         </button>
