@@ -23,6 +23,8 @@ export const RegisterClient = () => {
         form,
         errors,
         loading,
+        success,
+        errorMessage,
         handleChange,
         handleBlur,
         handleSubmit
@@ -36,6 +38,10 @@ export const RegisterClient = () => {
             </div>
 
             <div className="md:w-[50%] mx-auto mt-[1rem]"> 
+                {errorMessage && <h3 className="bg-red-600 text-p-basico p-[2rem] text-center text-[1.5rem] rounded">{errorMessage}</h3>}
+                            {success && <div className=' flex flex-col justify-center bg-green-600'>
+                                    <p className='text-center text-[1.5rem] text-p-basico p-5'>¡Proceso de registro exitoso! Redirigiendo</p> <Loading />
+                                </div>}
                 <p className="bg-caja2 p-0 md:p-[1rem] text-p-basico md:leading-6 leading-7 md:text-[1.2rem] text-[1rem] text-center md:text-left trounded-[.2rem] m-0 md:m-auto  w-[100%]">Regístrate y accede a una experiencia personalizada:
                      reserva tus citas con facilidad, compra productos exclusivos
                       para el cuidado de tu estilo y recibe ofertas únicas diseñadas

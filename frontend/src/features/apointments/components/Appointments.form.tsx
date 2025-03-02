@@ -53,43 +53,43 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
 
     return (
         <article className={`${Style.modal} ${isOpens && Style.isOpen}`}>
-        <div className={`${Style.modalContainer} flex flex-col items-center p-8`}>
+        <div className={`${Style.modalContainer} flex flex-col items-center`}>
         { resSuccess && 
-        <h3 className="bg-green-600 text-p-basico w-[50%] rounded text-[1.8rem] text-center p-[2rem]">
+        <h3 className="bg-green-600 text-p-basico lg:w-[50%] rounded text-[1rem] lg:text-[1.8rem] text-center p-4 lg:p-[2rem]">
             ¡Cita agendada exitosamente!
         </h3>
     }
     { resError && 
-        <h3 className="bg-red-600 text-p-basico w-[50%] rounded text-[1.8rem] text-center p-[2rem]">
+        <h3 className="bg-red-600 text-p-basico lg:w-[50%] rounded text-[1rem] lg:text-[1.8rem] text-center p-4 lg:p-[2rem]">
             Error al registrar cita
         </h3>
     }
         <button 
         onClick={closeModal}
-        className='bg-caja py-[.3rem] px-[1rem] text-[1.5rem] text-p-basico rounded-[.2rem] self-end'
+        className='bg-caja py-[.3rem] mb-6 lg:mb-0 px-[1rem] lg:text-[1.5rem] text-p-basico rounded-[.2rem] self-end'
         >
         Cerrar
         </button>
-            <h1 className="text-2xl font-bold mb-4">Agenda tu cita en Elegance Studio</h1>
+            <h1 className="text-2xl font-bold text-center mb-4">Agenda tu cita en Elegance Studio</h1>
             <form onSubmit={(e) => { handleSubmit(e); onSubmit(form); }} 
-    className="grid grid-cols-1 sm:grid-cols-2 gap-4 border border-p-basico rounded-[.3rem] w-full p-4"
+    className="grid grid-cols-1 sm:grid-cols-2 lg:gap-4  border-p-basico rounded-[.3rem] w-full lg:p-4"
 >
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center lg:items-start w-[100%]">
         <LabelUi>Sucursal</LabelUi>
-    <SelectUi {...register('branch')} className="p-2 border rounded-md">
-                            <OptionlUi value="">Selecciona una sucursal</OptionlUi>
+    <SelectUi {...register('branch')} className="p-3 rounded-md focus:outline-none focus:ring-2">
+                            <OptionlUi value="" className="">Selecciona una sucursal</OptionlUi>
                             {branch.map((branch) => (
-                                <OptionlUi key={branch.id} value={branch.name}>
+                                <OptionlUi key={branch.id} value={branch.name} className="]">
                                     {branch.name}
                                 </OptionlUi>
                             ))}
                         </SelectUi>
-        {errors.branch && <p className='bg-red-600 text-p-basico w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.branch}</p>}
+        {errors.branch && <p className='bg-red-600 text-p-basico w-full lg:w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.branch}</p>}
     </div>
 
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center lg:items-start w-[100%]">
         <LabelUi>Corte de cabello</LabelUi>
-        <SelectUi {...register('haircut')} className="p-2 border rounded-md">
+        <SelectUi {...register('haircut')} className="p-2 border rounded-md w-full">
                             <OptionlUi value="">Selecciona una sucursal</OptionlUi>
                             {haircut.map((haircut) => (
                                 <OptionlUi key={haircut.id} value={haircut.name}>
@@ -97,10 +97,10 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
                                 </OptionlUi>
                             ))}
                         </SelectUi>
-        {errors.haircut && <p className='bg-red-600 text-p-basico w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.haircut}</p>}
+        {errors.haircut && <p className='bg-red-600 text-p-basico w-full lg:w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.haircut}</p>}
     </div>
 
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center lg:items-start w-full">
         <LabelUi>Fecha</LabelUi>
         <InputUi 
         type="date"
@@ -108,12 +108,12 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
         //disabled={false}
         //onChange={handleFechaChange}
        {...register('date')} 
-        className="p-2 border rounded-md bg-caja w-[70%] text-p-basico ocus:ring-2 focus:ring-blue-500 disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed" 
+        className="p-2 border rounded-md bg-caja w-full lg:w-[70%] text-p-basico ocus:ring-2 disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed" 
         />
-        {errors.date && <p className='bg-red-600 text-p-basico w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.date}</p>}
+        {errors.date && <p className='bg-red-600 text-p-basico w-full lg:w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.date}</p>}
     </div>
 
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center lg:items-start w-[100%]">
         <LabelUi>Hora</LabelUi>
         <SelectUi {...register('hour')} >
             <OptionlUi value=''>Selecciona una hora</OptionlUi>
@@ -123,10 +123,10 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
                 </OptionlUi>
             ))}
         </SelectUi>
-        {errors.hour && <p className='bg-red-600 text-p-basico w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.hour}</p>}
+        {errors.hour && <p className='bg-red-600 text-p-basico w-full lg:w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.hour}</p>}
     </div>
 
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center lg:items-start w-[100%]">
                         <LabelUi>Barbero</LabelUi>
                         <SelectUi {...register('barber')} className="p-2 border rounded-md">
                             <OptionlUi value="">Selecciona un barbero</OptionlUi>
@@ -140,7 +140,7 @@ export default function AppointmentsForm({ isOpens, closeModal, onCreate}: Modal
                                <OptionlUi disabled>No hay barberos disponibles</OptionlUi>
                              )}
                             </SelectUi>
-                        {errors.barber && <p className='bg-red-600 text-p-basico w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.barber}</p>}
+                        {errors.barber && <p className='bg-red-600 text-p-basico w-full lg:w-[70%] pl-[2rem] py-[.2rem] my-[.2rem] rounded'>{errors.barber}</p>}
                     </div>
 
     {/* Botón de envío ocupa toda la fila */}
