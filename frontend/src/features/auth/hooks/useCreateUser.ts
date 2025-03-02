@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
-import { userTypes, FormErrors, userData } from "@/types/userTypes";
+import { userTypes, FormErrors, userData} from "@/types/userTypes";
 import { setDocument } from "@/utils/firebase";
 import { registerUser, updateUser } from "../services/registerUser";
+import { useRouter } from "next/navigation";
 
 export const useCreateUser = (
   initialForm: userTypes,
@@ -10,6 +11,9 @@ export const useCreateUser = (
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const router = useRouter();
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -62,15 +66,28 @@ export const useCreateUser = (
       try {
         const response = await registerUser(form);
 
+        if (!response.success || !response.user) {
+          setErrorMessage(response.message ?? null);
+          setTimeout(() => setErrorMessage(null), 2500);
+          setSuccess(false)
+          return; // O maneja el error en la UI
+        }
+
+        // Ahora TypeScript sabe que response.user está definido
+        const uid = response.user.uid;
+
         // Actualizar el perfil del usuario después de crear la cuenta
         await updateUser({ displayName: form.name });
 
-        form.uid = response.user.uid;
+        form.uid = uid;
 
         const { password, confirmPassword, ...newUser } = form;
-        console.log(password, confirmPassword)
+        console.log(password, confirmPassword);
 
-        await createUserInDB({...newUser, role: 'client'} as userData);
+        await createUserInDB({ ...newUser, role: "client" } as userData);
+        setSuccess(true)
+        setErrors({});
+        router.push("/login");
 
         return response;
       } catch (error) {
@@ -86,6 +103,8 @@ export const useCreateUser = (
     form,
     errors,
     loading,
+    errorMessage,
+    success,
     handleChange,
     handleBlur,
     handleSubmit,

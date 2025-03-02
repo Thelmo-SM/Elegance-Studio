@@ -10,6 +10,8 @@ export type userTypes = {
     phone: string;
 };
 
+export type RegisterFunction = (formData: userTypes) => Promise<{ success: boolean; user: userTypes; error?: unknown }>;
+
 export type users = {
   name: string;
   lastName: string;
@@ -27,7 +29,7 @@ export type userData = {
   lastName: string;
   email: string;
   phone: string;
-  createdAt: Timestamp
+  createdAt?: Timestamp
   role: string
   location: string
   dni: string

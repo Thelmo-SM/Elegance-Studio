@@ -9,9 +9,12 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     return (
             <div className="">
                 <header className="bg-black h-[14rem] lg:h-[16rem] flex flex-col items-center justify-center">
-                    <h2 className='mt-[4rem] text-p-basico text-center text-[1.5rem] md:text-[2.25rem] font-bold'>Panel de administración</h2>
-                    <span className='text-p-basico md:my-[1.5rem] md:text-[1.4rem]'>Administrador: 
-                        <strong className='text-pendiente'>{auth.user?.email}</strong>
+                    <h2 className='mt-[4rem] text-p-basico text-center text-[1.5rem] md:text-[2.25rem] font-bold'>
+                        {auth.user?.role === 'admin' ? 'Panel de administración' : 'Panel de administración para barberos'}
+                    </h2>
+                    <span className='text-p-basico md:my-[1.5rem] md:text-[1.4rem]'>{auth.user?.role === 'admin' ? 'Administrador:' :
+                        'Barbero: '}  
+                         <strong className='text-pendiente'> {auth.user?.email}</strong>
                         </span>
                     <div>
                         { auth.user?.role === 'admin' && <nav className='mt-[1.2rem] border p-2'>
