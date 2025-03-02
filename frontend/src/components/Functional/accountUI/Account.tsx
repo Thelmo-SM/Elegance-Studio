@@ -4,10 +4,36 @@ import { useAuth } from "@/store/User.context";
 import Image from "next/image";
 import userImg from "../../../../public/Icons/user-icon.svg";
 import CompleteProfile from "./CompleteProfile";
+import { uploadProfilePicture } from "@/features/users/services/file.users";
+import { useState } from "react";
 
 export const Account = () => {
+  const [loading, setLoading] = useState(false);
+  const [photoURL, setPhotoURL] = useState<string | null>(null);
+  const [progress, setProgress] = useState(0);
   const { user } = useAuth();
+  const usuario = user?.uid;
   const isBarber = user?.role === "barber";
+
+  const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file || !usuario) return;
+  
+    setLoading(true); // Marca como cargando
+    try {
+      const newPhotoURL = await uploadProfilePicture({
+        uid: usuario,
+        file,
+        setProgress,
+      });
+      setPhotoURL(newPhotoURL); // Actualiza la URL de la foto
+      console.log('Foto de perfil: ', newPhotoURL);
+    } catch (error) {
+      console.error("Error al subir la foto", error);
+    } finally {
+      setLoading(false); // Marca como no cargando
+    }
+  };
 
   return (
     <article className="pt-28 pb-6 px-4 max-w-4xl mx-auto">
@@ -16,14 +42,29 @@ export const Account = () => {
       </h2>
 
       <div className="bg-caja2 shadow-lg rounded-xl w-full mt-6 p-6 flex flex-col items-center text-center sm:text-left sm:flex-row sm:items-start">
-        <Image
-          src={userImg}
-          width={150}
-          height={150}
-          alt="Foto de perfil"
-          className="bg-p-basico rounded-full p-2"
-          loading="lazy"
-        />
+      <div>
+      <Image 
+      src={photoURL || userImg} 
+      alt="Foto de perfil" 
+      width={128}
+      height={128} 
+      className="rounded-full border" 
+       />
+       <input type="file" accept="image/*" onChange={handleFileChange} className="hidden" id="profile-upload" />
+       <label htmlFor="profile-upload" className="bg-btR shadow-sombra hover:bg-caja2 text-white px-4 py-2 rounded cursor-pointer">
+        {loading ? "Subiendo..." : "Cambiar foto"}
+      </label>
+      <div>
+    {loading && (
+    <div>
+      <progress value={progress} max={100}></progress>
+      <span>{Math.round(progress)}%</span>
+    </div>
+    )}
+    </div>
+
+      
+      </div>
         <div className="mt-4 sm:ml-6 sm:mt-0">
           <h3 className="text-2xl font-bold">{user?.name} {user?.lastName}</h3>
           {/* <p className="text-lg">{user?.email}</p> */}
