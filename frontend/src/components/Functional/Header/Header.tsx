@@ -96,6 +96,7 @@ export const Header = () => {
                                 <Link href='/profile'
                                     onClick={() => {
                                         setIsMenuNavOpen(false)
+                                        handleLinkClick()
                                     }}
                                     className=" w-full text-left p-2 hover:bg-caja hover:text-p-basico"
                                 >
@@ -106,6 +107,7 @@ export const Header = () => {
                                 <Link href='/dashboard'
                                     onClick={() => {
                                         setIsMenuNavOpen(false)
+                                        handleLinkClick()
                                     }}
                                     className=" w-full text-left p-2 hover:bg-caja hover:text-p-basico"
                                 >
