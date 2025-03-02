@@ -6,6 +6,9 @@ import { ButtonForm, InputUi, LabelUi } from "@/components/Ui";
 import { userTypes } from "@/types/userTypes";
 import { validateCreateUser } from "../helpers/validateForm";
 import Loading from "@/components/Ui/Loading/loading";
+import Image from "next/image";
+import seccessWeb from '../../../../public/Icons/messageLogo/success.webp'
+import errorWeb from '../../../../public/Icons/messageLogo/error-icon_1.webp'
 
 
 const initialValue: userTypes = {
@@ -38,9 +41,23 @@ export const RegisterClient = () => {
             </div>
 
             <div className="md:w-[50%] mx-auto mt-[1rem]"> 
-                {errorMessage && <h3 className="bg-red-600 text-p-basico p-[2rem] text-center text-[1.5rem] rounded">{errorMessage}</h3>}
+                {
+                    errorMessage && 
+                    <div className="bg-red-600 flex flex-col md:flex-row justify-center items-center p-3">
+                        <Image src={errorWeb} width={100} height={100} alt="" 
+                        className="border-4 rounded-[100%] border-main"
+                        />
+                        <p className=" text-p-basico p-[2rem] text-center text-[1.5rem] rounded">{errorMessage}</p>
+                    </div>}
+                            
                             {success && <div className=' flex flex-col justify-center bg-green-600'>
-                                    <p className='text-center text-[1.5rem] text-p-basico p-5'>¡Proceso de registro exitoso! Redirigiendo</p> <Loading />
+                                <div className="flex flex-col md:flex-row justify-center items-center mt-3">
+                                <Image src={seccessWeb} width={100} height={100} alt="" 
+                                className="border-4 rounded-[100%] border-main"
+                                />
+                                    <p className='text-center text-[1.5rem] text-p-basico p-5'>¡Proceso de registro exitoso! Redirigiendo</p>
+                                    </div>
+                                     <Loading />
                                 </div>}
                 <p className="bg-caja2 p-0 md:p-[1rem] text-p-basico md:leading-6 leading-7 md:text-[1.2rem] text-[1rem] text-center md:text-left trounded-[.2rem] m-0 md:m-auto  w-[100%]">Regístrate y accede a una experiencia personalizada:
                      reserva tus citas con facilidad, compra productos exclusivos

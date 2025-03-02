@@ -77,15 +77,17 @@ export const GetBarbersComponente = () => {
         <section>
             <h2 className="text-center text-[1.8rem] my-[1.3rem]">Barberos de <strong>Elegance Studio</strong></h2>
             <p className="text-center text-[1.2rem] my-[1.3rem]">Cantidad de barberos - <span className="text-green-700 bg-p-basico p-[.5rem] rounded">{barbers.length}</span></p>
-            <div className="my-4 text-center">
-                <input
-                    type="number"
-                    placeholder="Buscar por DNI"
-                    value={dni}
-                    onChange={handleSearchChange} // Usamos directamente la función de búsqueda
-                    className="bg-buscador w-[30%] p-[.5rem] pl-[4rem] rounded-[.3rem] mx-auto text-p-basico border-2 border-p-basico focus:outline-none focus:ring-2 focus:ring-caja"
-                />
-            </div>
+           {/* Buscador */}
+        <div className="my-4 flex justify-center">
+            <input
+                type="number"
+                placeholder="Buscar por DNI"
+                value={dni}
+                onChange={handleSearchChange}
+                className="bg-buscador w-full sm:w-[70%] md:w-[50%] lg:w-[30%] p-2 pl-4 rounded-md text-p-basico border-2 border-p-basico 
+                focus:outline-none focus:ring-2 focus:ring-caja"
+            />
+        </div>
             <div className="flex flex-wrap gap-5 justify-center">
                 {filteredBarbers.length === 0 ? <p>Barbero no encontrado</p>: filteredBarbers.map((barber) => (
                     <BarberCard

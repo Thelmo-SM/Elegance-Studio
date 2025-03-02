@@ -1,0 +1,56 @@
+{
+    "informacion_personal": {
+      "nombre_completo": "Thelmo Antonio Silverio Muñoz",
+      "edad": "25",
+      "ubicacion": "Altamira, Puerto Plata, República Dominicana",
+      "email": "toraphebi@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/thelmo-sm/",
+      "github": "https://github.com/Thelmo-SM "
+    },
+    "resumen_profesional": "Soy un desarrollador frontend autodidacta con experiencia en React, Next.js, Tailwind CSS y Redux Toolkit. Me especializo en mejorar la experiencia de usuario mediante código optimizado y buenas prácticas. He trabajado en proyectos personales y colaborativos, destacando en la integración de APIs, arquitectura del código y desarrollo de interfaces atractivas. Busco consolidarme como semi-senior y seguir creciendo en la ingeniería de frontend.",
+    "habilidades_tecnicas": {
+      "lenguajes": ["JavaScript", "TypeScript"],
+      "frameworks": ["React", "Next.js"],
+      "bases_de_datos": ["MongoDB", "PostgreSQL", "Firebase"],
+      "herramientas": ["Redux Toolkit", "Tailwind CSS", "Sass", "Chakra UI", "Git", "Firebase Authentication"],
+      "metodologias": ["Testing", "UX/UI", "Optimización de rendimiento", "Accesibilidad"]
+    },
+    "experiencia_laboral": [
+      {
+        "empresa": "Elysium Hotel y Resort de Lujo",
+        "cargo": "Desarrollador Frontend",
+        "año": 2025,
+        "responsabilidades": [
+          "Diseñé y desarrollé la vista de las instalaciones del hotel con una experiencia interactiva.",
+          "Implementé dos formularios de registro: uno optimizado para mejorar la conversión y otro clásico para usuarios tradicionales.",
+          "Integré un componente de sucursales con un mapa interactivo mediante API.",
+          "Desarrollé funcionalidades para la gestión de precios y disponibilidad de habitaciones."
+        ]
+      }
+    ],
+    "proyectos_destacados": [
+      {
+        "nombre": "Elegance Studio",
+        "descripcion": "Aplicación web para una barbería con sistema de e-commerce, gestión de citas y rastreo.",
+        "tecnologias": ["Next.js", "TypeScript", "Firebase", "Redux Toolkit", "Tailwind CSS"],
+        "link": "https://elegance-studio.vercel.app/"
+      }
+    ],
+    "educacion": [
+      {
+        "institucion": "Bootcamp Henry",
+        "titulo": "Desarrollador Fullstack",
+        "año": "2024 - 2025"
+      },
+      {
+        "institucion": "Liceo Rubén Darío / Programa Prepara",
+        "titulo": "Bachillerato",
+        "año": "2021"
+      }
+    ],
+    "idiomas": {
+      "español": "Nativo",
+      "inglés": "A1"
+    }
+  }
+  
