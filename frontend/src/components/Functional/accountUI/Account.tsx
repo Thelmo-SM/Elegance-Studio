@@ -19,6 +19,18 @@ export const Account = () => {
     const file = event.target.files?.[0];
     if (!file || !usuario) return;
   
+    // Verificar que el archivo sea una imagen
+    if (!file.type.startsWith("image/")) {
+      console.error("El archivo debe ser una imagen.");
+      return;
+    }
+  
+    // Verificar el tamaño del archivo (por ejemplo, límite de 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('El archivo es demasiado grende')
+      return;
+    }
+  
     setLoading(true); // Marca como cargando
     try {
       const newPhotoURL = await uploadProfilePicture({
