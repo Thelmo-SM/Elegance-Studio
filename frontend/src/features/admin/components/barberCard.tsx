@@ -22,45 +22,54 @@ export const BarberCard: React.FC<stadisticsBarbers> = (
 
 
     return(
-<article className="bg-buscador p-6 rounded-lg w-[30%] mx-auto space-y-4 m-12 shadow-sombra">
-      <div className="text-center font-semibold text-xl text-btR">Detalles del Barbero</div>
-        <p className="text-caja mt-11"><strong>Identificador:</strong> {uid}</p>
-      <div className="space-y-2">
-        <p className="flex justify-between border-b border-caja3">
-          <span className="text-p-basico font-medium">Nombre</span>
-          <span className="text-btR m-[.5rem]">{name}</span>
-        </p>
-        <p className="flex justify-between border-b border-caja3">
-          <span className="text-p-basico font-medium">Apellido</span>
-          <span className="text-btR m-[.5rem]">{lastName}</span>
-        </p>
-        <p className="flex justify-between border-b border-caja3">
-          <span className="text-p-basico font-medium">Correo electrónico</span>
-          <span className="text-btR m-[.5rem]">{email}</span>
-        </p>
-        <p className="flex justify-between border-b border-caja3">
-          <span className="text-p-basico font-medium">Teléfono</span>
-          <span className="text-btR m-[.5rem]">{phone}</span>
-        </p>
-        <p className="flex justify-between border-b border-caja3">
-          <span className="text-p-basico font-medium">Sucursal</span>
-          <span className="text-btR m-[.5rem]">{location}</span>
-        </p>
-        <p className="flex justify-between border-b border-caja3">
-          <span className="text-p-basico font-medium">DNI</span>
-          <span className="text-btR m-[.5rem]">{dni}</span>
-        </p>
-        <p className="flex justify-between border-b border-caja3">
-          <span className="text-p-basico font-medium">Ocupación</span>
-          <span className="text-btR m-[.5rem]">{role}</span>
-        </p>
-        <div className="flex justify-between border-b border-caja3">
-        <p className="text-p-basico font-medium">Total aprobadas: {totalAppointments("aprobada")}</p>
-        <p className="text-p-basico font-medium">Total canceladas: {totalAppointments("cancelada")}</p>
-        <p className="text-p-basico font-medium">Total realizadas: {totalAppointments("realizada")}</p>
-        </div>
-      </div>
-    </article>
+<article className="bg-buscador p-6 rounded-lg w-full sm:w-[80%] md:w-[60%] lg:w-[40%] max-w-[400px] mx-auto space-y-4 my-6 shadow-sombra">
+            <div className="text-center font-semibold text-lg sm:text-xl text-btR">Detalles del Barbero</div>
+            <p className="text-caja mt-6"><strong>Identificador:</strong> {uid}</p>
+
+            <div className="space-y-2">
+                <p className="flex flex-col sm:flex-row justify-between border-b border-caja3">
+                    <span className="text-p-basico font-medium">Nombre</span>
+                    <span className="text-btR sm:m-[.5rem]">{name}</span>
+                </p>
+                <p className="flex flex-col sm:flex-row justify-between border-b border-caja3">
+                    <span className="text-p-basico font-medium">Apellido</span>
+                    <span className="text-btR sm:m-[.5rem]">{lastName}</span>
+                </p>
+                <p className="flex flex-col sm:flex-row justify-between border-b border-caja3">
+                    <span className="text-p-basico font-medium">Correo electrónico</span>
+                    <span className="text-btR sm:m-[.5rem]">{email}</span>
+                </p>
+                <p className="flex flex-col sm:flex-row justify-between border-b border-caja3">
+                    <span className="text-p-basico font-medium">Teléfono</span>
+                    <span className="text-btR sm:m-[.5rem]">{phone}</span>
+                </p>
+                <p className="flex flex-col sm:flex-row justify-between border-b border-caja3">
+                    <span className="text-p-basico font-medium">Sucursal</span>
+                    <span className="text-btR sm:m-[.5rem]">{location}</span>
+                </p>
+                <p className="flex flex-col sm:flex-row justify-between border-b border-caja3">
+                    <span className="text-p-basico font-medium">DNI</span>
+                    <span className="text-btR sm:m-[.5rem]">{dni}</span>
+                </p>
+                <p className="flex flex-col sm:flex-row justify-between border-b border-caja3">
+                    <span className="text-p-basico font-medium">Ocupación</span>
+                    <span className="text-btR sm:m-[.5rem]">{role}</span>
+                </p>
+                
+                {/* Sección de estadísticas */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 border-b border-caja3 pb-3">
+                    <p className="text-p-basico font-medium text-center sm:text-left">
+                        <strong>Aprobadas:</strong> {totalAppointments("aprobada")}
+                    </p>
+                    <p className="text-p-basico font-medium text-center sm:text-left">
+                        <strong>Canceladas:</strong> {totalAppointments("cancelada")}
+                    </p>
+                    <p className="text-p-basico font-medium text-center sm:text-left">
+                        <strong>Realizadas:</strong> {totalAppointments("realizada")}
+                    </p>
+                </div>
+            </div>
+        </article>
     );
 };
 
