@@ -48,6 +48,7 @@ useEffect(() => {
     const fetchBarbers = async () => {
       const data = await getBarbers();
       setBarbers(data);
+      console.log(data)
     };
     
 

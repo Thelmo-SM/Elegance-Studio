@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     margin: 1rem auto;
+    
 }
 
 .bouncingDots {
@@ -37,5 +38,43 @@
     }
     50% {
         transform: translateY(-20px);
+    }
+}
+
+/* Media queries */
+@media (max-width: 1024px) {
+    .bouncingDots {
+        width: 4rem;  /* Reducimos el tamaño de los puntos en pantallas más pequeñas */
+    }
+
+    .dot {
+        width: 0.9rem;
+        height: 0.9rem;  /* Hacemos los puntos un poco más pequeños */
+    }
+}
+
+@media (max-width: 768px) {
+    .bouncingDots {
+        width: 3.5rem; 
+        margin: -1rem 0; /* En pantallas móviles, reducimos aún más el tamaño */
+    }
+
+    .dot {
+        width: 0.8rem;
+        height: 0.8rem;
+        margin: .6rem 0;
+          /* Los puntos serán aún más pequeños */
+    }
+}
+
+@media (max-width: 480px) {
+    .bouncingDots {
+        width: 3rem;
+        padding:  .8rem 0 0 0; /* Ajustamos el tamaño para pantallas muy pequeñas */
+    }
+
+    .dot {
+        width: 0.7rem;
+        height: 0.7rem;  /* Los puntos se hacen aún más pequeños */
     }
 }
