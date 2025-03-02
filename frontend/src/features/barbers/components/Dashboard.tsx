@@ -19,11 +19,13 @@ export const DashboardBarbers = () => {
       Realizada: 0
     });
     const {user} = useAuth();
+    const [loading, setLoading] = useState(true);
     
 
 
     //Citas de clientes
     useEffect(() => {
+      setLoading(true)
       const BarberAppointmets = async () => {
         try {
           if (user?.uid) {
@@ -53,6 +55,8 @@ export const DashboardBarbers = () => {
           }
         } catch (error) {
           console.log('Error al obtener citas:', error);
+        } finally {
+          setLoading(false);
         }
       };
     
@@ -130,28 +134,28 @@ export const DashboardBarbers = () => {
 className={`cursor-pointer mx-2 lg:mx-5 px-4 py-5 hover:bg-caja2 transition-colors duration-500 ${activeTab === "pendiente" ? "bg-btR" : "text-p-basico"}`}
 onClick={() => setActiveTab("pendiente")}
 >
-Citas Pendientes ({appointmentsCount.pendiente})
+Citas Pendientes ({loading ? "Cargando..." : appointmentsCount.pendiente})
 </li>
 
 <li
 className={`cursor-pointer mx-2 lg:mx-5 px-4 py-5 hover:bg-caja2 transition-colors duration-500 ${activeTab === "Aprobada" ? "bg-btR" : "text-p-basico"}`}
 onClick={() => setActiveTab("Aprobada")}
 >
-Citas Aprobadas ({appointmentsCount.Aprobada})
+Citas Aprobadas ({loading ? "Cargando..." : appointmentsCount.Aprobada})
 </li>
 
 <li
 className={`cursor-pointer mx-2 lg:mx-5 px-4 py-5 hover:bg-caja2 transition-colors duration-500 ${activeTab === "Cancelada" ? "bg-btR" : "text-p-basico"}`}
 onClick={() => setActiveTab("Cancelada")}
 >
-Citas Canceladas ({appointmentsCount.Cancelada})
+Citas Canceladas ({loading ? "Cargando..." : appointmentsCount.Cancelada})
 </li>
 
 <li
 className={`cursor-pointer mx-2 lg:mx-5 px-4 py-5 hover:bg-caja2 transition-colors duration-500 ${activeTab === "Realizada" ? "bg-btR" : "text-p-basico"}`}
 onClick={() => setActiveTab("Realizada")}
 >
-Citas Realizadas ({appointmentsCount.Realizada})
+Citas Realizadas ({loading ? "Cargando..." : appointmentsCount.Realizada})
 </li>
                 </ul>
                 <h1 className="text-[1.8rem] my-[1.3rem]">Mis Citas</h1>
