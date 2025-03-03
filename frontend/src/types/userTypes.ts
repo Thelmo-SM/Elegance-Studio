@@ -24,15 +24,16 @@ export type users = {
 
 //usuario DB
 export type userData = {
-  uid: string
+  uid: string;
   name: string;
   lastName: string;
   email: string;
   phone: string;
   createdAt?: Timestamp
-  role: string
-  location: string
-  dni: string
+  role: string;
+  location: string;
+  dni: string;
+  photoPerfil?: string;
 }
 export type ServiceFormFunction = (email: string, password: string, formData: userData) => Promise<{ success: boolean; user: userData; error?: unknown }>;
 
