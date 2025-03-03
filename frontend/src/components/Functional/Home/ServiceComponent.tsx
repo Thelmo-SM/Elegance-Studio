@@ -36,8 +36,8 @@ export const ServiceComponent = () => {
               style={{
                 backgroundImage: "url('/Landing/nuestroCompromiso-img-5.webp')",
             }}>
-                <h3 className="text-p-basico my-[1.8rem] text-[1.8rem] font-bold text-center">Responsabilidad y Confianza</h3>
-               <p className="text-p-basico my-[1.8rem] text-[1.25rem] lg:w-[60%] text-center leading-10">Nos comprometemos a ser transparentes, cumplir con tus 
+                <h3 className="text-p-basico md:my-[1.8rem] text-[1.8rem] font-bold text-center">Responsabilidad y Confianza</h3>
+               <p className="text-p-basico md:my-[1.8rem] text-[1.25rem] lg:w-[60%] text-center leading-10">Nos comprometemos a ser transparentes, cumplir con tus 
                 expectativas y garantizar que cada experiencia sea memorable y sin preocupaciones.</p>
               </div>
 
