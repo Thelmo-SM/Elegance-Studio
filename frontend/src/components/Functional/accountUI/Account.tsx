@@ -105,8 +105,8 @@ export const Account = () => {
        {user?.role === 'admin' || user?.role === 'barber' && <p className="text-lg text-gray-700">
           <span className="font-semibold">DNI:</span> {user?.dni || "No registrado"}
         </p>}
-        {user?.role === 'barber' && <p className="text-lg font-semibold">Actualmente eres Barbero</p>}
-        {user?.role === 'barber' && <p className="text-lg">Trabajas con nosotros desde el: 04/06/2025</p>}
+        {user?.role === 'barber' && <p className="text-lg text-gray-700"><span className="font-semibold">Actualmente eres Barbero</span></p>}
+        {/* {user?.role === 'barber' && <p className="text-lg">Trabajas con nosotros desde el: 04/06/2025</p>} */}
         <p className="text-lg text-main">Te uniste el 20/02/2025</p>
       </div>
     </article>
