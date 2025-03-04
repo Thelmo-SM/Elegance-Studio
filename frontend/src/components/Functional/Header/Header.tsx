@@ -8,10 +8,14 @@ import { useState, useEffect, useRef } from "react";
 import { useAuth } from "@/store/User.context";
 import AdminIcon from '../../../../public/Icons/Admin-icon.svg';
 import UserIcon from '../../../../public/Icons/user-icon.svg';
+import Notifications from "@/components/Notifications/Notifications";
+import { listenNotifications } from "@/features/apointments/services/confirmationNotification";
+import { NotificationTypes } from "@/types/notification";
 
 export const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isMenuNavOpen, setIsMenuNavOpen] = useState(false);
+    const [notifications, setNotifications] = useState<NotificationTypes[]>([]);
     const logoSrc = '/Logo.png';
     const auth = useAuth();
     const menuRef = useRef<HTMLDivElement | null>(null);
@@ -50,6 +54,27 @@ export const Header = () => {
         setIsMenuNavOpen(false);
     };
 
+    //Notificaciones
+    useEffect(() => {
+        if (auth.user?.uid) {
+          const unsubscribe = listenNotifications(auth.user.uid, (newNotifications: NotificationTypes[]) => {
+            // Si las notificaciones son de tipo NotificationTypes, mapeamos a Notification
+            const formattedNotifications: NotificationTypes[] = newNotifications.map((notif) => ({
+              id: notif.id,
+              barberId: notif.barberId,
+              clientId: notif.clientId,
+              appointmentId: notif.appointmentId,
+              message: notif.message,
+              timestamp: notif.timestamp,
+              read: notif.read, // Agrega cualquier otra propiedad necesaria
+            }));
+            setNotifications(formattedNotifications);
+          });
+    
+          return () => unsubscribe();
+        }
+      }, [auth.user?.uid]);
+
     return (
         <header className={`flex flex-col lg:flex-row lg:justify-between items-center lg:px-14 fixed top-0 left-0 w-full z-[999] ${Style.bgScroll}`}>
             <Link href='/'>
@@ -71,6 +96,9 @@ export const Header = () => {
                 {auth.user?.role === 'client' || auth.user?.role === 'admin' ? (
                     <Link href='/appointments' onClick={handleLinkClick} className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Citas</Link>
                 ) : ''}
+                {auth.user?.uid && <div>
+                    <Notifications notifications={notifications}/>
+                </div>}
                 {auth.user === null ? (
                     <Link
                         href='/login'
