@@ -9,6 +9,7 @@ import { useAuth } from "@/store/User.context";
 import AdminIcon from '../../../../public/Icons/Admin-icon.svg';
 import UserIcon from '../../../../public/Icons/user-icon.svg';
 import Notifications from "@/components/Notifications/Notifications";
+import ClientNotifications from "@/features/users/components/ClientNotifications";
 import { listenNotifications } from "@/features/apointments/services/confirmationNotification";
 import { NotificationTypes } from "@/types/notification";
 
@@ -54,11 +55,11 @@ export const Header = () => {
         setIsMenuNavOpen(false);
     };
 
-    //Notificaciones
+    // Notificaciones
     useEffect(() => {
         if (auth.user?.uid) {
           const unsubscribe = listenNotifications(auth.user.uid, (newNotifications: NotificationTypes[]) => {
-            // Si las notificaciones son de tipo NotificationTypes, mapeamos a Notification
+            // Mapear las notificaciones de tipo NotificationTypes
             const formattedNotifications: NotificationTypes[] = newNotifications.map((notif) => ({
               id: notif.id,
               barberId: notif.barberId,
@@ -66,7 +67,7 @@ export const Header = () => {
               appointmentId: notif.appointmentId,
               message: notif.message,
               timestamp: notif.timestamp,
-              read: notif.read, // Agrega cualquier otra propiedad necesaria
+              read: notif.read,
             }));
             setNotifications(formattedNotifications);
           });
@@ -97,7 +98,8 @@ export const Header = () => {
                     <Link href='/appointments' onClick={handleLinkClick} className="text-p-basico mx-6 lg:my-auto my-[2rem] text-[1.3rem] lg:text-[1rem] hover:text-btR">Citas</Link>
                 ) : ''}
                 {auth.user?.uid && <div>
-                    <Notifications notifications={notifications}/>
+                    {auth.user.role === 'barber' && <Notifications notifications={notifications}/>}
+                    {auth.user.role === 'client' && <ClientNotifications notifications={notifications}/>}
                 </div>}
                 {auth.user === null ? (
                     <Link

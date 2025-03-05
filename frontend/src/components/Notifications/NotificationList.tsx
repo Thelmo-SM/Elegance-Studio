@@ -1,5 +1,8 @@
+'use client';
+
 import { NotificationTypes } from "@/types/notification"; 
 import { markNotificationAsRead } from "@/features/apointments/services/confirmationNotification"; 
+import Link from "next/link";
 
 interface NotificationListProps {
   notifications: NotificationTypes[];
@@ -7,11 +10,7 @@ interface NotificationListProps {
 
 const NotificationList = ({ notifications }: NotificationListProps) => {
   const handleNotificationClick = async (notifId: string) => {
-    // Marcar la notificación como leída en la base de datos
     await markNotificationAsRead(notifId);
-
-    // Opcional: Puedes actualizar el estado local si estás utilizando useState
-    // Para mejorar la UX, puedes actualizar el estado para que la notificación cambie a "leída" instantáneamente en la interfaz.
   };
 
   return (
@@ -22,10 +21,11 @@ const NotificationList = ({ notifications }: NotificationListProps) => {
           <li
             key={notif.id}
             onClick={() => handleNotificationClick(notif.id)}
-            className={`flex items-center p-2 border-b last:border-b-0 cursor-pointer ${notif.read ? "bg-gray-100" : "bg-white hover:bg-gray-50"}`}
+            className={`flex items-center p-2 border-b last:border-b-0 cursor-pointer ${notif.read ? "bg-btR shadow-sombra" : "bg-p-basico hover:bg-caja3"}`}
           >
-            <span className={`text-sm ${notif.read ? "text-gray-500" : "text-black"}`}>
+            <span className={`text-sm ${notif.read ? "text-gray-700 bg-btR" : "text-black"}`}>
               {notif.message}
+              <Link href='/appointments' className="ml-[1rem] border-b text-buscador border-buscador">Ver citas</Link>
             </span>
           </li>
         ))}

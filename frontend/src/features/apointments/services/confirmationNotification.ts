@@ -2,19 +2,23 @@ import { db } from "@/utils/firebase";
 import { collection, addDoc, Timestamp, query, where, orderBy, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { appointmentsTypes } from "@/types/appointmentsTypes";
 import { NotificationTypes } from '@/types/notification';
+import { obtenerNombreCliente } from "@/features/barbers/services/appointments.barber";
 
 export const sendConfirmationNotification = async (
   userId: string,
   barberId: string,
   appointmentData: appointmentsTypes
 ) => {
+
+  const clientName = await obtenerNombreCliente(userId)
+
   try {
     const notificationRef = collection(db, "notifications");
     await addDoc(notificationRef, {
       barberId,
       clientId: userId,
       appointmentId: appointmentData.id || 'id3452354235',
-      message: `Cita confirmada para ${appointmentData.date} a las ${appointmentData.hour}`,
+      message: `${clientName} ha reservado una cita para el ${appointmentData.date} a las ${appointmentData.hour}.`,
       timestamp: Timestamp.now(),
       read: false, // Para marcar si el barbero ya la vio
     });
@@ -24,6 +28,7 @@ export const sendConfirmationNotification = async (
     console.error("❌ Error al enviar la notificación:", error);
   }
 };
+
 
 export const listenNotifications = (barberId: string, callback: (notifications: NotificationTypes[]) => void) => {
   const notificationsRef = collection(db, "notifications");
@@ -36,14 +41,13 @@ export const listenNotifications = (barberId: string, callback: (notifications: 
   const unsubscribe = onSnapshot(q, (snapshot) => {
     const notifications: NotificationTypes[] = snapshot.docs.map((doc) => {
       const data = doc.data();
-      const appointmentId = data.appointmentId || "defaultAppointmentId"; 
       return {
-        id: doc.id || 'id3452354235',
+        id: doc.id,
         barberId: data.barberId,
         clientId: data.clientId,
-        appointmentId: appointmentId,
+        appointmentId: data.appointmentId,
         message: data.message,
-        timestamp: data.timestamp.toDate().toISOString(), // Convertimos a string
+        timestamp: data.timestamp.toDate().toISOString(),
         read: data.read,
       };
     });
@@ -51,7 +55,7 @@ export const listenNotifications = (barberId: string, callback: (notifications: 
     callback(notifications);
   });
 
-  return unsubscribe; // Permite cancelar la suscripción cuando no sea necesaria
+  return unsubscribe;
 };
 
 export const markNotificationAsRead = async (notificationId: string) => {
